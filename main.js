@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
       { id: 4, name: "Karry", isactive: true },
       { id: 5, name: "Karamel", isactive: true },
       { id: 6, name: "Ananas", isactive: true },
-      { id: 7, name: "Pepermynte", isactive: true },
+      { id: 7, name: "Pebermynte", isactive: true },
       { id: 8, name: "Kamille", isactive: true },
       { id: 9, name: "Kirsebær", isactive: true },
       { id: 10, name: "Abrikos", isactive: true },
