@@ -165,7 +165,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //hide result
     containertotalscore.innerHTML = "";
-    btnGetTotalScore.hidden = false;
+    containerplayer.innerHTML = "";
+
+    btnGetTotalScore.hidden = true;
     startScanner();
 
   });
@@ -376,6 +378,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Players vertical and Smells horizontal
   function getTotalScore2() {
+
+    
     const fragment = document.createDocumentFragment();
     const table = document.createElement("TABLE");
     table.classList.add("table");
@@ -470,6 +474,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Players horizontal and Smells vertical
   function getTotalScore1() {
+    containerplayer.hidden=true;
+    // containerplayer.style.color = "red";
+    // containerplayer.style.backgroundColor = "Black";
+    // containerplayer.innerText = "Total score";
+
     const fragment = document.createDocumentFragment();
     const table = document.createElement("TABLE");
     table.classList.add("table");
@@ -674,7 +683,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /**/
   function setNextplayer() {
     //containerplayer.style.backgroundColor="lightgray";
-
+    containerplayer.hidden=false;
     let playersThisSmell = getRound(id);
 
     if (playersThisSmell) {
