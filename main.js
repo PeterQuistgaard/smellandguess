@@ -1,4 +1,5 @@
 //:
+
 document.addEventListener("DOMContentLoaded", function () {
   //Global variables
   let id = -1;
@@ -95,11 +96,6 @@ document.addEventListener("DOMContentLoaded", function () {
         outputData.parentElement.hidden = true;
         outputData.innerText = code.data;
 
-
-
-
-
-
         id = parseInt(code.data);
         setNextplayer();
         drawSmellButtons();
@@ -138,15 +134,29 @@ document.addEventListener("DOMContentLoaded", function () {
   function startScanner() {
     loadingMessage.hidden = false;
 
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function (stream) {
-      video.srcObject = stream;
-      video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-      video.play();
-      requestAnimationFrame(tick);
-      scanstart.hidden = true;
-      scanstop.hidden = false;
-    }
-    );
+    navigator.mediaDevices.getUserMedia(
+      {
+        audio: false,
+        video: {
+          facingMode: "environment",
+          //width: { min: 1024, ideal: 1280, max: 1920 },
+          //height: { min: 576, ideal: 720, max: 1080 }
+        }
+      }
+    )
+      .then(function (stream) {
+        video.srcObject = stream;
+        video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+        video.play();
+        requestAnimationFrame(tick);
+        scanstart.hidden = true;
+        scanstop.hidden = false;
+      }
+      ).catch((err) => {
+        /* handle the error */
+        loadingMessage.innerText = "🎥 Unable to access video stream (please make sure you have a webcam enabled)"
+        console.log(err);
+      });;
   }
 
   scanstart.addEventListener("click", (e) => {
@@ -181,22 +191,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const containersetup = document.getElementById("containersetup");
   const btnShowSetup = document.getElementById("btnShowSetup");
-
-
-
-
-  //check if local storage is empty.
-  //If it is empty, the game is not installed.
-  //there will be no access to data saved in local storage in previous sessions
-  // const value = localStorage.getItem("pq")
-  // if (value === null) {
-  //   btnClearGame.classList.add("scannermode");
-  // }
-  // else {
-  //   btnClearGame.classList.remove("scannermode");
-  // }
-
-
 
 
 
@@ -517,30 +511,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
       item.Guesses.forEach(guess => {
         const td = document.createElement("TD");
-        
+
         td.append(guess);
 
         if (item.name.toLowerCase() == guess.toLowerCase()) {
           //points++;
           td.setAttribute("class", "green");
-        } 
+        }
 
         tr.appendChild(td);
-      }); 
+      });
       tbody.append(tr);
     });
 
 
 
-     const tr = document.createElement("TR");
-     const tdleft = document.createElement("TD");
-     tdleft.append("Point");
-     tr.appendChild(tdleft);
-     tr.classList.add("table-dark")
+    const tr = document.createElement("TR");
+    const tdleft = document.createElement("TD");
+    tdleft.append("Point");
+    tr.appendChild(tdleft);
+    tr.classList.add("table-dark")
 
-     players.forEach((player, index) => {
+    players.forEach((player, index) => {
       const td = document.createElement("Td");
-      let points=getPointsByUserIndex(index);
+      let points = getPointsByUserIndex(index);
       //let points=0;
       td.append(points);
 
@@ -564,17 +558,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  function getPointsByUserIndex(userIdx){
-    let userpoints=0;
+  function getPointsByUserIndex(userIdx) {
+    let userpoints = 0;
     let _game = game.filter(
       (item) =>
         item.isactive &&
         item.isactive == true &&
         !item.Guesses.some((guess) => guess == -1) //alle skal have gættet før en smell vises
-    );    
+    );
     _game.forEach((item, index) => {
-     let point=item.Points[userIdx];
-     userpoints+=point; 
+      let point = item.Points[userIdx];
+      userpoints += point;
     });
     return userpoints;
   }
@@ -687,23 +681,19 @@ document.addEventListener("DOMContentLoaded", function () {
       nextplayerindex = playersThisSmell.findIndex(rank => rank === -1);
 
       if (nextplayerindex == -1) {
+        //ikke flere spillere i denne runde
         containerplayer.style.color = "yellow";
         containerplayer.style.backgroundColor = "Black";
         containerplayer.innerText = "Alle har givet deres gæt på dette glas";
-        getRoundResult(id);
+        getRoundResult(id);//vis resultatet for runden
         containersmells.innerHTML = "";
+        btnGetTotalScore.hidden = false;//vis knappen "Get total score"
       }
       else {
-        //alert("Næste spiller");
-        containerplayer.innerText = "Næste spiller";
-        setTimeout(() => {
-          let nextPlayerName = getPlayerNameById(nextplayerindex);
-          containerplayer.innerText = nextPlayerName;
-          containerplayer.style.backgroundColor = generateHSLByName(nextPlayerName);
-
-
-        }, 2000);
-
+        btnGetTotalScore.hidden = true;//skjul knappen totalscore
+        let nextPlayerName = getPlayerNameById(nextplayerindex);
+        containerplayer.innerText = nextPlayerName;
+        containerplayer.style.backgroundColor = generateHSLByName(nextPlayerName);//sæt players color som beregnes ud fra navne       
       }
 
     }
@@ -719,73 +709,63 @@ document.addEventListener("DOMContentLoaded", function () {
 
   btnClearGame.addEventListener("click", clearGame)
 
-  function setPQ() {
-    localStorage.setItem("pq", JSON.stringify("pq"));
-  };
 
 
   /*Nulstiller game i localstorage for at starter et nyt spil*/
   function clearGame() {
     localStorage.removeItem("game");
-    setPQ();
     initGame(smells, players)
     location.reload();//genindlæs siden
   }
 
 
-  setNextplayer();
+
 
 
 
   function drawSmellButtons() {
     containersmells.innerHTML = "";
     if (nextplayerindex == -1) return;
-    const fragment = document.createDocumentFragment();
+    containersmells.innerHTML = "Næste spiller";
 
+    //sætter en timeout før smellbuttons vises. Så ved spilleren at turen skifter.
+    setTimeout(() => {
+      const fragment = document.createDocumentFragment();
+      let _game0 = game.filter((item) => item.isactive && item.isactive == true);
 
+      let _game = _game0.sort((a, b) => 0.5 - Math.random());//Shuffel - så brugerne lettere kan skjule hvor på iPad de trykker
 
-    let _game0 = game.filter((item) => item.isactive && item.isactive == true);
+      _game.forEach((item) => {
+        div = document.createElement("button");
+        div.setAttribute('data-id', item.id);
+        div.classList.add("btn");
+        div.classList.add("btn-light");
+        div.classList.add("me-1");
+        div.innerHTML = item.name;
+        div.addEventListener("click", (e) => {
+          setmove(nextplayerindex, id, item.id);
+          setNextplayer();
+          drawSmellButtons();
+        });
 
-    let _game = _game0.sort((a, b) => 0.5 - Math.random());//Shuffel - så brugerne lettere kan skjule hvor på iPad de trykker
+        fragment.appendChild(div);
+      }
+      );
 
+      containersmells.innerHTML = "";
+      containersmells.appendChild(fragment);
 
-
-    // const shuffledSmellArray = defaultsmells.sort((a, b) => 0.5 - Math.random());
-
-    _game.forEach((item) => {
-      div = document.createElement("DIV");
-      div.setAttribute('data-id', item.id);
-      div.innerHTML = item.name;
-
-      div.addEventListener("click", (e) => {
-        setmove(nextplayerindex, id, item.id);
-        setNextplayer();
-        drawSmellButtons();
-      });
-
-      fragment.appendChild(div);
-    }
-    );
-    containersmells.innerHTML = "";
-    containersmells.appendChild(fragment);
-
+    }, 1000);
 
   };
 
-
+  setNextplayer();
   drawSmellButtons();
 
 
 
-
-
-
-
-
-
+  //Setup
   drawContainerPlayers();
-
-
 
   btnGetTotalScore.addEventListener("click", () => {
     getTotalScore1();
@@ -860,8 +840,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (_smell) {
-
-
       spanId.innerHTML = id;
       inputSmell.value = _smell.name;
       chkboxSmellIsactive.checked = _smell.isactive;
@@ -907,14 +885,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-
-
-
-
-
-
-
-
   if (setupmode === null) {
     containersetup.style.display = "none";
     btnShowSetup.innerText = "Show Setup";
@@ -936,16 +906,6 @@ document.addEventListener("DOMContentLoaded", function () {
       btnShowSetup.innerText = "Show Setup";
     }
   })
-
-  // document.getElementById("btnDisplayBrowserVersion").addEventListener("click",()=>{
-  //     console.log(navigator);
-  //     var v = "Version: " + navigator.userAgent;
-  //     document.getElementById("DisplayBrowserVersion").innerHTML = v;
-  // })
-
-
-
-
 
 
 
