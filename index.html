@@ -14,33 +14,67 @@
     <title>Smell and Guess</title>
 </head>
 
-<body>
+<body> 
+    <nav class="navbar navbar-expand-lg bg-dark "  data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Smell and Guess</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="game.html">Start spillet</a>
+
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Setup
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="game.html">Players</a></li>
+                            <li><a class="dropdown-item" href="#">Smells</a></li>
+                        </ul>
+                    </li> -->
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="container-lg">
+
+
 
         <div class="row">
             <div class="col-md-12 ">
-                <h1>Smell and Guess</h1>
-                
-                <p>
+                <!-- <h1>Smell and Guess</h1> -->
+
+                <p class="mt-3">
                     <b>Test din egen og dine venners evne til at genkende forskellige lugte</b><br />
                 </p>
                 <p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
-                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                      </svg></i> 1 til 10 spillere<br/>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                      </svg> Fra 8 år<br/>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill" viewBox="0 0 16 16">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-                      </svg> 20 - 90 minutter<br/>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tablet" viewBox="0 0 16 16">
-                        <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                        <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
-                      </svg> WebApp tilgængelig<br/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-people-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
+                    </svg></i> 1 til 10 spillere<br />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                    </svg> Fra 8 år<br />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-clock-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                    </svg> 20 - 90 minutter<br />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-tablet" viewBox="0 0 16 16">
+                        <path
+                            d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                        <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                    </svg> WebApp tilgængelig<br />
                 </p>
                 <p>
-                    Spillet består af et antal glas med hver sin lugt.<br />
+                    Spillet består af et antal glaskrukker med hver sin lugt.<br />
                 </p>
                 <p>
                     <img class="img-fluid rounded" alt="Responsive image" src="/images/jars.jpeg">
@@ -50,28 +84,28 @@
 
                 <p>
 
-                <p>Oven på glassene er der en QR kode. Hver QR kode svarer til en helt bestemt lugt.</p>
+                <p>Oven på glaskrukkernes låg er der en QR kode. Hver QR kode svarer til en helt bestemt lugt.</p>
 
 
                 <p>
-                    Med WebApp’en scannes QR koden på et glas.</p>
+                    Start en runde med at scannes QR koden på låget af en glaskrukke.</p>
                 <p>
                     <img class="img-fluid rounded" alt="Responsive image" src="/images/scan.png">
                 </p>
                 <p>
-                    Første deltager får præsenteret et antal forskellige valgmuligheder. <br />
-                    Deltageren lugter til indholdet i glasset og trykker på den ønskede lugt.</p>
+                    Første spiller får præsenteret et antal forskellige valgmuligheder. <br />
+                    Spilleren lugter til indholdet i glaskrukken og trykker på den lugt man tror der er den rigtige.</p>
                 <p><img class="img-fluid rounded" alt="Responsive image" src="/images/firstplayer.png"></p>
                 <p>
-                    Turen går herefter videre til næste deltager - som også skal gættet hvad der er i glasset.</p>
+                    Turen går herefter videre til næste spiller - som også skal gættet hvad der er i glasset.</p>
                 <p><img class="img-fluid rounded" alt="Responsive image" src="/images/nextplayer.png"></p>
                 <p>
-                    Når alle deltagerne har givet et bud på hvad lugten hedder, viser WebApp’en hvad det rigtige svar
-                    er, og hvad deltagerne har gættet på.</p>
+                    Når alle spillere har givet et bud på hvad lugten hedder, viser WebApp’en hvad det rigtige svar
+                    er, og hvad hver spiller har gættet på.</p>
                 <p><img class="img-fluid rounded" alt="Responsive image" src="/images/runderesultat.jpeg"></p>
 
                 <p>
-                    På den måde går man gennem alle glas - eller så mange af dem man nu gider.<br /><br />
+                    På den måde går man gennem alle glaskrukkerne - eller så mange af dem man nu gider.<br /><br />
 
 
                     Når man ønsker det - kan man få vist det samlede resultat.</p>
@@ -82,34 +116,38 @@
 
 
                 <h2>Antal spillere</h2>
-                <p>Spillet kan spilles af kun én deltager, men kan i princippet spilles af et ubegrænset antal
-                    deltagere.<br />
-                    For at en runde har en passende varighed, skal man dog højst have 6-8 deltagere.</p>
+                <p>Spillet kan spilles af kun én person, men kan i princippet spilles af et ubegrænset antal
+                    personer.<br />
+                    Er man mange spillere bliver det dog meget lange runder - så højst 8-10 spillere er et passende antal.</p>
 
 
-                <h2>Hvad er der i glassene?</h2>
+                <h2>Hvad er der i glaskrukkerne?</h2>
                 <p>
-                    I princippet kan man anvende alt der afgiver en lugt.<br />
+                    Man kan anvende alt der afgiver en lugt.<br />
+                    Man drysser lidt pulver i bunden af glaskrukken. 
+                    Er det en væske kan man komme nogle dråber på en lille tot bomuldsvat og placere denne i bunden af glaskrukken.<br />
+                    Oven på indholdet i bunden af glaskrukken, placerer man en tot bomuldsvat - så kan man ikke se hvad der er i bunden af
+                    glasset.
                 </p>
                 <p>
                     <img class="img-fluid rounded" alt="Responsive image" src="/images/createjar.jpeg">
                 </p>
                 <p><b>Tørrede krydderier</b><br />
-                    I de fleste husholdninger vil man have en række forskellige tørrede krydderie der kan anvedes i spillet.<br/>
-                    Man drysser lidt krydderi i bunden af glasset.<br />
-                    Oven på krydderiet placerer man en lille tot bomuldsvat - så kan man ikke se hvad der er i bunden af
-                    glasset.
+                    I de fleste husholdninger vil man have en række forskellige tørrede krydderie der kan anvendes i
+                    spillet.<br />
+                    Kanel, peber, timian, rosmarin og desuden en række bagekrydderier som kardemonne, nellike og allehånde.
+                    
                 </p>
                 <p>
                     <b>Essenser</b><br />
-                    I almindelige dagligvarebutikker kan man købe disse essenser mandel, vanilje og banan.<br />
+                    I almindelige dagligvarebutikker kan man købe essenser som mandel, vanilje og banan.<br />
                     I specialbutikker kan man købe en lang række andre essenser som pebermynte, anis, jordbær, lime og
                     mange flere.
                 </p>
                 <p>
                     <b>Æteriske olier</b><br />
-                    I specialbutikker kan man købe en lang række forskellige ateriske olier som lavendel, rosmarin, eucalyptus, kamfer, cedertræ, gran og
-                    mange flere.
+                    I specialbutikker kan man købe en lang række forskellige æteriske olier som lavendel, rosmarin,
+                    eucalyptus, kamfer, cedertræ, gran og mange flere.
                 </p>
                 <p>
                     <b>Andre</b><br />
@@ -118,7 +156,7 @@
 
 
                 <h2>QR-koder</h2>
-                <p>QR-koderne kan udskrives og limes på glassenes låg.<br />
+                <p>QR-koderne kan udskrives og limes på glaskrukkens låg.<br />
                     Hver QR-kode repræsenterer en bestemt lugt.
                     <br />
                     <br />
@@ -136,6 +174,12 @@
                 <a class="btn btn-primary" href="game.html">Start spillet</a>
             </div>
         </div>
+    </div>
+
+
+
+    <div class="mt-5 p-2 bg-dark text-white text-center">
+        <p></p>
     </div>
 </body>
 
