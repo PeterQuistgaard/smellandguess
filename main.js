@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //});
 
       if (code) {
-        console.log(imageData);
+        //console.log(imageData);
         drawRect("green");
         outputMessage.hidden = true;
         outputData.parentElement.hidden = true;
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
       item.Points = Array.from({ length: players.length }, () => -1);
       _emptygame.push(item);
     }))
-    console.log("GAME", _emptygame);
+    //console.log("GAME", _emptygame);
     setGame(_emptygame);
     return JSON.stringify(_emptygame);
   };
@@ -441,7 +441,7 @@ document.addEventListener("DOMContentLoaded", function () {
             //points++;
             td.setAttribute("class", "green");
           } else {
-            td.setAttribute("class", "yellow");
+            td.setAttribute("class", "red");
           }
         }
         //td.append(`${usersguess} (${point})`);   
@@ -475,9 +475,6 @@ document.addEventListener("DOMContentLoaded", function () {
   //Players horizontal and Smells vertical
   function getTotalScore1() {
     containerplayer.hidden=true;
-    // containerplayer.style.color = "red";
-    // containerplayer.style.backgroundColor = "Black";
-    // containerplayer.innerText = "Total score";
 
     const fragment = document.createDocumentFragment();
     const table = document.createElement("TABLE");
@@ -511,6 +508,8 @@ document.addEventListener("DOMContentLoaded", function () {
         !item.Guesses.some((guess) => guess == -1) //alle skal have gættet før en smell vises
 
     );
+    //console.log(_game.length);
+
     _game.forEach((item, index) => {
       console.log(item, index)
       const tr = document.createElement("TR");
@@ -525,7 +524,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (item.name.toLowerCase() == guess.toLowerCase()) {
           //points++;
-          td.setAttribute("class", "green");
+          td.setAttribute("class", "text-success");
+        } else {
+          td.setAttribute("class", "text-danger");
         }
 
         tr.appendChild(td);
@@ -537,7 +538,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const tr = document.createElement("TR");
     const tdleft = document.createElement("TD");
-    tdleft.append("Point");
+    tdleft.append(`${_game.length} runder`);
     tr.appendChild(tdleft);
     tr.classList.add("table-dark")
 
@@ -545,16 +546,13 @@ document.addEventListener("DOMContentLoaded", function () {
       const td = document.createElement("Td");
       let points = getPointsByUserIndex(index);
       //let points=0;
-      td.append(points);
+      td.append(`${points} rigtige`);
 
       tr.appendChild(td);
 
     });
 
     tbody.append(tr);
-
-
-
 
 
     table.appendChild(tbody);
@@ -622,8 +620,6 @@ document.addEventListener("DOMContentLoaded", function () {
     fragment.appendChild(div);
     ul = document.createElement("UL");
     for (let index = 0; index < _round.length; index++) {
-      console.log("QQQQ", _round[index]);
-      console.log("QQQQ", game[id].Guesses[index], _round[index]);
 
       console.log("PP", _points[index]);
       li = document.createElement("LI");
@@ -633,10 +629,10 @@ document.addEventListener("DOMContentLoaded", function () {
       let correctGuess = rigtigtsvar.toLowerCase() == _round[index].toLowerCase() ? true : false;
 
       if (correctGuess) {
-        spanplayerguess.setAttribute("class", "green");
+        spanplayerguess.setAttribute("class", "text-success");
       }
       else {
-        spanplayerguess.setAttribute("class", "yellow");
+        spanplayerguess.setAttribute("class", "text-danger");
       }
 
 
@@ -681,15 +677,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /**/
-  function setNextplayer() {
-    //containerplayer.style.backgroundColor="lightgray";
+  function setNextplayer() {    
     containerplayer.hidden=false;
     let playersThisSmell = getRound(id);
+   // console.log("playersThisSmell",playersThisSmell);
 
     if (playersThisSmell) {
       nextplayerindex = playersThisSmell.findIndex(rank => rank === -1);
-
-      if (nextplayerindex == -1) {
+      if(playersThisSmell==0){
+        //spillet er ikke sat om med brugere
+        containerplayer.style.color = "red";
+        containerplayer.style.backgroundColor = "Black";
+        containerplayer.innerText = "Ingen spillere er oprettet!";
+        
+        containersmells.innerHTML = "Opret én eller flere spillere!";
+        btnGetTotalScore.hidden = true;//vis knappen "Get total score"
+      }
+      else if (nextplayerindex == -1) {
         //ikke flere spillere i denne runde
         containerplayer.style.color = "yellow";
         containerplayer.style.backgroundColor = "Black";
@@ -782,9 +786,9 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  console.table(players);
-  console.table(smells);
-  console.table("GAME:", game);
+  // console.table(players);
+  // console.table(smells);
+  // console.table("GAME:", game);
 
 
 
