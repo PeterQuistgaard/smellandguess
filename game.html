@@ -23,6 +23,7 @@
   <script src="./generatehslcolorbyname.js" defer></script>
 
   <script src="./main.js" defer></script>
+
   <link rel="stylesheet" href="style.css">
 
 
@@ -35,8 +36,8 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-dark "  data-bs-theme="dark">
-    <div class="container-fluid">
+  <nav class="navbar navbar-expand-sm bg-dark "  data-bs-theme="dark">
+    <div class="container-md">
         <a class="navbar-brand" href="index.html">Smell and Guess</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,17 +53,15 @@
                         Setup
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Players</a></li>
-                        <li><a class="dropdown-item" href="#">Smells</a></li>
+                        <li><a class="dropdown-item" href="setupplayers.html">Players</a></li>
+                        <li><a class="dropdown-item" href="setupsmells.html">Smells</a></li>
                     </ul>
                 </li>
             </div>
         </div>
     </div>
 </nav>
-  <div class="container-lg mt-3">
-
-
+  <div class="container-sm mt-3">
 
     <div class="row">
       <div class="col-md-12">
@@ -90,7 +89,7 @@
     <div class="row">
       <div class="col-md-12">
         <!-- Hvem er næste player, er runden slut, er spillet slut -->
-        <div id="containerplayer"></div>
+        <div id="containerplayer" class="p-2"></div>
       </div>
     </div>
     <div class="row">
@@ -112,15 +111,15 @@
     </div>
 
   <!--Setup-->
-    <div class="row" style="margin-top:1200px">
+    <!-- <div class="row" style="margin-top:1200px">
       <div class="col-md-12">
-        <!---->
+        
         <button id="btnShowSetup" class="btn btn-secondary">Show Setup</button>
       </div>
-    </div>
+    </div> -->
 
 
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-12">
         <div id="containersetup">
 
@@ -171,14 +170,30 @@
 
         </div>
       </div>
-    </div>
+    </div> -->
 
   </div> <!-- container -->
 
 
-  <div class="mt-5 p-2 bg-dark text-white text-center">
-    <p></p>
+  <!-- <div class="mt-5 p-2 bg-dark text-white text-center"> -->
+
+
+
+    <!-- <p></p> -->
+
+
+<!-- footer-->
+  <!-- <div class="mt-5 p-2 bg-dark text-white text-center">
+      <p></p>
+  </div> -->
+
+
+
+
 </div>
+
+
+
 </body>
 
 </html>
