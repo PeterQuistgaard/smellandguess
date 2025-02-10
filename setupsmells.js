@@ -65,11 +65,12 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.stroke();
   }
 
-  function drawRect(color) {
+  function drawRect(color,width=4) {
     let oneforth = canvasElement.width / 4;
     canvas.beginPath();
     canvas.rect(canvasElement.width / 4, canvasElement.height / 4, canvasElement.width / 2, canvasElement.height / 2);
     canvas.strokeStyle = color;
+    canvas.lineWidth = width;
     canvas.stroke();
   }
 
@@ -112,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (code) {
 
-        drawRect("green");
+        drawRect("green",15);
         outputMessage.hidden = false;
         outputData.parentElement.hidden = true;
         // outputData.innerText = code.data;
