@@ -735,7 +735,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if(playersThisSmell==0){
         //spillet er ikke sat om med brugere
         containerplayer.style.color = "red";
-        containerplayer.style.backgroundColor = "Black";
+        containerplayer.style.backgroundColor = "black";
         containerplayer.innerText = "Ingen spillere er oprettet!";
         
         containersmells.innerHTML = "Opret én eller flere spillere!";
@@ -752,7 +752,7 @@ document.addEventListener("DOMContentLoaded", function () {
       else if (nextplayerindex == -1) {
         //ikke flere spillere i denne runde
         containerplayer.style.color = "yellow";
-        containerplayer.style.backgroundColor = "Black";
+        containerplayer.style.backgroundColor = "black";
         containerplayer.innerText = "Alle har givet deres gæt på dette glas";
         getRoundResult(id);//vis resultatet for runden
         containersmells.innerHTML = "";
@@ -762,6 +762,7 @@ document.addEventListener("DOMContentLoaded", function () {
         btnGetTotalScore.hidden = true;//skjul knappen totalscore
         let nextPlayerName = getPlayerNameById(nextplayerindex);
         containerplayer.innerText = nextPlayerName;
+        containerplayer.style.color = "white";
         containerplayer.style.backgroundColor = generateHSLByName(nextPlayerName);//sæt players color som beregnes ud fra navne       
       }
 
@@ -776,7 +777,7 @@ document.addEventListener("DOMContentLoaded", function () {
       containersmells.innerHTML="";                
   } */
 
-  //btnClearGame.addEventListener("click", clearGame)
+  btnClearGame.addEventListener("click", clearGame)
 
 
 
@@ -809,8 +810,11 @@ document.addEventListener("DOMContentLoaded", function () {
         div = document.createElement("button");
         div.setAttribute('data-id', item.id);
         div.classList.add("btn");
+        
+        //div.classList.add("btn-lg");
         div.classList.add("btn-light");
-        div.classList.add("me-1");
+        div.classList.add("me-3");
+        div.classList.add("mb-2");
         div.innerHTML = item.name;
         div.addEventListener("click", (e) => {
           setmove(nextplayerindex, id, item.id);
