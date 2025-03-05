@@ -1,4 +1,4 @@
-//:
+
 
 document.addEventListener("DOMContentLoaded", function () {
   //Global variables
@@ -7,13 +7,17 @@ document.addEventListener("DOMContentLoaded", function () {
   let players;
   let smells;
   let game;
-  let smellArray = [];//PQ
+
 
 
   /* #region scanner */
   const video = document.createElement("video");
   const canvasElement = document.getElementById("canvas");
-  const canvas = canvasElement.getContext("2d");
+  //const canvas = canvasElement.getContext("2d");
+  const canvas = canvasElement.getContext("2d", { willReadFrequently: true });
+
+
+
   const loadingMessage = document.getElementById("loadingMessage");
   const outputContainer = document.getElementById("output");
   const outputMessage = document.getElementById("outputMessage");
@@ -22,39 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const scanstop = document.getElementById("scanstop");
   const clearAllSmells = document.getElementById("clearAllSmells");
 
-
-  const defaultsmells = [
-    { id: 0, name: "Hindbær" },
-    { id: 1, name: "Lime" },
-    { id: 2, name: "Timian" },
-    { id: 3, name: "Eddike" },
-    { id: 4, name: "Karry" },
-    { id: 5, name: "Karamel" },
-    { id: 6, name: "Ananas" },
-    { id: 7, name: "Pebermynte" },
-    { id: 8, name: "Kamille" },
-    { id: 9, name: "Kirsebær" },
-    { id: 10, name: "Abrikos" },
-    { id: 11, name: "Kardemomme" },
-    { id: 12, name: "Allehånde" },
-    { id: 13, name: "Koriander" },
-    { id: 14, name: "Spidskommen" },
-    { id: 15, name: "Kaffe" },
-    { id: 16, name: "Kanel" },
-    { id: 17, name: "Mandel" },
-    { id: 18, name: "Vanilje" },
-    { id: 19, name: "Nellike" },
-    { id: 20, name: "Rosmarin" },
-    { id: 21, name: "Muskat" },
-    { id: 22, name: "Ingefær" },
-    { id: 23, name: "Cayenne" },
-    { id: 24, name: "Anis" },
-    { id: 25, name: "Banan" },
-    { id: 26, name: "Kokos" },
-    { id: 27, name: "Peanuts" },
-    { id: 28, name: "Mandarin" },
-    { id: 29, name: "Jordbær" }
-  ];
 
   function drawLine(begin, end, color) {
     canvas.beginPath();
@@ -86,6 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 
+
+
+  
+
+
+
   //function tick() {      
   const tick = async () => {
     loadingMessage.innerText = "⌛ Loading video..."
@@ -111,56 +88,19 @@ document.addEventListener("DOMContentLoaded", function () {
       //inversionAttempts: "dontInvert", 
       //});
 
-      if (code) {
-
-        drawRect("green",15);
-        outputMessage.hidden = false;
-        outputData.parentElement.hidden = true;
-        // outputData.innerText = code.data;
-
+      
+      if (code ) {   
         id = parseInt(code.data);
 
         setupmode = true
-        if (setupmode == true) {
-          const isExist = smells.some(f => f.id == id)
-          if (!isExist) {
-            let newsmell = {
-              "id": id,
-              "name": getSmellNameById(id)
-            }
-            smells.push(newsmell);
-            setSmells(smells);
-
-            if (localStorage.getItem("game") != null) {
-              localStorage.removeItem("game"); //if exist    
-            }
-          }
-
-          containersmells.innerHTML = "";
-          let count = document.createElement("span");
-          count.innerHTML=smells.length;
-          outputMessage.innerHTML = smells.length;
-
-         // containersmells.appendChild(count);
-          
-          smells.forEach((item) => {
-            div = document.createElement("div");
-            div.setAttribute('data-id', item.id);
-            if (item.id == id) {
-              div.classList.add("currentDiv")
-            }
-
-            div.classList.add("me-1");
-            div.innerHTML = item.name;
-            containersmells.appendChild(div);
-          }
-          );
-
+        if (setupmode == true && !Number.isNaN(id)) {
+          drawRect("green", 15);
+          outputMessage.hidden = false;
+          outputData.parentElement.hidden = true;
+          addSmell(id);
         }
       } else {
         drawRect("red")
-        //outputMessage.hidden = false;
-        //outputData.parentElement.hidden = true;
       }
     }
     requestAnimationFrame(tick);//Enten er der ikke ENOUGH_DATA eller også er der ikke fundet en QR kode. Så vi prøver med en ny frame!
@@ -267,21 +207,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+
+
   containersmells.innerHTML = "";
 
-  smells.forEach((item) => {
-    div = document.createElement("div");
-    div.setAttribute('data-id', item.id);
-    // div.classList.add("btn");
-    // div.classList.add("btn-light");
-    div.classList.add("me-1");
-    div.innerHTML = item.name;
-    containersmells.appendChild(div);
 
-    // localStorage.removeItem("game");
-    // initGame(smells, players);
+  drawSmells2()
+
+
+
+  function drawSmells2(){
+    smells.forEach((item) => {
+      div = document.createElement("div");
+      div.setAttribute('data-id', item.id);
+      //alert("QQ1")
+      if (item.id == id) {
+        //alert("QQ")
+        div.classList.add("currentDiv")
+      }
+  
+      div.classList.add("me-1");
+      div.innerHTML = item.name;
+      icon=document.createElement("i")
+      icon.classList.add("fa");
+      icon.classList.add("fa-times");
+      icon.classList.add("ms-1");
+
+      div.appendChild(icon);
+   
+      containersmells.appendChild(div);
+
+      
+    }
+    );
+   
+    outputMessage.hidden = false;
+    outputContainer.hidden = false;
+    outputMessage.innerHTML = smells.length;
   }
-  );
 
 
 
@@ -294,7 +258,63 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("players", JSON.stringify(players));
   };
 
-  function setSmells(smells) {
+
+  function addSmell(id) {
+    const isExist = smells.some(f => f.id == id)
+    if (!isExist) {
+      let newsmell = {
+        "id": id,
+        "name": getSmellNameById(id)
+      }
+      smells.push(newsmell);
+
+      saveSmells(smells);
+      if (localStorage.getItem("game") != null) {
+        localStorage.removeItem("game"); //if exist    
+      }
+
+      // containersmells.innerHTML = "";
+      // let count = document.createElement("span");
+      // count.innerHTML = smells.length;
+      // outputMessage.innerHTML = smells.length;
+      // drawSmells2();
+    }
+    // else {
+    //   containersmells.innerHTML = "";
+    //   let count = document.createElement("span");
+    //   count.innerHTML = smells.length;
+    //   outputMessage.innerHTML = smells.length;
+    //   drawSmells2();
+    // }
+    containersmells.innerHTML = "";
+    let count = document.createElement("span");
+    count.innerHTML = smells.length;
+    outputMessage.innerHTML = smells.length;
+    drawSmells2();
+
+  }
+
+  function removeSmell(id) {
+      console.log(smells)
+      smells = smells.filter(s => s.id != id);
+      console.log(smells)
+
+       saveSmells(smells);
+      if (localStorage.getItem("game") != null) {
+        localStorage.removeItem("game"); //if exist    
+      }
+       
+      containersmells.innerHTML = "";
+      let count = document.createElement("span");
+      count.innerHTML = smells.length;
+      outputMessage.innerHTML = smells.length;
+      drawSmells2();
+
+  }
+
+
+
+  function saveSmells(smells) {
     localStorage.setItem("smells", JSON.stringify(smells));
   };
 
@@ -324,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function initSmells() {
     //const shuffledSmellArray = defaultsmells.sort((a, b) => 0.5 - Math.random());
-    //setSmells(shuffledSmellArray);
+    //saveSmells(shuffledSmellArray);
     //return JSON.stringify(shuffledSmellArray);
     return JSON.stringify([]);
     //let _emptysmells = [];
@@ -557,24 +577,16 @@ document.addEventListener("DOMContentLoaded", function () {
       if (playersThisSmell == 0) {
         //spillet er ikke sat om med brugere
         containerplayer.style.color = "red";
-        containerplayer.style.backgroundColor = "Black";
+        containerplayer.style.backgroundColor = "black";
         containerplayer.innerText = "Ingen spillere er oprettet!";
 
         containersmells.innerHTML = "Opret én eller flere spillere!";
         //btnGetTotalScore.hidden = true;//vis knappen "Get total score"
       }
-      // else if(playersThisSmell==-1){
-      //   //spillet er ikke sat om med brugere
-      //   containerplayer.style.color = "red";
-      //   containerplayer.style.backgroundColor = "Black";
-      //   containerplayer.innerText = "Denne lugt er ikke sat op til dette spil!";       
-      //   containersmells.innerHTML = "";
-      //   btnGetTotalScore.hidden = true;//vis knappen "Get total score"
-      // }
       else if (nextplayerindex == -1) {
         //ikke flere spillere i denne runde
         containerplayer.style.color = "yellow";
-        containerplayer.style.backgroundColor = "Black";
+        containerplayer.style.backgroundColor = "black";
         containerplayer.innerText = "Alle har givet deres gæt på dette glas";
         getRoundResult(id);//vis resultatet for runden
         containersmells.innerHTML = "";
@@ -584,6 +596,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //btnGetTotalScore.hidden = true;//skjul knappen totalscore
         let nextPlayerName = getPlayerNameById(nextplayerindex);
         containerplayer.innerText = nextPlayerName;
+        containerplayer.style.color = "white";
         containerplayer.style.backgroundColor = generateHSLByName(nextPlayerName);//sæt players color som beregnes ud fra navne       
       }
 
@@ -650,6 +663,41 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 1000);
 
   };
+
+
+
+
+
+
+  const smellsremovebuttons=containersmells.querySelectorAll('[data-id')
+  //console.log("QQ",smellsremovebuttons)
+
+  containersmells.addEventListener("click", (e) => {
+    if(e.target.classList.contains("fa-times")){
+      const dataId = e.target.parentNode.getAttribute("data-id");
+      removeSmell(dataId);
+    }
+    
+
+
+
+    
+
+    // if (buttonOnly === null) return;
+    // // let textNode = buttonOnly.closest(".main").querySelector(".text");
+    // if (buttonOnly.classList.contains("btn")) {
+    //   console.log(buttonOnly.innerText);
+    // }
+  })
+    
+    
+    // setActiveAndRemoveFromSiblings(e.target);
+
+    // let userIndex=index;
+    // givePoint(userIndex,id,parseInt(button.innerText));
+
+
+
 
   // setNextplayer();
   // drawSmellButtons();
@@ -748,7 +796,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //     }
 
   //     smells.push(newsmell);
-  //     setSmells(smells);//save to loalstorage
+  //     saveSmells(smells);//save to loalstorage
   //     initGame(smells, players);
   //     location.reload();
   //   }
@@ -759,7 +807,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //   smell.name = inputSmell.value;
   //   smell.isactive = chkboxSmellIsactive.checked;
 
-  //   setSmells(smells);//save to loalstorage
+  //   saveSmells(smells);//save to loalstorage
   //   initGame(smells, players);
   //   location.reload();
   // }
