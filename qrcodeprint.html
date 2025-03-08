@@ -6,13 +6,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Select QR codes for print</title>
-
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Fontawesom -->
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
         integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <script src="./js/defaultsmells.js"></script>
 
+    <!-- https://davidshimjs.github.io/qrcodejs/ -->
+    <script src="./js/qrcode.min.js" defer></script>
+
+    <!-- https://github.com/parallax/jsPDF -->
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js" defer></script>
 
 
     <style>
@@ -35,154 +42,17 @@
             border: solid 0.005rem lightgray;
         }
     </style>
-</head>
-
-<body>
-
-
-    <div class="select-wrapper">
-        <h3>Vælg de lugte der skal have udskrevet QR koder:</h3>
-        <span class="autocomplete-select"></span>
-    </div>
-
-
-    <button id="print">Print</button>
-
-
-
-    <div id="container"></div>
-
-    <script src="./js/selectpure.min.js"></script>
-
-
-
-    <script src="./js/qrcode.min.js"></script>
-    <style>
-        #container {
-            display: flex;
-            row-gap: 0px;
-            flex-wrap: wrap;
-            padding: 1px;
-            /*   border: solid black 1px; */
-            border: solid 1px lightgray;
-        }
-
-        #container div {
-            border: solid white 1px;
-            padding: 3px;
-            margin-right: 1px;
-
-            margin-top: 1px;
-            display: inline-flex;
-            border: solid 0.005rem lightgray;
-            /* border-radius: 3px; */
-
-
-        }
-    </style>
-
-
-    <script>
-
-
-        let options = defaultsmells.map(({ id, name }) => ({ "label": name, "value": id.toString() }));
-        options.sort((a, b) => a.name !== b.name ? a.name < b.name ? -1 : 1 : 0);
-
-        options = options.sort((a, b) => a.label !== b.label ? a.label < b.label ? -1 : 1 : 0)
-        //console.log()
-
-        //get last qrprint ids
-        const qrprintIntegers = JSON.parse(localStorage.getItem("qrprint"));
-        
-        let qrprintStrings=[]//autocomplet needs array of strings
-        if(qrprintIntegers){
-            qrprintStrings = qrprintIntegers.map((id) => ( id.toString() ));//convert from integers to strings
-        }       
-
-
-        var autocomplete = new SelectPure(".autocomplete-select", {
-            options: options,
-            value: qrprintStrings,
-            multiple: true,
-            autocomplete: true,
-            icon: "fa fa-times",
-            onChange: value => { console.log(value); },
-        });
-
-        console.log(autocomplete)
-
-
-        const selectedcontainer = document.querySelector(".select-pure__label");
-
-        document.getElementById("print").addEventListener("click", () => getSelectedSmells());
-
-        function getSelectedSmells() {
-            const selecteditems = selectedcontainer.querySelectorAll(`[data-value]`);
-            selectedSmells = [];
-
-            selecteditems.forEach((element) => {
-                selectedSmells.push(parseInt(element.getAttribute('data-value')));
-            });
-
-            localStorage.setItem("qrprint", JSON.stringify(selectedSmells));
-
-            const container = document.getElementById("container");
-
-
-            const fragment = document.createDocumentFragment();
-
-            container.innerHTML="";
-
-  
-            selectedSmells.forEach((id) => {
-                 
-
-                let number0 = 0;
-                let number1 = id.toString()[0];
-                if (id >= 10) {
-                    number0 = id.toString()[0];
-                    number1 = id.toString()[1];
-                }
-
-                console.log("NUM0", number0);
-                console.log("NUM1", number1);
-
-                let q = document.createElement("DIV");
-                const stringtot = `${number0}${number1}`;
-
-                console.log(stringtot);
-
-                new QRCode(q, {
-                    text: `${stringtot}`,
-                    width: 60,
-                    height: 60,
-                    colorDark: "black",
-                    colorLight: "white",
-                    correctLevel: QRCode.CorrectLevel.H
-
-                });
-                fragment.appendChild(q);
-            })
-
-            container.appendChild(fragment);
-
-
-
-            console.log(selectedSmells)
-        }
-
-    </script>
 
 
 
     <style>
-        body {
-            font-family: sans-serif;
-            background-color: #fafafa;
-        }
+        /* body {
+        font-family: sans-serif;
+        background-color: #fafafa;
+    } */
 
         .select-wrapper {
-            margin: 150px auto;
+            /* margin: 150px auto; */
             max-width: 600px;
             width: calc(100% - 40px);
         }
@@ -215,8 +85,8 @@
             color: #363b3e;
             display: none;
             left: 0;
-            /* max-height: 221px; */
-            max-height: 800px;
+            max-height: 221px;
+            /* max-height: 800px; */
             overflow-y: scroll;
             position: absolute;
             top: 50px;
@@ -284,6 +154,256 @@
             width: 100%;
         }
     </style>
-</body>
+</head>
 
-</html>
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="robots" content="noindex">
+        <!--Bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+        <title>Smell and Guess</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
+            <div class="container-lg">
+                <a class="navbar-brand" href="index.html">Smell and Guess</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" href="game.html">Start spillet</a>
+
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Setup
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="game.html">Players</a></li>
+                                <li><a class="dropdown-item" href="#">Smells</a></li>
+                            </ul>
+                        </li> -->
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="container-lg">
+
+
+            <div class="row">
+                <div class="col-md-12 ">
+                    <p class="mt-3">
+                    <h3>Vælg de lugte der skal have udskrevet QR koder</h3>
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 ">
+                    <p class="mb-3">
+                        <button id="print" class="btn btn-primary">Make pdf</button>
+                    </p>
+                </div>
+                <div class="col-md-9 ">
+
+                    <div class="select-wrapper"> <span class="autocomplete-select"></span></div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- <div id="container"></div> -->
+
+
+
+
+        <script src="./js/selectpure.min.js"></script>
+        <script>
+            /*Wrap QRCode in promise to make it posible to run as async/await */
+            var asyncGenerateQR = function (txt) {
+                return new Promise((resolve, reject) => {
+                    try {
+                        const mydiv = document.createElement("DIV");
+
+                        // 72 dot/inc = 2.8346456693 dot/mm
+                        // 30mm = 2.8346456693 dot/mm *30 mm
+                        const width_mm = 30;
+                        const width_dot = 2.8346456693 * width_mm;
+
+                        new QRCode(mydiv, {
+                            text: txt,
+                            width: width_dot,
+                            height: width_dot,
+                            colorDark: "black",
+                            colorLight: "white",
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+
+                        //mydiv.children[0] is canvas-tag and mydiv.children[0] is img-tag
+                        const src = mydiv.children[0].toDataURL("image/png");//canvas toDataURL 
+                        mydiv.remove();//remove mydiv from DOM
+                        resolve(src);
+                    } catch (error) {
+                        reject(error)
+                    }
+                });
+            };
+
+
+
+
+
+
+            let options = defaultsmells.map(({ id, name }) => ({ "label": name, "value": id.toString() }));
+            //options.sort((a, b) => a.name !== b.name ? a.name < b.name ? -1 : 1 : 0);
+
+            options = options.sort((a, b) => a.label !== b.label ? a.label < b.label ? -1 : 1 : 0)
+            //console.log()
+
+            //get last qrprint ids
+            const qrprintIntegers = JSON.parse(localStorage.getItem("qrprint"));
+
+            let qrprintStrings = []//autocomplet needs array of strings
+            if (qrprintIntegers) {
+                qrprintStrings = qrprintIntegers.map((id) => (id.toString()));//convert from integers to strings
+            }
+
+
+            var autocomplete = new SelectPure(".autocomplete-select", {
+                options: options,
+                value: qrprintStrings,
+                multiple: true,
+                autocomplete: true,
+                icon: "fa fa-times",
+                onChange: value => { console.log(value); },
+            });
+
+            //console.log(autocomplete)
+
+
+            const selectedcontainer = document.querySelector(".select-pure__label");
+
+            document.getElementById("print").addEventListener("click", () => getSelectedSmells());
+
+            async function getSelectedSmells() {
+
+                const selecteditems = selectedcontainer.querySelectorAll(`[data-value]`);
+                selectedSmells = [];
+
+                selecteditems.forEach((element) => {
+                    selectedSmells.push(parseInt(element.getAttribute('data-value')));
+                });
+
+                localStorage.setItem("qrprint", JSON.stringify(selectedSmells));
+
+                // const container = document.getElementById("container");
+
+
+                const fragment = document.createDocumentFragment();
+
+                // container.innerHTML = "";
+
+
+                const { jsPDF } = window.jspdf;
+                let doc = new jsPDF("p", "mm", "a4");//l or p for landscape or portal,unit mm, 
+
+                const leftmargin = 20;
+                doc.text(`${"QR koder"} `, leftmargin, 20);//overskrift
+                
+                let ox = leftmargin;
+                let oy = 30;
+                const w = 16;//size on QR-kode in mm
+                // doc.setDrawColor(255, 0, 0);
+                doc.setDrawColor(125, 125, 125);
+                doc.setLineWidth(0.075)
+
+                const columns = 6;
+                let rows = Math.ceil(selectedSmells.length / columns);
+
+                console.log("rows colums", rows, columns);
+                const space = 1.5;
+
+                let x = 0;
+                let y = 0;
+                let idx = 0;
+
+                for (let r = 0; r < rows; r++) {
+                    y = oy + (w * r) + (space * r)
+
+                    for (let c = 0; c < columns; c++) {
+                        idx = r * columns + c;
+                        const element = selectedSmells[idx];
+                        x = ox + (w * c) + (space * c);
+
+                        if (element != undefined) {
+
+                            doc.addImage(await asyncGenerateQR(element.toString()), 'png', x, y, w, w);
+                        }
+                    }
+
+                }
+
+
+                //vandrette skæremærker
+                for (let r = 0; r < rows + 1; r++) {
+                    let y1 = oy + r * (w + space) - space / 2
+                    let y2 = y1
+
+                    let x1 = ox - space 
+                    let x2 = x1 + columns * (w + space)+space
+
+                    doc.line(x1, y1, x2, y2)
+
+                }
+
+                //lodrette skæremærker
+                for (let c = 0; c < columns + 1; c++) {
+                    let x1 = ox - space / 2 + c*(w+space)
+                    let x2 = x1 
+
+                    let y1 = oy - space   
+                    let y2 = y1 + rows * (w + space) +space
+
+
+
+                    doc.line(x1, y1, x2, y2)
+
+                }
+
+                doc.save("qrcodes.pdf");
+
+            }
+
+        </script>
+
+
+
+
+
+
+
+    </body>
+
+    </html>

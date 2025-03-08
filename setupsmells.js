@@ -90,15 +90,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
       
       if (code ) {   
+        //console.log(`QR code fundet ${code.data}`)
         id = parseInt(code.data);
+        //if(Number.isNaN(id)){console.error(`Er ikke et nummer! ${id}`)}
 
-        setupmode = true
-        if (setupmode == true && !Number.isNaN(id)) {
+        //tjek om id er et nummer og om dette nummer findes i defaultsmells
+        if (!Number.isNaN(id) && defaultsmells.some(field => field.id == id)) {
           drawRect("green", 15);
           outputMessage.hidden = false;
           outputData.parentElement.hidden = true;
           addSmell(id);
         }
+
       } else {
         drawRect("red")
       }
@@ -184,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  let setupmode;
+  // let setupmode;
 
   //references to UI elements
   const containerplayer = document.getElementById("containerplayer");

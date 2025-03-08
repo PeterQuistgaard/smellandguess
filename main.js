@@ -10,9 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
-
-
   /* #region scanner */
   const video = document.createElement("video");
   const canvasElement = document.getElementById("canvas");
@@ -198,15 +195,13 @@ document.addEventListener("DOMContentLoaded", function () {
   //  const btnClearGame = document.getElementById("btnClearGame");
   const btnGetTotalScore = document.getElementById("btnGetTotalScore");
 
-  // const containersetup = document.getElementById("containersetup");
-  // const btnShowSetup = document.getElementById("btnShowSetup");
-
 
 
   //init or get from localstorage
   players = getPlayers();
   smells = getSmells();
   game = getGame();
+  game2=getGame2();
 
 
 
@@ -219,13 +214,17 @@ document.addEventListener("DOMContentLoaded", function () {
     location.replace("/setupplayers.html")
   }
   if (smells.length === 0) {
-    alert("Gå til setup og opret smells")
+    alert("Gå til setup og opret lugte")
     location.replace("/setupsmells.html")
 
   }
 
   function setGame(game) {
     localStorage.setItem("game", JSON.stringify(game));
+  };
+
+  function setGame2(game2) {
+    localStorage.setItem("game2", JSON.stringify(game2));
   };
 
   function setPlayers(players) {
@@ -241,6 +240,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const value = localStorage.getItem("game") || initGame(smells, players);
     return JSON.parse(value);
   }
+
+  function getGame2() {
+    //get from localstorage or init new game if not exist
+    const value = localStorage.getItem("game2") || initGame2(smells, players);
+    return JSON.parse(value);
+  }
+
 
 
   function getPlayers() {
@@ -282,43 +288,16 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 
+  function initGame2(smells, players) {
+    let _emptygame2 = [];
 
-  /* Hente parmetre fra querystring*/
-  //const params = new URLSearchParams(window.location.search.substr(1));
-
-  /*henter specifik parametren id fra querystring. Består af en række ubrugte værdier for at sløre id på glasset.*/
-  // const idstring = params.get("id");
-
-
-
-  // if (idstring) {
-  //   //id=idstring.charAt(21);//I position 21 står 1'er og i pos 25 står 10'er
-  //   id = idstring.charAt(27) * 10 + idstring.charAt(21) * 1
-  //   console.log(id)
-  // }
-
-  // function givePoint(userid, smellid, point) {
-  //   let round = game.find(field => field.id == smellid)
-  //   console.log(round);
-  //   round.Points[userid] = point;
-  //   setGame(game);
-  // }
-
-  // function setmove(userid, smellid, guessid) {
+    setGame2(_emptygame2);
+    return JSON.stringify(_emptygame2);
+  };
 
 
-  //   let txtSmellguess = getSmellNameById(guessid);
-  //   let txtSmellInGlass = getSmellNameById(smellid);
-  //   let point = 0;
-  //   if (txtSmellguess.toLowerCase() === txtSmellInGlass.toLowerCase()) {
-  //     point = 1;
-  //   }
 
-  //   game.find(field => field.id == smellid).Guesses[userid] = txtSmellguess;
-  //   game.find(field => field.id == smellid).Points[userid] = point;
-
-  //   setGame(game);
-  // }
+  
 
   function setmove(userid, smellid, guessid) {
 
@@ -336,18 +315,6 @@ document.addEventListener("DOMContentLoaded", function () {
     setGame(game);
   }
 
-  // function setmovefreetext(userid, smellid, txtSmellguess) {
-
-  //   let txtSmellInGlass = getSmellNameById(smellid);
-  //   let point = 0;
-  //   if (txtSmellguess.toLowerCase() === txtSmellInGlass.toLowerCase()) {
-  //     point = 1;
-  //   }
-  //   game.find(field => field.id == smellid).Guesses[userid] = txtSmellguess;
-  //   game.find(field => field.id == smellid).Points[userid] = point;
-
-  //   setGame(game);
-  // }
 
 
   //hent players guesses på en smell id. 
@@ -516,12 +483,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         td.append(getSmellNameById(guess));
 
-        // if (item.name.toLowerCase() == guess.toLowerCase()) {
-        //   //points++;
-        //   td.setAttribute("class", "text-success");
-        // } else {
-        //   td.setAttribute("class", "text-danger");
-        // }
         if (item.id == guess) {
           td.setAttribute("class", "text-success");
         } else {
@@ -645,37 +606,13 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
 
-      //let tmpPoint = 0;
 
-      // if (correctGuess == true) {
-      //   tmpPoint = 1;
-      // }
-
-      //tmpPoint = _points[index];
 
       spanplayer.append(`${players[index]}: `);
       //console.log(_round[index]);
       spanplayerguess.append(getSmellNameById(_round[index]));
 
       li.append(spanplayer, spanplayerguess);
-      /*
-                spanpointbuttons=document.createElement("SPAN"); 
-                for (let p = 0; p <=3 ; p++) {
-                  const button = document.createElement("BUTTON");
-                  button.innerText=p;
-                  if(tmpPoint==p){
-                      button.classList.add("active");
-                  }
-                  button.addEventListener("click",(e)=>{
-                      setActiveAndRemoveFromSiblings(e.target);
-      
-                      let userIndex=index;
-                      givePoint(userIndex,id,parseInt(button.innerText));
-                  })
-                  spanpointbuttons.appendChild(button);
-                }
-                li.appendChild(spanpointbuttons);
-                */
       ul.appendChild(li);
       fragment.appendChild(ul);
     }
@@ -705,14 +642,6 @@ document.addEventListener("DOMContentLoaded", function () {
         containersmells.innerHTML = "Opret én eller flere spillere!";
         btnGetTotalScore.hidden = true;//vis knappen "Get total score"
       }
-      // else if(playersThisSmell==-1){
-      //   //spillet er ikke sat om med brugere
-      //   containerplayer.style.color = "red";
-      //   containerplayer.style.backgroundColor = "Black";
-      //   containerplayer.innerText = "Denne lugt er ikke sat op til dette spil!";       
-      //   containersmells.innerHTML = "";
-      //   btnGetTotalScore.hidden = true;//vis knappen "Get total score"
-      // }
       else if (nextplayerindex == -1) {
         //ikke flere spillere i denne runde
         containerplayer.style.color = "yellow";
@@ -734,12 +663,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  /*   if(nextplayerindex==-1){
-      //Ikke flere spillere i denne runde - alle har afgivet et gæt på indholdet i glasset
-    console.log("nextplayerindex",nextplayerindex)  
-      
-      containersmells.innerHTML="";                
-  } */
+
 
   btnClearGame.addEventListener("click", clearGame)
 
@@ -801,149 +725,13 @@ document.addEventListener("DOMContentLoaded", function () {
   drawSmellButtons();
 
 
-
-  //Setup
-  //drawContainerPlayers();
-
   btnGetTotalScore.addEventListener("click", () => {
     getTotalScore1();
     btnGetTotalScore.hidden = true;
   });
 
 
-  // console.table(players);
-  // console.table(smells);
-  // console.table("GAME:", game);
-
-
-
-  // function deletePlayer(playerName) {
-  //   var index = players.indexOf(playerName);
-  //   if (index !== -1) {
-  //     players.splice(index, 1);
-  //     setPlayers(players);
-  //     initGame(smells, players);
-  //     location.reload();
-  //   }
-  // }
-
-  // function addPlayer(playerName) {
-  //   players.push(playerName);
-  //   setPlayers(players);//save to loalstorage
-  //   initGame(smells, players);
-  //   location.reload();
-  // }
-
-
-
-
-  // function drawContainerPlayers() {
-  //   const fragment = document.createDocumentFragment();
-
-
-  //   players.forEach((item) => {
-  //     div = document.createElement("DIV");
-  //     deletebutton = document.createElement("BUTTON");
-
-  //     deletebutton.classList.add("btn");
-  //     deletebutton.classList.add("btn-secondary");
-  //     deletebutton.classList.add("btn-sm");
-  //     deletebutton.innerText = "x";
-  //     div.appendChild(deletebutton);
-
-  //     div.append(item);
-
-  //     deletebutton.addEventListener("click", (e) => {
-  //       deletePlayer(item);
-  //     });
-
-  //     fragment.appendChild(div);
-
-  //   }
-  //   );
-  //   containerplayers.innerHTML = "";
-  //   containerplayers.appendChild(fragment);
-  // };
-
-  // const spanId = document.getElementById("spanId");
-  // const inputSmell = document.getElementById("inputSmell");
-
-  // const chkboxSmellIsactive = document.getElementById("chkboxSmellIsactive");
-
-
-  // function getSmellForEdit() {
-  //   let _smell = smells.find(field => field.id == id);
-  //   if (_smell === undefined) {
-  //     addSmell(id);
-  //   }
-
-  //   if (_smell) {
-  //     spanId.innerHTML = id;
-  //     inputSmell.value = _smell.name;
-  //     chkboxSmellIsactive.checked = _smell.isactive;
-  //   }
-  // }
-
-
-  // getSmellForEdit();
-
-  // //function to add smell if not in game
-  // function addSmell(id) {
-  //   if (id != -1) {
-  //     let newsmell = {
-  //       "id": id,
-  //       "name": "",
-  //       "isactive": false
-  //     }
-
-  //     smells.push(newsmell);
-  //     setSmells(smells);//save to loalstorage
-  //     initGame(smells, players);
-  //     location.reload();
-  //   }
-  // }
-
-  // function saveSmell() {
-  //   let smell = smells.find(field => field.id == id);
-  //   smell.name = inputSmell.value;
-  //   smell.isactive = chkboxSmellIsactive.checked;
-
-  //   setSmells(smells);//save to loalstorage
-  //   initGame(smells, players);
-  //   location.reload();
-  // }
-
-  // document.getElementById("btnSaveSmell").addEventListener("click", saveSmell);
-
-  // document.getElementById("btnAddPlayer").addEventListener("click", () => {
-  //   let playerName = document.getElementById("txtPlayerName").value;
-  //   if (playerName) {
-  //     addPlayer(playerName);
-  //   }
-  // });
-
-
-  // if (setupmode === null) {
-  //   containersetup.style.display = "none";
-  //   btnShowSetup.innerText = "Show Setup";
-  // }
-  // else {
-  //   containersetup.style.display = "block";
-  //   btnShowSetup.innerText = "Hide Setup";
-  // }
-
-
-  // btnShowSetup.addEventListener("click", () => {
-  //   if (containersetup.style.display === "none" || containersetup.style.display === "") {
-  //     containersetup.style.display = "block";
-  //     btnShowSetup.innerText = "Hide Setup";
-  //     localStorage.setItem("setupmode", true);
-  //   } else {
-  //     localStorage.removeItem("setupmode");
-  //     containersetup.style.display = "none";
-  //     btnShowSetup.innerText = "Show Setup";
-  //   }
-  // })
+  
 
 
 
