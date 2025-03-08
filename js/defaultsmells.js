@@ -16,7 +16,7 @@ const defaultsmells = [
   { id: 13, name: "Koriander" },
   { id: 14, name: "Spidskommen" },
   { id: 15, name: "Kaffe" },
-  { id: 16, name: "Kanel" },
+   { id: 16, name: "Kanel" },
   { id: 17, name: "Mandel" },
   { id: 18, name: "Vanilje" },
   { id: 19, name: "Nellike" },
@@ -39,13 +39,17 @@ const defaultsmells = [
   { id: 36, name: "Appelsin" },
   { id: 37, name: "Lavendel" },
   { id: 38, name: "Grape" },
-  { id: 39, name: "Rose" }
+  { id: 39, name: "Rose" }, 
+  { id:40 , name: "Kamfer" },
+  { id:41 , name: "Cedertræ" },
+  { id:42 , name: "Gran" },
 ];
 
 
 /*
- { id: , name: "" },
- { id: , name: "" },
- { id: , name: "" },
+kamfer, cedertræ, gran
+ { id:40 , name: "Kamfer" },
+ { id:41 , name: "Cedertræ" },
+ { id:42 , name: "Gran" },
  { id: , name: "" },
 */
