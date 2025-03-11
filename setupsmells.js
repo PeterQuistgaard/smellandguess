@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function setGame(game) {
-    localStorage.setItem("game", JSON.stringify(game));
+    localStorage.setItem("game2", JSON.stringify(game));
   };
 
   function setPlayers(players) {
@@ -272,8 +272,8 @@ document.addEventListener("DOMContentLoaded", function () {
       smells.push(newsmell);
 
       saveSmells(smells);
-      if (localStorage.getItem("game") != null) {
-        localStorage.removeItem("game"); //if exist    
+      if (localStorage.getItem("game2") != null) {
+        localStorage.removeItem("game2"); //if exist    
       }
 
       // containersmells.innerHTML = "";
@@ -303,8 +303,8 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(smells)
 
        saveSmells(smells);
-      if (localStorage.getItem("game") != null) {
-        localStorage.removeItem("game"); //if exist    
+      if (localStorage.getItem("game2") != null) {
+        localStorage.removeItem("game2"); //if exist    
       }
        
       containersmells.innerHTML = "";
@@ -323,7 +323,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getGame() {
     //get from localstorage or init new game if not exist
-    const value = localStorage.getItem("game") || initGame(smells, players);
+    const value = localStorage.getItem("game2") || initGame(smells, players);
     return JSON.parse(value);
   }
 
@@ -620,7 +620,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /*Nulstiller game i localstorage for at starter et nyt spil*/
   function clearGame() {
-    localStorage.removeItem("game");
+    localStorage.removeItem("game2");
     initGame(smells, players)
     location.reload();//genindlæs siden
   }

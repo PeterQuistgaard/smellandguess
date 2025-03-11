@@ -46,15 +46,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-                <a class="nav-link" href="#">Total score</a>
+                <!-- <a class="nav-link" href="#">Total score</a> -->
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         Setup
                     </a>
-                    <ul class="dropdown-menu">
-                      
+                    <ul class="dropdown-menu">                     
                       
                         <li><button class="dropdown-item" id="btnClearGame">Clear Game</button></li>
                         <li><a class="dropdown-item" href="setupplayers.html">Players</a></li>
@@ -77,8 +76,8 @@
     <div class="row">
       <div class="col-md-12 ">
         <div class="mt-2">
-          <button id="scanstart" class="btn btn-primary">Scan start</button>
-          <button id="scanstop" class="btn btn-secondary" hidden>Scan stop</button>
+          <button id="btnScanStart" class="btn btn-primary">Scan start</button>
+          <button id="btnScanStop" class="btn btn-secondary" hidden>Scan stop</button>
         </div>
       </div>
     </div>
@@ -108,88 +107,17 @@
       <div class="col-md-12 mt-3">
 
         <!--Tabel med total score-->
-        <div id="containertotalscore" class="table-responsive mt-2"></div>
+        <div id="containertotalscore" class="table-responsive mt-2 "></div>
         <button class="btn btn-primary" id="btnGetTotalScore">Get total score</button>
 
       </div>
     </div>
 
-  <!--Setup-->
-    <!-- <div class="row" style="margin-top:1200px">
-      <div class="col-md-12">
-        
-        <button id="btnShowSetup" class="btn btn-secondary">Show Setup</button>
-      </div>
-    </div> -->
-
-
-    <!-- <div class="row">
-      <div class="col-md-12">
-        <div id="containersetup">
-
-
-          <p>
-          <fieldset>
-            <legend>Players:</legend>
-
-            <form class="row">
-              <div class="col-auto">
-                <input type="text" name="txtPlayerName" id="txtPlayerName" placeholder="new player"
-                  class="form-control">
-              </div>
-              <div class="col-auto">
-                <button id="btnAddPlayer" class="btn btn-secondary">Add</button>
-              </div>
-            </form>
-            <div class="container" id="containerplayers">
-            </div>
-
-          </fieldset>
-
-          <fieldset>
-            <legend>Smell:</legend>
-            <p>
-              <span id="spanId" style="font-size: xx-small;"></span>
-            </p>
-            <p>
-              <input id="inputSmell" type="text" name="" placeholder="">
-            </p>
-            <p>
-              <input type="checkbox" id="chkboxSmellIsactive"><label for="chkboxSmellIsactive">Is active</label>
-            </p>
-            <p>
-              <button id="btnSaveSmell" class="btn btn-secondary">Save</button>
-            </p>
-          </fieldset>
-
-
-          <div id="DisplayBrowserVersion" style="display: block;"></div>
-
-          <div class="row">
-            <div class="col-md-12 mt-3">
-              <button id="btnClearGame" class="btn btn-danger">Clear Game</button>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-    </div> -->
 
   </div> <!-- container -->
 
 
-  <!-- <div class="mt-5 p-2 bg-dark text-white text-center"> -->
 
-
-
-    <!-- <p></p> -->
-
-
-<!-- footer-->
-  <!-- <div class="mt-5 p-2 bg-dark text-white text-center">
-      <p></p>
-  </div> -->
 
 
 

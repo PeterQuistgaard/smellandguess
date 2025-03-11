@@ -1,41 +1,30 @@
-//:
+
 
 document.addEventListener("DOMContentLoaded", function () {
   //Global variables
-  let id = -1;
+  let id = -1;//current smell id
   let nextplayerindex = -1;
   let players;
   let smells;
-  let game;
+  let currentroundidx=-1
 
+  //samme smell kan vælges flere gange - brugerne skal selv blande krukkerne mellem hver runde 
+  //alternaivt er der flere krukker med samme smell - evt. i forskellig intensitet
+  let shuffelmode=true;
 
 
   /* #region scanner */
   const video = document.createElement("video");
   const canvasElement = document.getElementById("canvas");
-  //const canvas = canvasElement.getContext("2d");
   const canvas = canvasElement.getContext("2d", { willReadFrequently: true });
-
-
-
 
 
   const loadingMessage = document.getElementById("loadingMessage");
   const outputContainer = document.getElementById("output");
   const outputMessage = document.getElementById("outputMessage");
   const outputData = document.getElementById("outputData");
-  const scanstart = document.getElementById("scanstart");
-  const scanstop = document.getElementById("scanstop");
-  
-
-  function drawLine(begin, end, color) {
-    canvas.beginPath();
-    canvas.moveTo(begin.x + canvas.width / 4, begin.y + canvas.height / 4);
-    canvas.lineTo(end.x + canvas.width / 4, end.y + canvas.height / 4);
-    canvas.lineWidth = 4;
-    canvas.strokeStyle = color;
-    canvas.stroke();
-  }
+  const btnScanStart = document.getElementById("btnScanStart");
+  const btnScanStop = document.getElementById("btnScanStop");
 
   function drawRect(color) {
     let oneforth = canvasElement.width / 4;
@@ -99,8 +88,13 @@ document.addEventListener("DOMContentLoaded", function () {
             containerplayer.innerText = `${getSmellNameById(id)} - men denne lugt er ikke aktiveret i dette spil!`;
             containersmells.innerHTML = "";
             btnGetTotalScore.hidden = true;//vis knappen "Get total score"
+            containerplayer.hidden = false;
+            btnScanStart.hidden = false;
           }
           else {
+            //NYT
+
+            createRound(id)//id=smellid og ikke round id
             setNextplayer();
             drawSmellButtons();
           }
@@ -127,10 +121,9 @@ document.addEventListener("DOMContentLoaded", function () {
       track.stop();
     });
     videoElem.srcObject = null;
-    scanstop.hidden = true;
-    scanstart.hidden = false;
-    setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter cancas
-    //  canvasElement.hidden = true;
+    btnScanStop.hidden = true;
+
+    setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter canvas
 
   }
 
@@ -152,8 +145,8 @@ document.addEventListener("DOMContentLoaded", function () {
         video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
         video.play();
         requestAnimationFrame(tick);
-        scanstart.hidden = true;
-        scanstop.hidden = false;
+        btnScanStart.hidden = true;
+        btnScanStop.hidden = false;
       }
       ).catch((err) => {
         /* handle the error */
@@ -162,22 +155,25 @@ document.addEventListener("DOMContentLoaded", function () {
       });;
   }
 
-  scanstart.addEventListener("click", (e) => {
+  btnScanStart.addEventListener("click", (e) => {
     e.preventDefault();
 
 
     //hide result
     containertotalscore.innerHTML = "";
     containerplayer.innerHTML = "";
+    containerplayer.hidden = true
 
     btnGetTotalScore.hidden = true;
     startScanner();
 
   });
 
-  scanstop.addEventListener("click", (e) => {
+  btnScanStop.addEventListener("click", (e) => {
     e.preventDefault();
     stopStreamedVideo(video);
+
+    btnScanStart.hidden = false;
   });
 
   /* #endregion scanner */
@@ -197,11 +193,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+  containersmells.addEventListener("click",(e)=>{
+    
+    if(e.target.hasAttribute("data-id")){
+      //Hent id fra btn som er GuessId
+      const dataId = e.target.getAttribute("data-id");
+      setmove(nextplayerindex,id, dataId);
+      setNextplayer();
+      drawSmellButtons();
+
+    }
+  })
+
   //init or get from localstorage
   players = getPlayers();
   smells = getSmells();
-  game = getGame();
-  game2=getGame2();
+  game2 = getGame2();
 
 
 
@@ -219,9 +226,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }
 
-  function setGame(game) {
-    localStorage.setItem("game", JSON.stringify(game));
-  };
 
   function setGame2(game2) {
     localStorage.setItem("game2", JSON.stringify(game2));
@@ -235,11 +239,6 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("smells", JSON.stringify(smells));
   };
 
-  function getGame() {
-    //get from localstorage or init new game if not exist
-    const value = localStorage.getItem("game") || initGame(smells, players);
-    return JSON.parse(value);
-  }
 
   function getGame2() {
     //get from localstorage or init new game if not exist
@@ -267,26 +266,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function initSmells() {
-    // const shuffledSmellArray = defaultsmells.sort((a, b) => 0.5 - Math.random());
-    // setSmells(shuffledSmellArray);
-    // return JSON.stringify(shuffledSmellArray);
     const defaultSmells = [];
     setSmells(defaultSmells);
     return JSON.stringify(defaultSmells);
   }
-
-  function initGame(smells, players) {
-    let _emptygame = [];
-    smells.forEach((item => {
-      item.Guesses = Array.from({ length: players.length }, () => -1);
-      item.Points = Array.from({ length: players.length }, () => -1);
-      _emptygame.push(item);
-    }))
-    //console.log("GAME", _emptygame);
-    setGame(_emptygame);
-    return JSON.stringify(_emptygame);
-  };
-
 
   function initGame2(smells, players) {
     let _emptygame2 = [];
@@ -296,23 +279,35 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
 
+  function createRound(smellid) {
 
-  
+    //tjek if smellid alredy is in a round
+    let smellidisinround = game2.some(field => field.id == id);
+    if (shuffelmode==true || smellidisinround != true) {
+      
+      let smell = smells.find(field => field.id == id);
 
-  function setmove(userid, smellid, guessid) {
+      let newRound={
+        "id":smell.id,
+        "name":smell.name,
+        "Guesses":Array.from({ length: players.length }, () => -1)
+      }
+      game2.push(newRound);
 
+      setGame2(game2);
+      currentroundidx=game2.length - 1;//set to global var
 
-    // let txtSmellguess = getSmellNameById(guessid);
-    // let txtSmellInGlass = getSmellNameById(smellid);
-    let point = 0;
-    if (guessid === smellid) {
-      point = 1;
     }
 
-    game.find(field => field.id == smellid).Guesses[userid] = guessid;
-    game.find(field => field.id == smellid).Points[userid] = point;
 
-    setGame(game);
+
+  }
+
+
+  //tag også hensyn til runde 1dx
+  function setmove(userid, smellid, guessid) {
+    game2[currentroundidx].Guesses[userid] = guessid;    
+    setGame2(game2);
   }
 
 
@@ -321,12 +316,16 @@ document.addEventListener("DOMContentLoaded", function () {
   //hvis ingen endnu har afgivet gæt returneres -1 som er default 
   function getRound(smellid) {
     //console.log("ROUND",gameround);
-    let _round = game.find(field => field.id == smellid);
+    //let _round = game2.find(field => field.id == smellid);
+    let _round = game2[currentroundidx];
+
     console.log("_round", _round)
-    //if (_round === undefined) {
-    //   addSmell(smellid);//hvis smell ikke er oprettet ved init 
-    // return -1;//smell er ikke sat op tl dette spil
-    // }
+
+    let lastElement = game2[game2.length - 1];
+    console.log("lastElementl", lastElement);
+
+
+
 
     if (_round) {
       console.log("_round.Guesses", _round.Guesses)
@@ -334,101 +333,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     return 0;
-  }
-
-  //Players vertical and Smells horizontal
-  function getTotalScore2() {
-
-
-    const fragment = document.createDocumentFragment();
-    const table = document.createElement("TABLE");
-    table.classList.add("table");
-    table.classList.add("table-bordered");
-    table.classList.add("table-sm");
-
-    const thead = document.createElement("THEAD");
-    thead.classList.add("table-dark")
-    const tbody = document.createElement("TBODY");
-
-
-    let trheader = document.createElement("TR");
-    let thleftuppercorner = document.createElement("TH")
-    trheader.appendChild(thleftuppercorner);
-
-    let _game = game.filter(
-      (item) =>
-        // item.isactive &&
-        // item.isactive == true &&
-        !item.Guesses.some((guess) => guess == -1) //alle skal have gættet før en smell vises
-
-    );
-    _game.forEach((item) => {
-      const th = document.createElement("TH");
-
-      th.append(item.name);
-      trheader.appendChild(th);
-    });
-
-    let thscore = document.createElement("TH")
-    thscore.append("Point");
-    trheader.appendChild(thscore);
-
-
-    let thrightuppercorner = document.createElement("TH")
-    trheader.appendChild(thrightuppercorner);
-
-    thead.appendChild(trheader);
-    table.appendChild(thead);
-
-    players.forEach((player, index) => {
-      const tr = document.createElement("TR");
-      const tdleft = document.createElement("TD");
-      tdleft.append(player);
-      tr.appendChild(tdleft);
-      let points = 0;
-
-      _game.forEach((item) => {
-
-        const td = document.createElement("TD");
-
-        const usersguess = item.Guesses[index];
-        let point = item.Points[index];
-        if (usersguess != -1) {
-
-          points += point;
-
-/* */           if (item.name.toLowerCase() == usersguess.toLowerCase()) {
-            //points++;
-            td.setAttribute("class", "green");
-          } else {
-            td.setAttribute("class", "red");
-          }
-        }
-        //td.append(`${usersguess} (${point})`);   
-        td.append(`${usersguess}`);
-        tr.appendChild(td);
-      });
-
-      const tdscore = document.createElement("TD")
-      tdscore.append(points);
-      tr.appendChild(tdscore);
-
-      //add playername as last cell in the row
-      const tdright = document.createElement("TD");
-      tdright.append(player);
-      tr.appendChild(tdright);
-
-      tbody.appendChild(tr);
-
-
-    });
-
-    table.appendChild(tbody);
-    fragment.appendChild(table);
-    containertotalscore.innerHTML = "";
-
-
-    containertotalscore.appendChild(fragment)
   }
 
 
@@ -441,6 +345,8 @@ document.addEventListener("DOMContentLoaded", function () {
     table.classList.add("table");
     table.classList.add("table-bordered");
     table.classList.add("table-sm");
+    table.classList.add("rounded-1");
+    table.classList.add("overflow-hidden");
 
     const thead = document.createElement("THEAD");
     thead.classList.add("table-dark")
@@ -461,14 +367,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    let _game = game.filter(
+    let _game = game2.filter(
       (item) =>
-        // item.isactive &&
-        // item.isactive == true &&
         !item.Guesses.some((guess) => guess == -1) //alle skal have gættet før en smell vises
-
     );
-    //console.log(_game.length);
 
     _game.forEach((item, index) => {
       console.log(item, index)
@@ -478,7 +380,6 @@ document.addEventListener("DOMContentLoaded", function () {
       tr.appendChild(tdleft);
 
       item.Guesses.forEach(guess => {
-
         const td = document.createElement("TD");
 
         td.append(getSmellNameById(guess));
@@ -488,9 +389,6 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           td.setAttribute("class", "text-danger");
         }
-
-
-
         tr.appendChild(td);
       });
       tbody.append(tr);
@@ -511,12 +409,11 @@ document.addEventListener("DOMContentLoaded", function () {
     players.forEach((player, index) => {
       const td = document.createElement("Td");
       let points = getPointsByUserIndex(index);
-      //let points=0;
+
       let strPoints = "rigtige";
       if (points == 1) {
         strPoints = "rigtig";
       }
-
 
       td.append(`${points} ${strPoints}`);
 
@@ -539,15 +436,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function getPointsByUserIndex(userIdx) {
     let userpoints = 0;
-    let _game = game.filter(
+
+    //alle skal have gættet før en smell vises i total score
+    let _game = game2.filter(
       (item) =>
-        // item.isactive &&
-        // item.isactive == true &&
-        !item.Guesses.some((guess) => guess == -1) //alle skal have gættet før en smell vises
+        !item.Guesses.some((guess) => guess == -1)
     );
     _game.forEach((item, index) => {
-      let point = item.Points[userIdx];
-      userpoints += point;
+      //Er smell id på runden det samme som det brugeren gætted på - så give et point
+      if (item.id == item.Guesses[userIdx]) {
+        userpoints += 1;//givet 1 point
+      }
     });
     return userpoints;
   }
@@ -589,7 +488,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     for (let index = 0; index < _round.length; index++) {
 
-      // console.log("PP", _points[index]);
+
       li = document.createElement("LI");
       spanplayer = document.createElement("SPAN");
       spanplayerguess = document.createElement("SPAN");
@@ -646,13 +545,17 @@ document.addEventListener("DOMContentLoaded", function () {
         //ikke flere spillere i denne runde
         containerplayer.style.color = "yellow";
         containerplayer.style.backgroundColor = "black";
-        containerplayer.innerText = "Alle har givet deres gæt på dette glas";
+        containerplayer.innerText = "Alle har givet deres gæt på denne lugt";
         getRoundResult(id);//vis resultatet for runden
         containersmells.innerHTML = "";
         btnGetTotalScore.hidden = false;//vis knappen "Get total score"
+        btnScanStart.hidden = false;
       }
       else {
         btnGetTotalScore.hidden = true;//skjul knappen totalscore
+
+
+
         let nextPlayerName = getPlayerNameById(nextplayerindex);
         containerplayer.innerText = nextPlayerName;
         containerplayer.style.color = "white";
@@ -671,8 +574,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /*Nulstiller game i localstorage for at starter et nyt spil*/
   function clearGame() {
-    localStorage.removeItem("game");
-    initGame(smells, players)
+    //localStorage.removeItem("game");
+    localStorage.removeItem("game2");
+    //initGame(smells, players)
+    initGame2(smells, players)
     location.reload();//genindlæs siden
   }
 
@@ -682,6 +587,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function drawSmellButtons() {
+
+    //skjul "scan start btn"
+
     containersmells.innerHTML = "";
     if (nextplayerindex == -1) return;
     containersmells.innerHTML = "Næste spiller";
@@ -689,9 +597,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //sætter en timeout før smellbuttons vises. Så ved spilleren at turen skifter.
     setTimeout(() => {
       const fragment = document.createDocumentFragment();
-      // let _game0 = game.filter((item) => item.isactive && item.isactive == true);
-      // let _game = _game0.sort((a, b) => 0.5 - Math.random());//Shuffel - så brugerne lettere kan skjule hvor på iPad de trykker
-      let _game0 = game.filter((item) => item);
+      let _game0 = smells.filter((item) => item);
       let _game = _game0.sort((a, b) => 0.5 - Math.random());//Shuffel - så brugerne lettere kan skjule hvor på iPad de trykker
 
       _game.forEach((item) => {
@@ -699,17 +605,10 @@ document.addEventListener("DOMContentLoaded", function () {
         div.setAttribute('data-id', item.id);
         div.classList.add("btn");
 
-        //div.classList.add("btn-lg");
         div.classList.add("btn-light");
         div.classList.add("me-3");
         div.classList.add("mb-2");
         div.innerHTML = item.name;
-        div.addEventListener("click", (e) => {
-          setmove(nextplayerindex, id, item.id);
-          setNextplayer();
-          drawSmellButtons();
-        });
-
         fragment.appendChild(div);
       }
       );
@@ -731,7 +630,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  
+
 
 
 
