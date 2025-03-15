@@ -1,3 +1,3 @@
 # SmellAndGuess
 
-https://smellandguess.com
+https://smellandguess.dk
