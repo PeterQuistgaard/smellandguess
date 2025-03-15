@@ -6,12 +6,14 @@ document.addEventListener("DOMContentLoaded", function () {
   let nextplayerindex = -1;
   let players;
   let smells;
-  let currentroundidx=-1
+  let currentroundidx = -1
 
   //samme smell kan vælges flere gange - brugerne skal selv blande krukkerne mellem hver runde 
   //alternaivt er der flere krukker med samme smell - evt. i forskellig intensitet
-  let shuffelmode=true;
+  let shuffelmode = true;
 
+  //console.log(defaultsmells2.da.ka)
+  // console.log(defaultsmells2.en.ka)
 
   /* #region scanner */
   const video = document.createElement("video");
@@ -26,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnScanStart = document.getElementById("btnScanStart");
   const btnScanStop = document.getElementById("btnScanStop");
 
+  const containerqrscanner = document.getElementById("containerqrscanner");
+
   function drawRect(color) {
     let oneforth = canvasElement.width / 4;
     canvas.beginPath();
@@ -34,6 +38,45 @@ document.addEventListener("DOMContentLoaded", function () {
     canvas.stroke();
   }
 
+  function drawCorners(color) {
+    canvas.lineWidth = 10
+    canvas.strokeStyle = color;
+
+    canvas.beginPath();
+    const left = canvasElement.width * 1 / 4;
+    const top = canvasElement.height * 1 / 4;
+    const right = canvasElement.width * 3 / 4;
+    const bottom = canvasElement.height * 3 / 4;
+
+    const xlenght = canvasElement.width / 10;
+    const ylenght = canvasElement.height / 10;
+
+    //top-left corner
+    canvas.moveTo(left + xlenght, top);
+    canvas.lineTo(left, top);
+    canvas.lineTo(left, top + ylenght);
+    canvas.stroke();
+
+    //top-rught corner
+    canvas.moveTo(right - xlenght, top);
+    canvas.lineTo(right, top);
+    canvas.lineTo(right, top + ylenght);
+    canvas.stroke();
+
+    //bottom-left corner
+    canvas.moveTo(left + xlenght, bottom);
+    canvas.lineTo(left, bottom);
+    canvas.lineTo(left, bottom - ylenght);
+    canvas.stroke();
+
+    //bottom-right corner
+    canvas.moveTo(right - xlenght, bottom);
+    canvas.lineTo(right, bottom);
+    canvas.lineTo(right, bottom - ylenght);
+    canvas.stroke();
+
+
+  }
 
   /*Wrap jsQR in promise make it posible to run as async/await */
   var jsQRpromise = function (myimg) {
@@ -74,7 +117,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!Number.isNaN(id)) {
           //code er ikke et nummer og derfor ikke en QR kode fra spillet
 
-          drawRect("green");
+          drawCorners("green");
           outputMessage.hidden = true;
           outputData.parentElement.hidden = true;
           outputData.innerText = code.data;
@@ -82,13 +125,14 @@ document.addEventListener("DOMContentLoaded", function () {
           //tjek om fundet id er en del af spillet!
           const isInGame = smells.some(f => f.id == id)
           if (!isInGame) {
-            console.log("Ikke en del af spillet")
+            //console.log("Ikke en del af spillet")
             containerplayer.style.color = "red";
             containerplayer.style.backgroundColor = "Black";
             containerplayer.innerText = `${getSmellNameById(id)} - men denne lugt er ikke aktiveret i dette spil!`;
             containersmells.innerHTML = "";
             btnGetTotalScore.hidden = true;//vis knappen "Get total score"
             containerplayer.hidden = false;
+            containerqrscanner.hidden = true;
             btnScanStart.hidden = false;
           }
           else {
@@ -103,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
       else {
-        drawRect("red")
+        drawCorners("red")
         outputMessage.hidden = false;
         outputData.parentElement.hidden = true;
       }
@@ -121,11 +165,32 @@ document.addEventListener("DOMContentLoaded", function () {
       track.stop();
     });
     videoElem.srcObject = null;
-    btnScanStop.hidden = true;
+    //btnScanStop.hidden = true;
+    containerqrscanner.hidden = true;
 
     setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter canvas
 
   }
+
+
+
+  let language = navigator.language; //from browser 
+  let languages = navigator.languages; //from browser 
+  let locale = Intl.getCanonicalLocales(language); //from browser validated
+
+
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+    //skip the lang value in the HTML tag for this example
+    // let zones = document.querySelectorAll('html [lang]');
+    // applyStrings(zones);
+
+    let lang = findLocaleMatch();
+    alert(langMatch)
+    // let container = document.querySelector(`html [lang*=${lang}]`);
+    // container.className = 'lang-match';
+  });
 
   function startScanner() {
     loadingMessage.hidden = false;
@@ -146,12 +211,13 @@ document.addEventListener("DOMContentLoaded", function () {
         video.play();
         requestAnimationFrame(tick);
         btnScanStart.hidden = true;
-        btnScanStop.hidden = false;
+        containerqrscanner.hidden = false;
+        //btnScanStop.hidden = false;
       }
       ).catch((err) => {
         /* handle the error */
         loadingMessage.innerText = "🎥 Unable to access video stream (please make sure you have a webcam enabled)"
-        console.log(err);
+        console.error(err);
       });;
   }
 
@@ -193,12 +259,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  containersmells.addEventListener("click",(e)=>{
-    
-    if(e.target.hasAttribute("data-id")){
+  containersmells.addEventListener("click", (e) => {
+
+    if (e.target.hasAttribute("data-id")) {
       //Hent id fra btn som er GuessId
       const dataId = e.target.getAttribute("data-id");
-      setmove(nextplayerindex,id, dataId);
+      setmove(nextplayerindex, id, dataId);
       setNextplayer();
       drawSmellButtons();
 
@@ -213,8 +279,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  console.log(players, players)
-  console.log(smells, smells)
+  // console.log(players, players)
+  // console.log(smells, smells)
 
   if (players.length === 0) {
     alert("Gå til setup og opret mindst én spiller")
@@ -283,19 +349,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //tjek if smellid alredy is in a round
     let smellidisinround = game2.some(field => field.id == id);
-    if (shuffelmode==true || smellidisinround != true) {
-      
+    if (shuffelmode == true || smellidisinround != true) {
+
       let smell = smells.find(field => field.id == id);
 
-      let newRound={
-        "id":smell.id,
-        "name":smell.name,
-        "Guesses":Array.from({ length: players.length }, () => -1)
+      let newRound = {
+        "id": smell.id,
+        "name": getSmellNameById(smell.id),
+        "Guesses": Array.from({ length: players.length }, () => -1)
       }
       game2.push(newRound);
 
       setGame2(game2);
-      currentroundidx=game2.length - 1;//set to global var
+      currentroundidx = game2.length - 1;//set to global var
 
     }
 
@@ -306,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //tag også hensyn til runde 1dx
   function setmove(userid, smellid, guessid) {
-    game2[currentroundidx].Guesses[userid] = guessid;    
+    game2[currentroundidx].Guesses[userid] = guessid;
     setGame2(game2);
   }
 
@@ -319,16 +385,16 @@ document.addEventListener("DOMContentLoaded", function () {
     //let _round = game2.find(field => field.id == smellid);
     let _round = game2[currentroundidx];
 
-    console.log("_round", _round)
+    //console.log("_round", _round)
 
     let lastElement = game2[game2.length - 1];
-    console.log("lastElementl", lastElement);
+    //console.log("lastElementl", lastElement);
 
 
 
 
     if (_round) {
-      console.log("_round.Guesses", _round.Guesses)
+      // console.log("_round.Guesses", _round.Guesses)
       return _round.Guesses;
     }
 
@@ -337,7 +403,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   //Players horizontal and Smells vertical
-  function getTotalScore1() {
+  function getTotalScore1(lang) {
+
+
     containerplayer.hidden = true;
 
     const fragment = document.createDocumentFragment();
@@ -359,13 +427,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     players.forEach((player, index) => {
       const th = document.createElement("TH");
-      th.append(player);
+      th.append(getPlayerNameById(index));
       trheader.appendChild(th);
     });
     thead.appendChild(trheader);
     table.appendChild(thead);
-
-
 
     let _game = game2.filter(
       (item) =>
@@ -373,16 +439,17 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     _game.forEach((item, index) => {
-      console.log(item, index)
+      //console.log(item, index)
       const tr = document.createElement("TR");
       const tdleft = document.createElement("TD");
-      tdleft.append(item.name);
+      //tdleft.append(item.name);
+      tdleft.append(getSmellNameById(item.id, lang));
       tr.appendChild(tdleft);
 
       item.Guesses.forEach(guess => {
         const td = document.createElement("TD");
 
-        td.append(getSmellNameById(guess));
+        td.append(getSmellNameById(guess, lang));
 
         if (item.id == guess) {
           td.setAttribute("class", "text-success");
@@ -428,8 +495,30 @@ document.addEventListener("DOMContentLoaded", function () {
     fragment.appendChild(table);
     containertotalscore.innerHTML = "";
 
-
+    console.log(table)
     containertotalscore.appendChild(fragment)
+
+
+    getLanguageButtons("total")
+
+    // let userslanguages = [...new Set(players.map((p) => p.lang))] //distinct! Hvert anvendt sprog kun en gang
+    // if (!(userslanguages.length == 1 && userslanguages[0] == "da")) {
+    //   userslanguages.forEach((lan) => {
+    //     const btn = document.createElement("BUTTON");
+    //     btn.classList.add("btn");
+    //     btn.classList.add("btn-light");
+    //     btn.classList.add("btn-sn");
+    //     const img = document.createElement("IMG");
+    //     img.setAttribute("src", `/images/flagslanguage/${lan}.png`);
+    //     btn.appendChild(img)
+
+    //     btn.addEventListener("click", () => {
+    //       getTotalScore1(lan);
+    //     })
+    //     containertotalscore.appendChild(btn);
+    //   })
+    // }
+
   }
 
 
@@ -451,21 +540,40 @@ document.addEventListener("DOMContentLoaded", function () {
     return userpoints;
   }
 
-
-  function getSmellNameById(id) {
+  const defaultlang = "da";
+  function getSmellNameById(id, lang = "da") {
     if (id === -1) return "";
-    _smell = defaultsmells.find(field => field.id == id);
-    if (_smell == undefined) {
-      return "";
+
+    _tmp = defaultsmells3.find(field => field.id == id);
+
+    if (!_tmp.hasOwnProperty("languages")) {
+      return _tmp.name;
     }
-    let name = _smell.name;
-    return name;
+    if (_tmp.languages.hasOwnProperty(lang) && _tmp.languages[lang] > "")
+      return _tmp.languages[lang];
+    else if (_tmp.languages.hasOwnProperty(defaultlang) && _tmp.languages[defaultlang] > "") {
+      return _tmp.languages[defaultlang];
+    }
+    else {
+      return _tmp.name;
+    }
   }
 
 
+  // function getSmellNameById(id) {
+  //   if (id === -1) return "";
+  //   _smell = defaultsmells.find(field => field.id == id);
+  //   if (_smell == undefined) {
+  //     return "";
+  //   }
+  //   let name = _smell.name;
+  //   return name;
+  // }
+
+
   function getPlayerNameById(id) {
-    let name = players[id];
-    return name;
+    let player = players[id];
+    return player.name;
   }
 
   //function removing class active form siblings and set active om current element
@@ -474,14 +582,48 @@ document.addEventListener("DOMContentLoaded", function () {
   //   el.classList.add('active');
   // }
 
-  function getRoundResult(id) {
+function getLanguageButtons(round_total){
+
+   //language buttons
+   let userslanguages = [...new Set(players.map((p) => p.lang))] //distinct! Hvert anvendt sprog kun en gang
+   if (!(userslanguages.length == 1 && userslanguages[0] == "da")) {
+     userslanguages.forEach((lan) => {
+       const btn = document.createElement("BUTTON");
+       btn.classList.add("btn");
+       btn.classList.add("btn-light");
+       btn.classList.add("btn-sn");
+       const img = document.createElement("IMG");
+       img.setAttribute("src", `/images/flagslanguage/${lan}.png`);
+       btn.appendChild(img)
+
+       btn.addEventListener("click", () => {
+         //
+         if(round_total=="total"){
+          console.log("TOTAL")
+            getTotalScore1(lan);
+         }
+         if(round_total=="round"){
+          console.log("ROUND")
+            getRoundResult(id, lan)     
+         }
+        
+
+
+       })
+       containertotalscore.appendChild(btn);
+     })
+   }
+}
+
+
+  function getRoundResult(id,lan) {
     containertotalscore.innerHTML = "";
 
     let _round = getRound(id);// array med gæt  
 
     const fragment = document.createDocumentFragment();
     div = document.createElement("DIV");
-    let rigtigtsvar = getSmellNameById(id);
+    let rigtigtsvar = getSmellNameById(id,lan);
     div.append(`Det rigtige svar var: ${rigtigtsvar} `)
     fragment.appendChild(div);
     ul = document.createElement("UL");
@@ -504,12 +646,8 @@ document.addEventListener("DOMContentLoaded", function () {
         spanplayerguess.setAttribute("class", "text-danger");
       }
 
-
-
-
-      spanplayer.append(`${players[index]}: `);
-      //console.log(_round[index]);
-      spanplayerguess.append(getSmellNameById(_round[index]));
+      spanplayer.append(`${getPlayerNameById(index)}: `);
+      spanplayerguess.append(getSmellNameById(_round[index],lan));
 
       li.append(spanplayer, spanplayerguess);
       ul.appendChild(li);
@@ -517,6 +655,34 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     containertotalscore.appendChild(fragment)
+
+
+    getLanguageButtons("round")
+
+
+
+    // //language buttons
+    // let userslanguages = [...new Set(players.map((p) => p.lang))] //distinct! Hvert anvendt sprog kun en gang
+    // if (!(userslanguages.length == 1 && userslanguages[0] == "da")) {
+    //   userslanguages.forEach((lan) => {
+    //     const btn = document.createElement("BUTTON");
+    //     btn.classList.add("btn");
+    //     btn.classList.add("btn-light");
+    //     btn.classList.add("btn-sn");
+    //     const img = document.createElement("IMG");
+    //     img.setAttribute("src", `/images/flagslanguage/${lan}.png`);
+    //     btn.appendChild(img)
+
+    //     btn.addEventListener("click", () => {
+    //       //getTotalScore1(lan);
+    //       console.log("id",id,lan)
+
+    //       getRoundResult(id, lan)
+    //     })
+    //     containertotalscore.appendChild(btn);
+    //   })
+    // }
+    
   }
 
 
@@ -525,12 +691,12 @@ document.addEventListener("DOMContentLoaded", function () {
   function setNextplayer() {
     containerplayer.hidden = false;
     let playersThisSmell = getRound(id);
-    console.log("playersThisSmell", playersThisSmell);
-    console.log("id", id);
+    //console.log("playersThisSmell", playersThisSmell);
+    //console.log("id", id);
     if (playersThisSmell) {
 
       nextplayerindex = playersThisSmell.findIndex(rank => rank === -1);
-      console.log("nextplayerindex", nextplayerindex);
+      //console.log("nextplayerindex", nextplayerindex);
 
       if (playersThisSmell == 0) {
         //spillet er ikke sat om med brugere
@@ -594,6 +760,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (nextplayerindex == -1) return;
     containersmells.innerHTML = "Næste spiller";
 
+
+    let _nxtPlayer = players[nextplayerindex]
+    let _lang = _nxtPlayer.lang;
+
     //sætter en timeout før smellbuttons vises. Så ved spilleren at turen skifter.
     setTimeout(() => {
       const fragment = document.createDocumentFragment();
@@ -608,7 +778,8 @@ document.addEventListener("DOMContentLoaded", function () {
         div.classList.add("btn-light");
         div.classList.add("me-3");
         div.classList.add("mb-2");
-        div.innerHTML = item.name;
+        div.innerHTML = getSmellNameById(item.id, _lang);
+        //div.innerHTML = item.name;
         fragment.appendChild(div);
       }
       );
@@ -625,11 +796,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   btnGetTotalScore.addEventListener("click", () => {
-    getTotalScore1();
+    getTotalScore1("da");
     btnGetTotalScore.hidden = true;
   });
 
-
+  // document.getElementById("btnGetTotalScoreSv").addEventListener("click", () => {
+  //   getTotalScore1("sv");
+  // });
+  // document.getElementById("btnGetTotalScoreFi").addEventListener("click", () => {
+  //   getTotalScore1("fi");
+  // });
+  // document.getElementById("btnGetTotalScoreEn").addEventListener("click", () => {
+  //   getTotalScore1("en");
+  // });
 
 
 

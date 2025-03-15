@@ -23,7 +23,7 @@
   <script src="./generatehslcolorbyname.js" defer></script>
 
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
   <script src="./setupplayers.js" defer></script>
@@ -32,17 +32,14 @@
 
 
   <style>
-
-
     #containerplayers button {
       cursor: pointer;
       margin-right: 3px;
     }
 
-    #containerplayers div { 
+    #containerplayers div {
       margin-top: 3px;
     }
-
   </style>
 
 
@@ -77,36 +74,76 @@
 
 
 
-    <!--Setup-->
-    <!-- <div class="row" style="margin-top:1200px">
-      <div class="col-md-12">
-        <!---->
-    <!-- <button id="btnShowSetup" class="btn btn-secondary">Show Setup</button>
-      </div>
-    </div> -->
 
 
     <div class="row">
       <div class="col-md-12">
-        <div id="containersetup">
+        <h2>Setup players</h2>
+        <div >
           <p>
-          <fieldset>
-            <legend>Players:</legend>
+          <div id="containersetup" class="border rounded-2 p-3" style="background-color:whitesmoke;">          
 
             <form class="row">
               <div class="col-auto">
                 <input type="text" name="txtPlayerName" id="txtPlayerName" placeholder="new player"
                   class="form-control">
               </div>
+
+
+              <div class="col-auto">
+                <!-- da -->
+                <input type="hidden" name="language" id="language" value="da" class="form-control">
+
+                <div class="dropdown" id="languageselector">
+                  <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <!-- da -->
+                    <img src="images/flagslanguage/da.png" class="imgselectedlang" style="width: 20px;" />
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="languageselector">
+                    <li><a class="dropdown-item" href="#" data-lang="da"><img src="images/flagslanguage/da.png"
+                          style="width: 20px;" /></a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-lang="en"><img src="images/flagslanguage/en.png"
+                          style="width: 20px;" /></a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-lang="es"><img src="images/flagslanguage/es.png"
+                          style="width: 20px;" /></a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-lang="sv"><img src="images/flagslanguage/sv.png"
+                          style="width: 20px;" /></a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-lang="fr"><img src="images/flagslanguage/fr.png"
+                          style="width: 20px;" /></a>
+                    </li>
+                  </ul>
+                </div>
+
+
+
+
+
+
+
+
+
+              </div>
               <div class="col-auto">
                 <button id="btnAddPlayer" class="btn btn-secondary">Add</button>
               </div>
             </form>
+
+
+
+
+
+          </div>
+
+          <div class="border rounded-2 p-3 mt-3" >
+
             <div class="container" id="containerplayers">
             </div>
-
-          </fieldset>
-
+          </div>
 
 
         </div>
@@ -121,6 +158,36 @@
   <!-- <div class="mt-5 p-2 bg-dark text-white text-center">
     <p></p>
   </div> -->
+
+
+
+  <script>
+
+
+    //bootstrap language selector
+    const languageselector = document.getElementById("languageselector")
+    const languageselectordropdownmenu = languageselector.querySelector(".dropdown-menu")
+    const imgselectedlang = languageselector.querySelector(".imgselectedlang")
+    const txtlanguage = document.getElementById("language");
+
+    languageselectordropdownmenu.addEventListener("click", (e) => {
+      //e.preventDefault()
+
+      const _a = e.target.closest(`a`)
+
+      if (_a.hasAttribute("data-lang")) {
+        let selectedlang = _a.getAttribute("data-lang")
+        //change img in menu
+        imgselectedlang.src = `images/flagslanguage/${selectedlang}.png`
+        txtlanguage.value = selectedlang
+        //do other stuf
+
+
+      }
+    }, false)
+
+
+  </script>
 </body>
 
 </html>

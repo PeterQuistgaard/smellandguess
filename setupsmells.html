@@ -18,42 +18,30 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 
+  <!-- Font Awesom -->
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
   <!-- <script src="./qrscanner.js" defer></script> -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
   <script src="./generatehslcolorbyname.js" defer></script>
 
 
-  <script src="./js/defaultsmells.js" ></script>
-  <script src="./setupsmells.js" ></script>
-
-  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-
-  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <script src="./js/defaultsmells3.js"></script>
+  <script src="./setupsmells.js"></script>
 
   <link rel="stylesheet" href="style.css">
 
 
 
-  <style>
 
-
-    #containerplayers button {
-      cursor: pointer;
-      margin-right: 3px;
-    }
-
-    #containerplayers div { 
-      margin-top: 3px;
-    }
-
-  </style>
 
 
 </head>
 
 <body>
+  <!-- nav bar -->
   <nav class="navbar navbar-expand-sm bg-dark " data-bs-theme="dark">
     <div class="container-md">
       <a class="navbar-brand" href="index.html">Smell and Guess</a>
@@ -81,60 +69,42 @@
   <div class="container-sm mt-3">
 
 
-    
+
     <div class="row">
-      <div class="col-md-12">
-      <button id="clearAllSmells" class="btn btn-danger mb-2">Clear all smells</button>
-    </div>
-      <div class="col-md-12">
-        <div id="loadingMessage" hidden>
+      <div class="col-md-12 mt-2">
+        <button id="btnScanStart" type="button" class="btn  btn-primary"><i
+          class="fa fa-qrcode  fa-3x"></i></button>
+
+        <div id="containerqrscanner" hidden class="border border-2 p-2 rounded-2 pt-5 "
+          style="position: relative; width: fit-content;background-color:whitesmoke;">
+          <button type="button" class="btn-close" id="btnScanStop" aria-label="Close"
+            style="position: absolute; top: 10px; right: 10px;"></button>
+          <div id="loadingMessage" hidden>
+          </div>
+          <canvas id="canvas" hidden></canvas>
         </div>
-        <canvas id="canvas" hidden></canvas>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 ">
-        <div class="mt-2">
-          <button id="scanstart" class="btn btn-warning">Scan start</button>
-          <button id="scanstop" class="btn btn-secondary" hidden>Scan stop</button>
+
+        <div class="col-md-12 mt-5">
+          <button id="clearAllSmells" class="btn btn-danger mb-2">Clear all smells</button>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="output" hidden class="mt-2" style="height: 40px;">
-          <div id="outputMessage"></div>
-          <div hidden><b>Data:</b> <span id="outputData"></span></div>
+
+
+        <div class="col-md-12 mt-2">
+          <div id="divsmellcount"></div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <!-- Hvem er næste player, er runden slut, er spillet slut -->
-        <div id="containerplayer" class="p-2"></div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <!--Trykknapper til de forskellige lugte-->
+
+
         <div id="containersmells" class="mt-2">
         </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12 mt-3">
-
-        <!--Tabel med total score-->
-        <!-- <div id="containertotalscore" class="table-responsive mt-2"></div>
-        <button class="btn btn-primary" id="btnGetTotalScore">Get total score</button> -->
 
       </div>
     </div>
+
+
 
   </div> <!-- container -->
 
-<!-- Footer -->
+  <!-- Footer -->
   <!-- <div class="mt-5 p-2 bg-dark text-white text-center">
     <p></p>
   </div> -->

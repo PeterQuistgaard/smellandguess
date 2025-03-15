@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <title>Smell and Guess</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
+        <div class="container-lg">
+            <a class="navbar-brand" href="index.html">Smell and Guess</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav">
+                    <a class="nav-link" href="game.html">Start spillet</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container-lg">
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12 ">
+                <h2>Lugte tilgængelig i WebApp</h1>
+                    <p>
+                        Lige nu er der <span id="smellcount"></span> lugte tilgængelig i WebApp'en.
+                    </p>
+                    <p>
+                        Her kan du udvælge og udskrive QR koder til de lugte du ønsker. <a
+                            href="qrcodeprint.html">Udskriv QR koder</a>
+                    </p>
+
+                    <ul id="smellcontainer">
+                    </ul>
+            </div>
+
+
+
+
+
+            <script src="./js/defaultsmells.js"></script>
+            <script>
+ 
+
+
+            </script>
+
+
+            <script>
+                
+                const defaultlang = "da";//hvis ikke det ønskede sprog findes
+
+                //let smells = defaultsmells.sort((a, b) =>a.name !== b.name ? a.name < b.name ? -1 : 1 : 0)
+                let smells = defaultsmells3.sort(function(a, b) {
+                    let nameA=getSmellNameById(a.id);
+                    let nameB=getSmellNameById(b.id);
+                    return nameA !== nameB ? nameA < nameB ? -1 : 1 : 0}
+                
+                )
+               // let smells = defaultsmells
+             
+                console.log(smells)
+
+                const smellcontainer = document.getElementById("smellcontainer");
+                const smellcount = document.getElementById("smellcount");
+
+                smellcount.innerText = smells.length;
+
+                smells.forEach(smell => {
+
+                    const _li = document.createElement("li");
+                    const _span = document.createElement("span");
+                  // _span.innerText = smell.name;
+
+                     _span.innerText = getSmellNameById(smell.id);
+
+                    _li.appendChild(_span)
+
+
+                    smellcontainer.appendChild(_li)
+                });
+
+
+
+
+
+                
+                function getSmellNameById(id, lang = "da") {
+                    if (id === -1) return "";
+
+
+                    console.log("ID",id)
+                    _tmp = defaultsmells3.find(field => field.id == id);
+
+                    if (!_tmp.hasOwnProperty("languages")) {
+                        return _tmp.name ;
+                    }
+                    if (_tmp.languages.hasOwnProperty(lang) && _tmp.languages[lang] > "")
+                        return _tmp.languages[lang];
+                    else if (_tmp.languages.hasOwnProperty(defaultlang) && _tmp.languages[defaultlang] > "") {
+                        return _tmp.languages[defaultlang];
+                    }
+                    else {
+                        return _tmp.name;
+                    }
+                }
+            </script>
+
+
+</body>
+
+</html>
