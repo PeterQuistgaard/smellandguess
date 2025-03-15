@@ -587,11 +587,19 @@ function getLanguageButtons(round_total){
    //language buttons
    let userslanguages = [...new Set(players.map((p) => p.lang))] //distinct! Hvert anvendt sprog kun en gang
    if (!(userslanguages.length == 1 && userslanguages[0] == "da")) {
+
+
+
+    const _div= document.createElement("DIV");
+    _div.classList.add("btn-group");
+    _div.setAttribute("role","group");
+
      userslanguages.forEach((lan) => {
        const btn = document.createElement("BUTTON");
        btn.classList.add("btn");
        btn.classList.add("btn-light");
        btn.classList.add("btn-sn");
+       btn.setAttribute("type","button")
        const img = document.createElement("IMG");
        img.setAttribute("src", `/images/flagslanguage/${lan}.png`);
        btn.appendChild(img)
@@ -610,8 +618,10 @@ function getLanguageButtons(round_total){
 
 
        })
-       containertotalscore.appendChild(btn);
+       _div.appendChild(btn);
+       
      })
+     containertotalscore.appendChild(_div);
    }
 }
 
