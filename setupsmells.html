@@ -73,6 +73,8 @@
     <div class="row">
       <div class="col-md-12 mt-2">
         <button id="btnScanStart" type="button" class="btn  btn-primary"><i class="fa fa-qrcode fa-3x p-2"></i></button>
+        <!-- <button id="btnScanStart" title="Scan" type="button" class="btn btn-primary"><iclass="fa fa-qrcode fa-2x "></i></button> -->
+
 
         <div id="containerqrscanner" hidden class="border border-2 p-2 rounded-2 pt-5 "
           style="position: relative; width: fit-content;background-color:whitesmoke;">
@@ -83,30 +85,24 @@
           <canvas id="canvas" hidden></canvas>
         </div>
 
-        <div class="col-md-12 mt-5">
-          <button id="clearAllSmells" class="btn btn-danger mb-2">Clear all smells</button>
+
+
+        <div id="outercontainersmells"  class="mt-4 border rounded-2 p-2" style="width: fit-content;background-color:whitesmoke;min-width: 400px;">
+          <div class="mb-3" style="display: flex; justify-content: space-between;">
+            <div id="divsmellcount"></div>
+            <button type="button" data-toggle="tooltip" class="btn-close" id="clearAllSmells" title="Clear all" aria-label="Close">
+          </div>
+          </button>
+          <div id="containersmells">
+        
+          </div>
         </div>
-
-
-        <div class="col-md-12 mt-2">
-          <div id="divsmellcount"></div>
-        </div>
-
-
-        <div id="containersmells" class="mt-2">
-        </div>
-
       </div>
     </div>
 
 
 
-  </div> <!-- container -->
-
-  <!-- Footer -->
-  <!-- <div class="mt-5 p-2 bg-dark text-white text-center">
-    <p></p>
-  </div> -->
+  </div> 
 
 
 

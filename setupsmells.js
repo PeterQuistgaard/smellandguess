@@ -19,7 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const scanstart = document.getElementById("btnScanStart");
   const scanstop = document.getElementById("btnScanStop");
   const clearAllSmells = document.getElementById("clearAllSmells");
+  const outercontainersmells=document.getElementById("outercontainersmells")
   const containerqrscanner = document.getElementById("containerqrscanner");
+
+
 
   function drawLine(begin, end, color) {
     canvas.beginPath();
@@ -132,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
       } else {
-        drawCorners("red")
+        drawCorners("#dc3545");//red
       }
     }
     requestAnimationFrame(tick);//Enten er der ikke ENOUGH_DATA eller også er der ikke fundet en QR kode. Så vi prøver med en ny frame!
@@ -187,15 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   scanstart.addEventListener("click", (e) => {
     e.preventDefault();
-
-
-    //hide result
-    // containertotalscore.innerHTML = "";
-    //containerplayer.innerHTML = "";
-
-    //btnGetTotalScore.hidden = true;
     startScanner();
-
   });
 
   scanstop.addEventListener("click", (e) => {
@@ -208,8 +203,6 @@ document.addEventListener("DOMContentLoaded", function () {
   clearAllSmells.addEventListener("click", (e) => {
     e.preventDefault();
     localStorage.removeItem("smells");
-    //containersmells.innerHTML="";
-
     location.reload();//genindlæs siden
   });
 
@@ -233,14 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
   smells = getSmells();
   game = getGame();
 
-
-
-
-
-
   containersmells.innerHTML = "";
-
-
   drawSmells2()
 
 
@@ -297,10 +283,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
       divsmellcount.innerHTML ="Antal registrede lugte: " + smells.length;
       clearAllSmells.hidden=false;
+      outercontainersmells.hidden=false;
     }
     else{
       //alert("Q")
       clearAllSmells.hidden=true;
+      outercontainersmells.hidden=true;
       //clearAllSmells.hidden=true
     }
 
@@ -392,62 +380,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  function setmove(userid, smellid, guessid) {
-
-
-    // let txtSmellguess = getSmellNameById(guessid);
-    // let txtSmellInGlass = getSmellNameById(smellid);
-    let point = 0;
-    if (guessid === smellid) {
-      point = 1;
-    }
-
-    game.find(field => field.id == smellid).Guesses[userid] = guessid;
-    game.find(field => field.id == smellid).Points[userid] = point;
-
-    setGame(game);
-  }
-
-
-
-
-  //hent players guesses på en smell id. 
-  //hvis ingen endnu har afgivet gæt returneres -1 som er default 
-  function getRound(smellid) {
-    //console.log("ROUND",gameround);
-    let _round = game.find(field => field.id == smellid);
-    console.log("_round", _round)
-    //if (_round === undefined) {
-    //   addSmell(smellid);//hvis smell ikke er oprettet ved init 
-    // return -1;//smell er ikke sat op tl dette spil
-    // }
-
-    if (_round) {
-      console.log("_round.Guesses", _round.Guesses)
-      return _round.Guesses;
-    }
-
-    return 0;
-  }
-
-
-
-
-  function getPointsByUserIndex(userIdx) {
-    let userpoints = 0;
-    let _game = game.filter(
-      (item) =>
-        // item.isactive &&
-        // item.isactive == true &&
-        !item.Guesses.some((guess) => guess == -1) //alle skal have gættet før en smell vises
-    );
-    _game.forEach((item, index) => {
-      let point = item.Points[userIdx];
-      userpoints += point;
-    });
-    return userpoints;
-  }
-
 
 
 
@@ -492,45 +424,6 @@ document.addEventListener("DOMContentLoaded", function () {
     location.reload();//genindlæs siden
   }
 
-
-
-
-
-
-  function drawSmellButtons() {
-    containersmells.innerHTML = "";
-    if (nextplayerindex == -1) return;
-    containersmells.innerHTML = "Næste spiller";
-
-    //sætter en timeout før smellbuttons vises. Så ved spilleren at turen skifter.
-    setTimeout(() => {
-      const fragment = document.createDocumentFragment();
-      let _game0 = game.filter((item) => item);
-      let _game = _game0.sort((a, b) => 0.5 - Math.random());//Shuffel - så brugerne lettere kan skjule hvor på iPad de trykker
-
-      _game.forEach((item) => {
-        div = document.createElement("button");
-        div.setAttribute('data-id', item.id);
-        div.classList.add("btn");
-        div.classList.add("btn-light");
-        div.classList.add("me-1");
-        div.innerHTML = item.name;
-        div.addEventListener("click", (e) => {
-          setmove(nextplayerindex, id, item.id);
-          //setNextplayer();
-          drawSmellButtons();
-        });
-
-        fragment.appendChild(div);
-      }
-      );
-
-      containersmells.innerHTML = "";
-      containersmells.appendChild(fragment);
-
-    }, 1000);
-
-  };
 
 
 

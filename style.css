@@ -35,6 +35,11 @@ body {
     /* display: none;    */
 }
 
+#containerplayer {
+
+    border-radius: 4px;
+}
+
 
 
 #containersmells {
@@ -52,7 +57,7 @@ body {
     margin-right: 5px;     
     cursor: pointer; */
 
-
+    border: solid #5e6264 5px ;
 
     background: #5e6264;
     border-radius: 4px;
@@ -62,12 +67,19 @@ body {
     margin: 5px 10px 5px 0;
     padding: 3px 7px;
 
-    cursor: pointer;    
+    cursor:auto;
+    /* cursor: pointer;     */
+}
+
+#containersmells div .fa{
+    cursor: pointer;
+
 }
 
 .currentDiv {
     /* background-color: red !important; */
-    border: solid red 3px !important;
+   
+    border-color: green !important;;
 }
 
 
