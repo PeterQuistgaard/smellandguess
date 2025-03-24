@@ -1,5 +1,7 @@
 
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
   //Global variables
   let id = -1;
@@ -7,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let players;
   let smells;
   let game;
+ 
 
 
   /* #region scanner */
@@ -258,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
+  
     setcountsmells()
   }
 
@@ -267,6 +270,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function setGame(game) {
     localStorage.setItem("game2", JSON.stringify(game));
+
+    
   };
 
   function setPlayers(players) {
@@ -281,12 +286,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (smells.length > 0) {
 
-      divsmellcount.innerHTML ="Antal registrede lugte: " + smells.length;
+      divsmellcount.innerHTML = translate("numberofregistratesmells");// 
+      divsmellcount.setAttribute("data-i18n-key","numberofregistratesmells")
       clearAllSmells.hidden=false;
       outercontainersmells.hidden=false;
     }
     else{
-      //alert("Q")
+    
       clearAllSmells.hidden=true;
       outercontainersmells.hidden=true;
       //clearAllSmells.hidden=true
@@ -311,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     //setcountsmells()
-
+   
     drawSmells2();
   }
 
@@ -436,12 +442,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (e.target.classList.contains("fa-times")) {
       const dataId = e.target.parentNode.getAttribute("data-id");
       removeSmell(dataId);    }
-
-
-
   })
 
 
 
 
 });
+
+
+
