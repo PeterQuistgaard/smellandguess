@@ -20,13 +20,16 @@
   <!-- <script src="./qrscanner.js" defer></script> -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
-  <script src="./generatehslcolorbyname.js" defer></script>
+  <script src="./js/generatehslcolorbyname.js" defer></script>
 
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
+  <script src="./js/defaultsmells.js" defer></script>
+  <script src="./js/i18nguide.js" defer></script>
+  <script src="./js/setupplayers.js" defer></script>
+  <script src="./js/languageselector.js" defer></script>
 
-  <script src="./setupplayers.js" defer></script>
   <link rel="stylesheet" href="style.css">
 
 
@@ -57,15 +60,35 @@
         <div class="navbar-nav">
           <a class="nav-link" href="game.html">Start spillet</a>
 
+          <!-- Setup -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Setup
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href=setupplayers.html">Players</a></li>
-              <li><a class="dropdown-item" href="setupsmells.html">Smells</a></li>
+              <li><button class="dropdown-item" id="btnClearGame" data-i18n="cleargame">Clear Game</button></li>
+              <li><a class="dropdown-item disabled" aria-disabled="true" href="setupplayers.html"
+                  data-i18n="setupplayers">Players</a></li>
+              <li><a class="dropdown-item" href="setupsmells.html" data-i18n="setupsmells">Smells</a></li>
             </ul>
           </li>
+
+
+          <!-- language selector begin-->
+          <li class="nav-item dropdown" id="languageselector">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img class="imgselectedlang" src="images/flagslanguage/en.png" />
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" data-lang="da"><img src="images/flagslanguage/da.png" /></a>
+              </li>
+              <li><a class="dropdown-item" href="#" data-lang="en"><img src="images/flagslanguage/en.png" /></a>
+              </li>
+            </ul>
+          </li>
+          <!-- language selector end-->
+
+
         </div>
       </div>
     </div>
@@ -78,61 +101,41 @@
 
     <div class="row">
       <div class="col-md-12">
-        <h2>Setup players</h2>
-        <div >
+        <h2 data-i18n="setupplayers">Setup players</h2>
+        <div>
           <p>
-          <div id="containersetup" class="border rounded-2 p-3" style="background-color:whitesmoke;">          
+          <div id="containersetup" class="border rounded-2 p-3" style="background-color:whitesmoke;">
 
-            <form class="row">
-              <div class="col-auto">
-                <input type="text" name="txtPlayerName" id="txtPlayerName" placeholder="new player"
-                  class="form-control">
-              </div>
-
-
-              <div class="col-auto">
-                <!-- da -->
-                <input type="hidden" name="language" id="language" value="da" class="form-control">
-
-                <div class="dropdown" id="languageselector">
-                  <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <!-- da -->
-                    <img src="images/flagslanguage/da.png" class="imgselectedlang" style="width: 20px;" />
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="languageselector">
-
-                    <li><a class="dropdown-item" href="#" data-lang="da"><img src="images/flagslanguage/da.png"
-                          style="width: 20px;" /></a>
-                    </li>
-                    <li><a class="dropdown-item" href="#" data-lang="en"><img src="images/flagslanguage/en.png"
-                          style="width: 20px;" /></a>
-                    </li>
-                    <li><a class="dropdown-item" href="#" data-lang="es"><img src="images/flagslanguage/es.png"
-                          style="width: 20px;" /></a>
-                    </li>
-                    <li><a class="dropdown-item" href="#" data-lang="sv"><img src="images/flagslanguage/sv.png"
-                          style="width: 20px;" /></a>
-                    </li>
-                    <li><a class="dropdown-item" href="#" data-lang="fi"><img src="images/flagslanguage/fi.png"
-                          style="width: 20px;" /></a>
-                    </li>
-
-
-                  </ul>
+            <form>
+              <div class="row ">
+                <div class="col-auto">
+                  <label for="txtPlayerName" class="form-label" data-i18n="newplayer">Ny spiller</label>
+                  <input type="text" name="txtPlayerName" id="txtPlayerName" class="form-control">
                 </div>
 
+                <!-- uder languageselector  begin-->
+                <div class="col-auto" id="userlanguageselector">
 
+                  <input type="hidden" name="userlanguage" id="userlanguage" value="da" class="form-control">
+                  <label for="languageselector" class="form-label" data-i18n="language">Sprog</label>
+                  <div class="dropdown" id="languageselector">
+                    <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <img src="images/flagslanguage/en.png" class="userimgselectedlang" style="width: 20px;" />
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="languageselector">
+                    </ul>
+                  </div>
 
-
-
-
-
-
+                </div>
+                <!-- user languageselector  end-->
 
               </div>
-              <div class="col-auto">
-                <button id="btnAddPlayer" class="btn btn-secondary">Add</button>
+              <div class="row "></div>
+
+                <div class="col-auto mt-4">
+                  <button id="btnAddPlayer" class="btn btn-primary" data-i18n="add">Add</button>
+                </div>
               </div>
             </form>
 
@@ -142,7 +145,7 @@
 
           </div>
 
-          <div class="border rounded-2 p-3 mt-3" >
+          <div class="border rounded-2 p-3 mt-3">
 
             <div class="container" id="containerplayers">
             </div>
@@ -151,7 +154,8 @@
 
         </div>
 
-        <div class="p-2">NB: Spillet nulstilles hvis der ændres på spillerne.</div>
+        <div class="p-2" data-i18n="gameisresetiftheplayersarechanged">NB: Spillet nulstilles hvis der ændres på
+          spillerne.</div>
       </div>
     </div>
 
@@ -164,33 +168,6 @@
 
 
 
-  <script>
-
-
-    //bootstrap language selector
-    const languageselector = document.getElementById("languageselector")
-    const languageselectordropdownmenu = languageselector.querySelector(".dropdown-menu")
-    const imgselectedlang = languageselector.querySelector(".imgselectedlang")
-    const txtlanguage = document.getElementById("language");
-
-    languageselectordropdownmenu.addEventListener("click", (e) => {
-      //e.preventDefault()
-
-      const _a = e.target.closest(`a`)
-
-      if (_a.hasAttribute("data-lang")) {
-        let selectedlang = _a.getAttribute("data-lang")
-        //change img in menu
-        imgselectedlang.src = `images/flagslanguage/${selectedlang}.png`
-        txtlanguage.value = selectedlang
-        //do other stuf
-
-
-      }
-    }, false)
-
-
-  </script>
 </body>
 
 </html>

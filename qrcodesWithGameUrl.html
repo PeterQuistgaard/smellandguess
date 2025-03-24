@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script src="./js/qrcode.min.js"></script>
+        <title>QR code for SmellAndGuess.dk</title>
+
+</head>
+
+<body>
+
+
+<h1>QR code for https://SmellAndGuess.dk</h1>
+    <div id="container"></div>
+
+    <script>
+
+        let container = document.getElementById("container");
+        const fragment = document.createDocumentFragment();
+        let q = document.createElement("DIV");
+
+        //72 dot/inc = 2.8346456693 dot/mm
+        // 30mm = 2.8346456693*30
+
+        let qrcode=new QRCode(q, {
+            text: "https://smellandguess.dk",
+            width: 2.8346456693 * 30,
+            height: 2.8346456693 * 30,
+            colorDark: "black",
+            colorLight: "white",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+      
+        console.log(q)
+
+        fragment.appendChild(q);
+
+
+        container.appendChild(fragment);
+
+    </script>
+
+</body>
+
+</html>

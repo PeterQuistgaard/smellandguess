@@ -13,16 +13,13 @@
         crossorigin="anonymous"></script>
     <title>Smell and Guess</title>
     <style>
-
-    
-    
         figure {
 
-            max-width: 400px;
-            
+            /*   max-width: 400px; */
+
         }
-    
-        figcaption{
+
+        figcaption {
             /* min-height: 100px; */
         }
     </style>
@@ -93,23 +90,24 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 ">
+            <div class="col-md-12 ">
                 <p>Oven på glaskrukkernes låg er der en QR kode. Hver QR kode svarer til en helt bestemt lugt.</p>
                 <p>
                     <img class="img-fluid rounded" alt="Smell and Guess" src="/images/gamedisplay.jpeg">
                 </p>
+                <p><hr></p>
             </div>
         </div>
 
 
 
         <div class="row align-items-end">
-            <div class="col-md-6 col-lg-4 align-text-bottom" >
+            <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
                 <p>
                 <figure class="figure">
 
                     <figcaption class="figure-caption">
-                        Start en runde med at scannes QR koden på låget af en glaskrukke.
+                        Start en runde med at scannes QR koden på låget af en glaskrukke. Det gøres med den indbyggede QR-scanner i WebApp’en til Smell and Guess.
                     </figcaption>
 
                     <img class="img-fluid rounded" alt="Scan QR code on lid" src="/images/scan.png">
@@ -120,7 +118,8 @@
 
 
 
-            <div class="col-md-6  col-lg-4 align-text-bottom" >
+            
+            <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
                 <p>
                 <figure class="figure">
                     <figcaption class="figure-caption">
@@ -136,11 +135,11 @@
 
 
 
-            <div class="col-md-6  col-lg-4">
+          
+            <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
 
                 <p>
                 <figure class="figure">
-
                     <figcaption class="figure-caption">
                         Turen går herefter videre til næste spiller - som også skal gættet hvad der er i
                         glasset.
@@ -150,7 +149,8 @@
                 </p>
             </div>
 
-            <div class="col-md-6  col-lg-4">
+           
+            <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
                 <p>
                 <figure class="figure">
                     <figcaption class="figure-caption">
@@ -160,11 +160,13 @@
                     <img class="img-fluid rounded" alt="WebApp result of round" src="/images/runderesultat.png">
                 </figure>
                 </p>
+                
             </div>
 
 
 
-            <div class="col-md-6  col-lg-4">
+           
+            <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
                 <p>
                 <figure class="figure">
                     <figcaption class="figure-caption">
@@ -182,6 +184,7 @@
 
         <div class="row">
             <div class="col-md-12 ">
+                <p><hr></p>
                 <h2>Antal spillere</h2>
                 <p>Spillet kan spilles af én person som ønsker at teste sin egen lugtesans.
                 </p>
@@ -219,23 +222,32 @@
                     <a href="testwebapp.html" target="_blank">Test af WebApp uden
                         glaskrukker</a>
                 </p>
+            </div>
+        </div>
 
 
+        <div class="row">
+            <div class="col-md-6">
                 <h2>Hvad er der i glaskrukkerne?</h2>
                 <p>
                     Man kan anvende alt der afgiver en lugt.<br>
-
                     <a href="smells.html" target="_blank">Tilgængelige lugte i WebApp'en</a>
                 </p>
 
-                <p>
+            </div>
+        </div>
 
-                </p>
+
+
+        <div class="row">
+
+            <div class="col-md-6 col-lg-4">
                 <p>
                 <figure class="figure">
                     <img class="img-fluid rounded" alt="Prepare jar for the game" src="/images/createjar.jpeg">
 
                     <figcaption class="figure-caption">
+                        <b>Sådan lavet en glaskrukke til spillet</b><br>
                         Man drysser lidt pulver i bunden af glaskrukken.
                         Er det en væske kan man komme nogle dråber på en lille tot bomuldsvat og
                         placere denne i bunden af
@@ -247,19 +259,15 @@
                     </figcaption>
                 </figure>
                 </p>
+            </div>
 
-
-                <p><b>Tørrede krydderier</b><br>
-
-
-                </p>
-
+            <div class="col-md-6 col-lg-4">
                 <p>
                 <figure class="figure">
                     <img class="img-fluid rounded" alt="Prepare jar for the game" src="/images/spices.jpeg">
 
                     <figcaption class="figure-caption">
-
+                        <b>Tørrede krydderier</b><br>
                         I de fleste husholdninger vil man have en række forskellige tørrede
                         krydderier der kan anvendes i spillet.<br>
                         Kanel, peber, timian, rosmarin, muscat og desuden en række bagekrydderier som
@@ -268,19 +276,23 @@
                 </figure>
                 </p>
 
-                <p>
-                    <b>Essenser</b>
-                </p>
+            </div>
 
+            <div class="col-md-6 col-lg-4">
                 <p>
                 <figure class="figure">
                     <img src="/images/essenser1.jpeg" class="figure-img img-fluid rounded" alt="Essences">
                     <figcaption class="figure-caption">
+                        <b>Essenser</b><br>
                         I almindelige dagligvarebutikker kan man købe essenser som mandel, vanilje og banan.
                     </figcaption>
                 </figure>
                 </p>
 
+            </div>
+
+
+            <div class="col-md-6 col-lg-4">
 
                 <p>
                 <figure class="figure">
@@ -291,47 +303,38 @@
                     </figcaption>
                 </figure>
                 </p>
+            </div>
+            
 
-
-                <p><b>Æteriske olier</b><br> </p>
+           
+            <div class="col-md-6 col-lg-4">                
                 <p>
                 <figure class="figure">
-
                     <img class="img-fluid rounded" alt="Essential oils" src="/images/essentialoils.jpeg">
                     <figcaption class="figure-caption">
-
+                        <b>Æteriske olier</b><br>
                         Man kan også købe forskellige æteriske olier som
                         lavendel, rosmarin, eucalyptus, kamfer, cedertræ, gran og mange flere.
                     </figcaption>
                 </figure>
                 </p>
-
-
+            </div>
+            <div class="col-md-6 col-lg-4">
                 <p>
-                    <b>Andre</b><br>
-                    Endelig vil man i de fleste husholdninger have lugte som f.eks. eddike,
-                    kaffe og kamillete.
-                </p>
+                    <figure class="figure">
+                     
+                        <figcaption class="figure-caption">
+                            <b>Andre lugte</b><br>
+                            Endelig vil man i de fleste husholdninger have lugte som f.eks. eddike,
+                            kaffe og kamillete.
+                        </figcaption>
+                    </figure>
+                    </p>
 
-
-
-
-                <!-- <p>Vil du teste webApp’en kan du gøre det</p> -->
-
-
-
-                <!-- <p>Måske vil du senere lave en æske til spillet - her kan du se hvordan det kan gøres.</p> -->
+          
             </div>
         </div>
 
-
-
-        <!-- <div class="row mt-5 mb-5">
-                                    <div class="col-md-12 ">
-                                        <a class="btn btn-primary" href="game.html">Start spillet</a>
-                                    </div>
-                                </div> 
-                                -->
 
 
 

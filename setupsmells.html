@@ -25,11 +25,7 @@
   <!-- <script src="./qrscanner.js" defer></script> -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
-  <script src="./generatehslcolorbyname.js" defer></script>
 
-
-  <script src="./js/defaultsmells.js"></script>
-  <script src="./setupsmells.js"></script>
 
   <link rel="stylesheet" href="style.css">
 
@@ -53,15 +49,32 @@
         <div class="navbar-nav">
           <a class="nav-link" href="game.html">Start spillet</a>
 
+
+          <!-- Setup -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Setup
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="setupplayers.html">Players</a></li>
-              <li><a class="dropdown-item" href="setupsmells.html">Smells</a></li>
+              <li><button class="dropdown-item" id="btnClearGame" data-i18n="cleargame">Clear Game</button></li>
+              <li><a class="dropdown-item " href="setupplayers.html" data-i18n="setupplayers">Players</a></li>
+              <li><a class="dropdown-item disabled" aria-disabled="true" href="setupsmells.html" data-i18n="setupsmells">Smells</a></li>
             </ul>
           </li>
+
+          <!-- language selector begin-->
+          <li class="nav-item dropdown" id="languageselector">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img class="imgselectedlang" src="images/flagslanguage/en.png" />
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" data-lang="da"><img src="images/flagslanguage/da.png" /></a>
+              </li>
+              <li><a class="dropdown-item" href="#" data-lang="en"><img src="images/flagslanguage/en.png" /></a>
+              </li>
+            </ul>
+          </li>
+          <!-- language selector end-->
         </div>
       </div>
     </div>
@@ -72,6 +85,7 @@
 
     <div class="row">
       <div class="col-md-12 mt-2">
+        <h2 data-i18n="setupsmells">Setup smells</h2>
         <button id="btnScanStart" type="button" class="btn  btn-primary"><i class="fa fa-qrcode fa-3x p-2"></i></button>
         <!-- <button id="btnScanStart" title="Scan" type="button" class="btn btn-primary"><iclass="fa fa-qrcode fa-2x "></i></button> -->
 
@@ -105,8 +119,12 @@
   </div> 
 
 
+  <script src="./js/i18nguide.js" defer></script>
+  <script src="./js/generatehslcolorbyname.js" defer></script>
+  <script src="./js/defaultsmells.js" defer></script>
 
-
+  <script src="./js/languageselector.js" defer></script>  
+  <script src="./js/setupsmells.js" defer></script>
 </body>
 
 </html>

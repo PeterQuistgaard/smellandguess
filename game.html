@@ -1,4 +1,5 @@
-<html lang="da">
+<html lang="en">
+
 
 <head>
   <meta charset="UTF-8">
@@ -24,13 +25,14 @@
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
     integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">    
 
-  <!-- <script src="./qrscanner.js" defer></script> -->
+  
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 
-  <script src="./generatehslcolorbyname.js" defer></script>
-  <script src="./js/defaultsmells.js"></script>
-  <script src="./js/translations.js"></script>
-  <script src="./main.js" defer></script>
+  <script src="./js/generatehslcolorbyname.js" defer></script>
+  <script src="./js/defaultsmells.js" defer></script>
+  <script src="./js/i18nguide.js" defer></script>
+  <script src="./js/languageselector.js" defer></script>  
+  <script src="./js/main.js" defer></script>
 
   <link rel="stylesheet" href="style.css">
 
@@ -60,14 +62,14 @@
               Setup
             </a>
             <ul class="dropdown-menu">
-              <li><button class="dropdown-item" id="btnClearGame" data-i18n-key="cleargame">Clear Game</button></li>
-              <li><a class="dropdown-item" href="setupplayers.html" data-i18n-key="setupplayers">Players</a></li>
-              <li><a class="dropdown-item" href="setupsmells.html" data-i18n-key="setupsmells">Smells</a></li>
+              <li><button class="dropdown-item" id="btnClearGame" data-i18n="cleargame">Clear Game</button></li>
+              <li><a class="dropdown-item" href="setupplayers.html" data-i18n="setupplayers">Players</a></li>
+              <li><a class="dropdown-item" href="setupsmells.html" data-i18n="setupsmells">Smells</a></li>
             </ul>
           </li>
 
           <!-- language selector -->
-          <li class="nav-item dropdown" id="languageselector" hidden>
+          <li class="nav-item dropdown" id="languageselector" >
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img class="imgselectedlang" src="images/flagslanguage/en.png" />
             </a>
@@ -75,10 +77,6 @@
               <li><a class="dropdown-item" href="#" data-lang="da"><img src="images/flagslanguage/da.png" /></a>
               </li>
               <li><a class="dropdown-item" href="#" data-lang="en"><img src="images/flagslanguage/en.png" /></a>
-              </li>
-              <li><a class="dropdown-item" href="#" data-lang="sv"><img src="images/flagslanguage/sv.png" /></a>
-              </li>
-              <li><a class="dropdown-item" href="#" data-lang="fr"><img src="images/flagslanguage/fr.png" /></a>
               </li>
             </ul>
           </li>
@@ -89,6 +87,18 @@
       </div>
     </div>
   </nav>
+
+
+<!-- <select data-i18n-switcher class="locale-switcher">
+    <option value="en">English</option>
+    <option value="da">Dansk</option>
+</select> -->
+
+
+
+
+
+
   <div class="container-sm mt-3">
 
     <div class="row">
@@ -143,7 +153,7 @@
 
         <!--Tabel med total score-->
         <div id="containertotalscore" class="table-responsive mt-2 mb-5"></div>
-        <button class="btn btn-primary" id="btnGetTotalScore" data-i18n-key="showtotalscore">Get total score</button>
+        <button class="btn btn-primary" id="btnGetTotalScore" data-i18n="showtotalscore">Get total score</button>
 
 
       </div>
@@ -159,7 +169,42 @@
 
   </div>
 
+
   <script>
+  
+
+  
+  </script>
+<!-- <script>
+
+//bootstrap language selector
+const languageselector = document.getElementById("languageselector")
+const languageselectordropdownmenu = languageselector.querySelector(".dropdown-menu")
+const imgselectedlang = languageselector.querySelector(".imgselectedlang")
+languageselectordropdownmenu.addEventListener("click", (e) => {
+  //e.preventDefault()
+
+  const _a = e.target.closest(`a`)
+
+  if (_a.hasAttribute("data-lang")) {
+    
+
+    let selectedlang = _a.getAttribute("data-lang")
+    //change img in menu
+    imgselectedlang.src = `images/flagslanguage/${selectedlang}.png`
+
+    //do other stuf
+    setLocale(selectedlang);
+
+        //Save user's language selection to localStorage
+    localStorage.setItem("lang3", JSON.stringify(selectedlang));
+
+   // console.log(translate("round-plural",{"count": 2}))
+
+  }
+}, false)
+</script> -->
+  <!-- <script>
 
 
     //bootstrap language selector
@@ -172,18 +217,27 @@
       const _a = e.target.closest(`a`)
 
       if (_a.hasAttribute("data-lang")) {
+        
+
         let selectedlang = _a.getAttribute("data-lang")
         //change img in menu
         imgselectedlang.src = `images/flagslanguage/${selectedlang}.png`
 
         //do other stuf
+        setLocale(selectedlang);
 
+            //Save user's language selection to localStorage
+        localStorage.setItem("lang3", JSON.stringify(selectedlang));
+
+       // console.log(translate("round-plural",{"count": 2}))
 
       }
     }, false)
 
 
-  </script>
+    
+
+  </script> -->
 
 </body>
 
