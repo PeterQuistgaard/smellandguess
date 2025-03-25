@@ -285,9 +285,9 @@ document.addEventListener("DOMContentLoaded", function () {
     
 
     if (smells.length > 0) {
-
-      divsmellcount.innerHTML = translate("numberofregistratesmells");// 
-      divsmellcount.setAttribute("data-i18n-key","numberofregistratesmells")
+      console.log(smells.length)
+      divsmellcount.innerHTML =`${translate("numberofregistratesmells")}: ${smells.length}` ;// 
+      divsmellcount.setAttribute("data-i18n","numberofregistratesmells")
       clearAllSmells.hidden=false;
       outercontainersmells.hidden=false;
     }
