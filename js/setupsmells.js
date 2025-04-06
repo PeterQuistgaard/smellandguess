@@ -111,8 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
       canvasElement.width = video.videoWidth;
 
       //video-frame tegnes som billede på canvas 
-      canvas.drawImage(video, 0, 0, canvasElement.width * 1, canvasElement.height * 1);
-      //canvas.drawImage(video, 0, 0, canvasElement.width*1.5, canvasElement.height*1.5);
+     canvas.drawImage(video, 0, 0, canvasElement.width * 1, canvasElement.height * 1);
+      // canvas.drawImage(video, 0, 0, canvasElement.width*1.5, canvasElement.height*1.5);
 
       var imageData = canvas.getImageData(canvasElement.width / 4, canvasElement.height / 4, canvasElement.width / 2, canvasElement.height / 2);
 
@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "id": id,
         "name": getSmellNameById(id)
       }
-      smells.push(newsmell);
+      smells.unshift(newsmell);
 
       saveSmells(smells);
       if (localStorage.getItem("game2") != null) {
@@ -355,16 +355,16 @@ document.addEventListener("DOMContentLoaded", function () {
     return JSON.parse(value);
   }
 
-
-  function getSmells() {
-    const value = localStorage.getItem("smells") || initSmells();
-    return JSON.parse(value);
-  }
-
   function initPlayers() {
     const defaultplayers = [];
     setPlayers(defaultplayers);
     return JSON.stringify(defaultplayers);
+  }
+
+
+  function getSmells() {
+    const value = localStorage.getItem("smells") || initSmells();
+    return JSON.parse(value);
   }
 
   function initSmells() {

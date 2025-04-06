@@ -17,10 +17,12 @@ let locale;
 
 
 const translationsDa = {
+    "help":"Hjælp",
     "showtotalscore":"Vis det samlede resultat",
     "cleargame": "Nulstil spillet",
     "scanstart": "Start QR skanner",
     "scanstop": "Stop QR skanner",
+    "setup": "Opsætning",
     "setupplayers": "Opsæt spillere",
     "setupsmells": "Opsæt lugte",
     "nextplayer": "Næste spiller",
@@ -45,10 +47,12 @@ const translationsDa = {
     "publish-date": "Publiseret {publishDate}"
 };
 const translationsEn = {
+  "help":"Help",
   "showtotalscore":"Show the total result",
   "cleargame": "Reset the game",
   "scanstart": "EN Start QR skanner",
   "scanstop": "EN Stop QR skanner",
+  "setup": "Setup",
   "setupplayers": "Setup players",
   "setupsmells": "Setup smells",
   "nextplayer": "Next player",

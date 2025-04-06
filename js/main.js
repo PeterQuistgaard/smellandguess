@@ -288,15 +288,15 @@ document.addEventListener("DOMContentLoaded", function () {
   // console.log(players, players)
   // console.log(smells, smells)
 
-  if (players.length === 0) {
-    alert("Gå til setup og opret mindst én spiller")
-    location.replace("/setupplayers.html")
+  if (players.length === 0 || smells.length === 0) {
+    alert("Spillet skal sættes op før det kan startes")
+    location.replace("/setup.html")
   }
-  if (smells.length === 0) {
-    alert("Gå til setup og opret lugte")
-    location.replace("/setupsmells.html")
+  // if (smells.length === 0) {
+  //   alert("Gå til setup og opret lugte")
+  //   location.replace("/setupsmells.html")
 
-  }
+  // }
 
 
   function setGame2(game2) {
@@ -483,8 +483,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //tdleft.setAttribute("data-i18n-opt",`{"count": ${_game.length}}`)
 
-
-    tdleft.setAttribute("data-i18n-key","round-plural")
+    tdleft.setAttribute("data-i18n","round-plural")
+    //tdleft.setAttribute("data-i18n-key","round-plural")
     tdleft.setAttribute("data-i18n-opt",`{"count": ${_game.length}}`)
     tdleft.append(translate("round-plural",{"count": _game.length}));
 
@@ -502,7 +502,7 @@ document.addEventListener("DOMContentLoaded", function () {
       //td.append(`${points} ${strPoints}`);      
       //data-i18n-key="setupsmells"
       //data-i18n-opt='{"count": 2}'
-      td.setAttribute("data-i18n-key","correct-plural")
+      td.setAttribute("data-i18n","correct-plural")
       td.setAttribute("data-i18n-opt",`{"count": ${points}}`)
       td.append(translate("correct-plural",{"count": points}));
     
