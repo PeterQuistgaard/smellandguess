@@ -16,11 +16,12 @@
     <script src="./js/defaultsmells.js"></script>
 
     <script src="./js/qrcode.min.js" defer></script>
+    <script src="./js/asyncqrcode.js" defer></script>
 
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js" defer></script>
 
 
-    <style>
+    <!-- <style>
         #container {
             display: flex;
             row-gap: 0px;
@@ -38,24 +39,24 @@
             display: inline-flex;
             border: solid 0.005rem lightgray;
         }
-    </style>
+    </style> -->
 
 
 
     <style>
-
-        .select-wrapper {
+         .select-wrapper {
             /* margin: 150px auto; */
-            max-width: 600px;
-            width: calc(100% - 40px);
-        }
+            /* max-width: 600px;
+            width: calc(100% - 40px);            */
+            
+        } 
 
         .select-pure__select {
             align-items: center;
-            background: #f9f9f8;
-            border-radius: 4px;
-            border: 1px solid rgba(0, 0, 0, 0.15);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+            /* background: #f9f9f8; */
+            /* border-radius: 4px; */
+            /* border: 1px solid rgba(0, 0, 0, 0.15); */
+            /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04); */
             box-sizing: border-box;
             color: #363b3e;
             cursor: pointer;
@@ -64,7 +65,7 @@
             font-weight: 500;
             justify-content: left;
             min-height: 44px;
-            padding: 5px 10px;
+            /* padding: 5px 10px; */
             position: relative;
             transition: 0.2s;
             width: 100%;
@@ -82,7 +83,7 @@
             /* max-height: 800px; */
             overflow-y: scroll;
             position: absolute;
-            top: 50px;
+            top: 60px;
             width: 100%;
             z-index: 5;
         }
@@ -104,9 +105,11 @@
             color: #e4e4e4;
             cursor: initial;
             pointer-events: none;
+            display: none;
         }
 
         .select-pure__option--hidden {
+            visibility: hidden;
             display: none;
         }
 
@@ -178,7 +181,6 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-link" href="game.html">Start spillet</a>
-
                     </div>
                 </div>
             </div>
@@ -196,25 +198,21 @@
             </div>
 
             <div class="row">
-                <div class="col-md-3 ">
-                    <p class="mb-3">
+
+                <div class="col-md-6  mb-3">
+
+                    <div class="select-wrapper form-control"> <span class="autocomplete-select"></span></div>
+                </div>
+                <div class="col-md-6 ">
+                    <p>
                         <button id="print" class="btn btn-primary">Make pdf</button>
                     </p>
                 </div>
-                <div class="col-md-9 ">
 
-                    <div class="select-wrapper"> <span class="autocomplete-select"></span></div>
-                </div>
             </div>
 
-            <!-- <div class="row">
-                <div class="col-md-6 ">
 
-Har du en lamineringsmaskine, kan det være en god ide at laminere QR-koderne før de klæbes på låget.
-                </div>
 
-            </div> -->
-            
 
         </div>
 
@@ -229,40 +227,6 @@ Har du en lamineringsmaskine, kan det være en god ide at laminere QR-koderne f�
 
         <script src="./js/selectpure.min.js"></script>
         <script>
-            
-            /*Wrap QRCode in promise to make it posible to run as async/await */
-            var asyncGenerateQR = function (txt) {
-                return new Promise((resolve, reject) => {
-                    try {
-                        const mydiv = document.createElement("DIV");
-
-                        // 72 dot/inc = 2.8346456693 dot/mm
-                        // 30mm = 2.8346456693 dot/mm *30 mm
-                        const width_mm = 30;
-                        const width_dot = 2.8346456693 * width_mm;
-
-                        new QRCode(mydiv, {
-                            text: txt,
-                            width: width_dot,
-                            height: width_dot,
-                            colorDark: "black",
-                            colorLight: "white",
-                            correctLevel: QRCode.CorrectLevel.H
-                        });
-
-                        //mydiv.children[0] is canvas-tag and mydiv.children[0] is img-tag
-                        const src = mydiv.children[0].toDataURL("image/png");//canvas toDataURL 
-                        mydiv.remove();//remove mydiv from DOM
-                        resolve(src);
-                    } catch (error) {
-                        reject(error)
-                    }
-                });
-            };
-
-
-
-
 
 
             let options = defaultsmells3.map(({ id, name }) => ({ "label": name, "value": id.toString() }));
@@ -286,9 +250,11 @@ Har du en lamineringsmaskine, kan det være en god ide at laminere QR-koderne f�
             });
 
 
-          
+
 
             document.getElementById("print").addEventListener("click", () => getSelectedSmells());
+            selectedcontainer = document.querySelector(".select-pure__label");
+
 
             async function getSelectedSmells() {
 
@@ -306,7 +272,7 @@ Har du en lamineringsmaskine, kan det være en god ide at laminere QR-koderne f�
 
                 const leftmargin = 20;
                 doc.text(`${"QR koder"} `, leftmargin, 20);//overskrift
-                
+
                 let ox = leftmargin;
                 let oy = 30;
                 const w = 16;//size on QR-kode in mm
@@ -333,7 +299,7 @@ Har du en lamineringsmaskine, kan det være en god ide at laminere QR-koderne f�
                         x = ox + (w * c) + (space * c);
 
                         if (element != undefined) {
-                            doc.addImage(await asyncGenerateQR(element.toString()), 'png', x, y, w, w);
+                            doc.addImage(await asyncqrcode(element.toString()), 'png', x, y, w, w);
                         }
                     }
 
@@ -344,19 +310,19 @@ Har du en lamineringsmaskine, kan det være en god ide at laminere QR-koderne f�
                     let y1 = oy + r * (w + space) - space / 2
                     let y2 = y1
 
-                    let x1 = ox - space 
-                    let x2 = x1 + columns * (w + space)+space
+                    let x1 = ox - space
+                    let x2 = x1 + columns * (w + space) + space
 
                     doc.line(x1, y1, x2, y2)
                 }
 
                 //lodrette skæremærker
                 for (let c = 0; c < columns + 1; c++) {
-                    let x1 = ox - space / 2 + c*(w+space)
-                    let x2 = x1 
+                    let x1 = ox - space / 2 + c * (w + space)
+                    let x2 = x1
 
-                    let y1 = oy - space   
-                    let y2 = y1 + rows * (w + space) +space
+                    let y1 = oy - space
+                    let y2 = y1 + rows * (w + space) + space
 
                     doc.line(x1, y1, x2, y2)
 

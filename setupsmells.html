@@ -58,12 +58,15 @@
             <ul class="dropdown-menu">
               <li><button class="dropdown-item" id="btnClearGame" data-i18n="cleargame">Clear Game</button></li>
               <li><a class="dropdown-item " href="setupplayers.html" data-i18n="setupplayers">Players</a></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true" href="setupsmells.html" data-i18n="setupsmells">Smells</a></li>
+              <li><a class="dropdown-item disabled" aria-disabled="true" href="setupsmells.html"
+                  data-i18n="setupsmells">Smells</a></li>
             </ul>
           </li>
 
-          <!-- language selector begin-->
-          <li class="nav-item dropdown" id="languageselector">
+
+
+           <!-- #region language selector -->
+           <li class="nav-item dropdown" id="languageselector" >
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img class="imgselectedlang" src="images/flagslanguage/en.png" />
             </a>
@@ -74,18 +77,36 @@
               </li>
             </ul>
           </li>
-          <!-- language selector end-->
+          <!-- #endregion language selector -->
+
+
+
         </div>
       </div>
     </div>
   </nav>
   <div class="container-sm mt-3">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="setup.html" data-i18n="setup">Setup</a></li>
+        <li class="breadcrumb-item active" aria-current="page" data-i18n="setupsmells">Setup smells</li>
+      </ol>
+    </nav>
 
 
 
     <div class="row">
-      <div class="col-sm-12  col-lg-6 mt-2">
+      <div class="col-sm-12  col-lg-8 mt-2">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#helpSetup">
+          <i class="fa fa-question-circle" aria-hidden="true"></i> <span data-i18n="help">Help</span>
+        </button>
+
         <h2 data-i18n="setupsmells">Setup smells</h2>
+
+
+
         <button id="btnScanStart" type="button" class="btn  btn-primary"><i class="fa fa-qrcode fa-3x p-2"></i></button>
         <!-- <button id="btnScanStart" title="Scan" type="button" class="btn btn-primary"><iclass="fa fa-qrcode fa-2x "></i></button> -->
 
@@ -100,33 +121,65 @@
         </div>
 
 
-        <div id="outercontainersmells"  class="mt-4 form-control" >
-        <!-- <div id="outercontainersmells"  class="mt-4 border rounded-2 p-2" style="width: fit-content;background-color:whitesmoke;min-width: 400px;"> -->
+        <div id="outercontainersmells" class="mt-4 form-control">
+          <!-- <div id="outercontainersmells"  class="mt-4 border rounded-2 p-2" style="width: fit-content;background-color:whitesmoke;min-width: 400px;"> -->
           <div class="mb-3" style="display: flex; justify-content: space-between;">
             <div id="divsmellcount"></div>
-            <button type="button" data-toggle="tooltip" class="btn-close" id="clearAllSmells" title="Clear all" aria-label="Close">
+            <button type="button" data-toggle="tooltip" class="btn-close" id="clearAllSmells" title="Clear all"
+              aria-label="Close">
           </div>
-        
+
           <div id="containersmells">
-        
+
           </div>
-
-
-
         </div>
+
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="helpSetup" tabindex="-1" aria-labelledby="Hjælp - Setup" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"><span data-i18n="help">Help</span> - <span  data-i18n="setupsmells">Setup lugte</span></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>
+                  Scan QR-koden på lågene af de glaskrukkerne som skal indgå i spillet.
+                </p>
+                <p>Hvis du endnu ikke har et spil kan du teste med nedenstående billede.</p>
+                <figure class="figure">
+                  <img class="img-fluid rounded" alt="image whit jars for testing" src="/images/jarsfortest.jpeg">
+
+                  <figcaption class="figure-caption">
+                      <b>Billede til test</b><br>
+                      Dette billede kan anvedes til test af WebApp'en. Skriv billedet ud og brug det i stedet for glaskrupper med QR-kode på låget.
+
+                  </figcaption>
+              </figure>
+
+        
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
 
 
-  </div> 
+  </div>
+
 
 
   <script src="./js/i18nguide.js" defer></script>
   <script src="./js/generatehslcolorbyname.js" defer></script>
   <script src="./js/defaultsmells.js" defer></script>
 
-  <script src="./js/languageselector.js" defer></script>  
+  <script src="./js/languageselector.js" defer></script>
   <script src="./js/setupsmells.js" defer></script>
 </body>
 
