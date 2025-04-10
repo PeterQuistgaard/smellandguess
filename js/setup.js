@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             //så er mindst en smell oprettet
 
             div.innerText = translate("setup03")
+            div.setAttribute("data-i18n","setup03")           
             
             containersmells.appendChild(div);
             ul = document.createElement("UL");
@@ -105,10 +106,16 @@ document.addEventListener("DOMContentLoaded", async function () {
             });
 
             containersmells.appendChild(ul);
+            containersmells.classList.add("alert")
+            containersmells.classList.add("alert-secondary")
         }
         else {
             div.innerText =translate("setup09") //"Der er ikke oprettet nogen lugte i det aktuelle spil."
+            div.setAttribute("data-i18n","setup09")  
             containersmells.appendChild(div);
+            
+            containersmells.classList.add("alert")
+            containersmells.classList.add("alert-danger")
         }
 
     }
@@ -119,10 +126,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     function drawContainerPlayers(players) {
         const fragment = document.createDocumentFragment();
 
-        div = document.createElement("DIV");
+        let div = document.createElement("DIV");
+
+
         if (players[0]) {
             //så er mindst en spiller oprettet
             div.innerText =translate("setup02") //"Disse spiller er oprettet i det aktuelle spil:"
+            div.setAttribute("data-i18n","setup02")     
             fragment.appendChild(div);
 
             players.forEach((item) => {
@@ -140,12 +150,18 @@ document.addEventListener("DOMContentLoaded", async function () {
             );
             containerplayers.innerHTML = "";
             containerplayers.appendChild(fragment);
+            
+            containerplayers.classList.add("alert")
+            containerplayers.classList.add("alert-secondary")
 
         }
         else {
             div.innerText =translate("setup10") //"Der er ikke oprettet nogen spillere i det aktuelle spil."
+            div.setAttribute("data-i18n","setup10")  
+            //div.style.color="red";
             containerplayers.appendChild(div);
-
+            containerplayers.classList.add("alert")
+            containerplayers.classList.add("alert-danger")
         }
 
 
