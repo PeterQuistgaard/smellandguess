@@ -1,214 +1,170 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex">
+
+    <title>Settings</title>
+
+
+
     <!--Bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <title>Setup</title>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"
+        defer></script>
+
+
+    <!--Font Awesome 4.7-->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+    <script src="./js/defaultsmells.js" defer></script>
+    <script src="./js/i18nguide.js" defer></script>
+    <script src="./js/languageselector.js" defer></script>
+
+    <script src="./js/setup.js" defer></script>
+
+
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+
+    <link rel="stylesheet" href="style.css">
+
+
+
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
+<body> 
+    
+    <!-- #region Nav menu -->
+    <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
         <div class="container-md">
-            <a class="navbar-brand" href="index.html">Smell and Guess</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#">Smell and Guess</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link" href="game.html">Start spillet</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="game.html" data-i18n="startgame">Start spillet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#" data-i18n="setup">Settings</a>
+                    </li>
+                </ul>
+
+                <!-- #region language selector -->
+                <div class="nav-item dropdown ms-auto" id="languageselector">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img class="imgselectedlang" src="images/flagslanguage/en.png" />
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-md-end">
+                        <li><a class="dropdown-item" href="#" data-lang="da"><img
+                                    src="images/flagslanguage/da.png" /></a>
+                        </li>
+                        <li><a class="dropdown-item" href="#" data-lang="en"><img
+                                    src="images/flagslanguage/en.png" /></a>
+                        </li>
+
+                    </ul>
                 </div>
+                <!-- #endregion language selector -->
             </div>
         </div>
     </nav>
-    <div class="container-md">
+    <!-- #endregion Nav menu -->
 
+
+    <div class="container-md mt-3">
 
         <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Setup</li>
+                <li class="breadcrumb-item"><a href="setup.html" data-i18n="setup">Setup</a></li>
+                <li class="breadcrumb-item active" aria-current="page" data-i18n="setupplayers">Setup players</li>
             </ol>
         </nav>
+
+        <div class="row">
+            <div class="col-md-12">
+                <!-- #region Button trigger modal -->
+                <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal"
+                    data-bs-target="#helpSetup">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i> <span data-i18n="help">Help</span>
+                </button>
+                <!-- #endregion Button trigger modal -->
+                <h2 data-i18n="setup">Settings</h2>
+            </div>
+        </div>
+
 
 
         <div class="row">
             <div class="col-md-12 ">
-                <h2 class="mt-3">Setup</h2>
-                <p>
-                    Før man kan spille Smell and Guess, skal spillet have opsat spillere og lugte.
+
+                <p data-i18n="setup01">
+                    Før man kan spille Smell and Guess, skal spillet have oprettet spillere og lugte.
                 </p>
 
-                <h4>Spillere</h4>
-                <p id="containerplayers"></p>
-                <p>
-                    Opret eller ret spillere med dette link <a href="setupplayers.html" target="_blank">Setup spillere</a>
-                </p>
+                <h4 data-i18n="setup06">Spillere</h4>
 
-
-                <h4>Lugte</h4>
-                <p id="containersmells"></p>
-                <p>
-                    <!-- WebApp skal vide hvilke lugte der skal være med i spillet.</br>
-                                                Scan alle glas på billedet vha. dette link.</br> -->
-                    Opret eller ret lugte med dette link <a href="setupsmells.html" target="_blank">Setup lugte</a>
-                </p>
-
+                <p class="form-control" id="containerplayers"></p>
 
                 <p>
-                    Her er et billede af nogle glaskrukker med QR-koder. Det kan du anvende til at teste
-                    WebApp'en, hvis du endnu ikke har et spil med glaskrupper.<br />
-                    Skriv billedet ud eller brug en ekstra mobil/tablet.
-
+                    <span data-i18n="setup04">Opret eller ret spillere med </span> <a href="setupplayers.html" data-i18n="setupplayers">Setup spillere</a>
                 </p>
+
+                <hr>
+                <h4  data-i18n="setup07">Lugte</h4>
+                <p class="form-control" id="containersmells2"></p>
                 <p>
-                    <img class="img-fluid rounded" alt="Jars for test" src="/images/jarsfortest.jpeg">
+                    <span data-i18n="setup05">Opret eller ret lugte med</span> <a href="setupsmells.html" data-i18n="setupsmells">Setup lugte</a>
                 </p>
+                <hr>
 
+                <h3  data-i18n="setup08">Spillet</h3>
+                <div id="currentgame"></div>
 
-                
-
-
-
-                <h3>Start spillet</h3>
-                <p>
-                    Når der er oprettet spillere og lugte i spillet kan det startes.</br>
-                    Scan et af glassene når spillet er startet.</br>
-                    <a href="game.html" target="_blank">Start spillet</a>
-                </p>
-
-
+                </br>
+                <a href="game.html" class="btn btn-primary" data-i18n="startgame">Start spillet</a>
 
 
             </div>
+        </div>
+
+
+        <!-- #region Modal -->
+        <div class="modal fade" id="helpSetup" tabindex="-1" aria-labelledby="Hjælp - Setup" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"><span data-i18n="help">Help</span> - <span
+                                data-i18n="setup">Settings</span></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Test</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- #endregion Modal -->
+
+    </div> <!-- container -->
 
 
 
 
 
 
-
-            <!-- <div class="mt-5 p-2 bg-dark text-white text-center">
-        <p></p>
-    </div> -->
-
-
-
-
-            <script>
-
-
-
-
-                document.addEventListener("DOMContentLoaded", async function () {
-                    //Global variables
-
-
-                    //references to UI elements
-                    const containerplayers = document.getElementById("containerplayers");
-                    const containersmells = document.getElementById("containersmells");
-
-                    const userlanguage = document.getElementById("userlanguage");
-
-
-                    function getPlayers() {
-                        const value = localStorage.getItem("players") || initPlayers();
-                        return JSON.parse(value);
-                    }
-
-                    function initPlayers() {
-                        const defaultplayers = [];
-                        setPlayers(defaultplayers);
-                        return JSON.stringify(defaultplayers);
-                    }
-
-                    function getSmells() {
-                        const value = localStorage.getItem("smells") || initSmells();
-                        return JSON.parse(value);
-                    }
-
-                    function initSmells() {
-                        return JSON.stringify([]);
-                    }
-
-
-                    function drawSmells2(smells) {
-
-                        console.log(smells)                        
-
-                        if (smells[0]) {
-                            //så er mindst en smell oprettet
-                            div = document.createElement("DIV");
-                            div.innerText = "Disse lugte er oprettet i dette spil:"
-                            containersmells.appendChild(div);
-                            ul = document.createElement("UL");                           
-
-                            smells.forEach((item) => {
-                                li = document.createElement("LI");
-                                li.innerHTML = item.name;
-                                ul.appendChild(li);
-                            });
-
-                            containersmells.appendChild(ul);
-                        }
-
-                    }
-
-
-
-
-                    function drawContainerPlayers(players) {
-                        const fragment = document.createDocumentFragment();
-
-                        if (players[0]) {
-                            //så er mindst en spiller oprettet
-                            div = document.createElement("DIV");
-                            div.innerText = "Disse spiller er oprettet i dette spil:"
-                            fragment.appendChild(div);
-
-                            players.forEach((item) => {
-                                div = document.createElement("DIV");
-                                let img = document.createElement("IMG");
-                                img.classList.add("mx-2");
-                                img.style.width = "20px";
-                                img.setAttribute("src", `/images/flagslanguage/${item.lang}.png`)
-                                span = document.createElement("SPAN");
-                                span.innerText = item.name;
-                                div.append(span);
-                                div.append(img)
-                                fragment.appendChild(div);
-                            }
-                            );
-                            containerplayers.innerHTML = "";
-                            containerplayers.appendChild(fragment);
-
-                        }
-
-
-
-                    };
-
-
-                    let players = getPlayers();
-                    let smells = getSmells();
-
-
-                    drawContainerPlayers(players);
-                    drawSmells2(smells)
-
-
-
-
-                });
-            </script>
 
 
 

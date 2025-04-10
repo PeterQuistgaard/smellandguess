@@ -37,54 +37,47 @@
 </head>
 
 <body>
-  <!-- nav bar -->
-  <nav class="navbar navbar-expand-sm bg-dark " data-bs-theme="dark">
+   <!-- #region Nav menu -->
+   <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
     <div class="container-md">
-      <a class="navbar-brand" href="index.html">Smell and Guess</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" href="game.html">Start spillet</a>
-
-
-          <!-- Setup -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Setup
-            </a>
-            <ul class="dropdown-menu">
-              <li><button class="dropdown-item" id="btnClearGame" data-i18n="cleargame">Clear Game</button></li>
-              <li><a class="dropdown-item " href="setupplayers.html" data-i18n="setupplayers">Players</a></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true" href="setupsmells.html"
-                  data-i18n="setupsmells">Smells</a></li>
+        <a class="navbar-brand" href="index.html">Smell and Guess</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="game.html" data-i18n="startgame">Start spillet</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link"  href="setup.html" data-i18n="setup">Settings</a>
+                </li>
             </ul>
-          </li>
 
+            <!-- #region language selector -->
+            <div class="nav-item dropdown ms-auto" id="languageselector">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <img class="imgselectedlang" src="images/flagslanguage/en.png" />
+                </a>
 
+                <ul class="dropdown-menu dropdown-menu-md-end">
+                    <li><a class="dropdown-item" href="#" data-lang="da"><img
+                                src="images/flagslanguage/da.png" /></a>
+                    </li>
+                    <li><a class="dropdown-item" href="#" data-lang="en"><img
+                                src="images/flagslanguage/en.png" /></a>
+                    </li>
 
-           <!-- #region language selector -->
-           <li class="nav-item dropdown" id="languageselector" >
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img class="imgselectedlang" src="images/flagslanguage/en.png" />
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" data-lang="da"><img src="images/flagslanguage/da.png" /></a>
-              </li>
-              <li><a class="dropdown-item" href="#" data-lang="en"><img src="images/flagslanguage/en.png" /></a>
-              </li>
-            </ul>
-          </li>
-          <!-- #endregion language selector -->
-
-
-
+                </ul>
+            </div>
+            <!-- #endregion language selector -->
         </div>
-      </div>
     </div>
-  </nav>
+</nav>
+<!-- #endregion Nav menu -->
   <div class="container-sm mt-3">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
       <ol class="breadcrumb">
@@ -97,7 +90,7 @@
 
 
     <div class="row">
-      <div class="col-sm-12  col-lg-8 mt-2">
+      <div class="col-sm-12  mt-2">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#helpSetup">
           <i class="fa fa-question-circle" aria-hidden="true"></i> <span data-i18n="help">Help</span>
@@ -146,17 +139,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p>
+                <p data-i18n="setup13">
                   Scan QR-koden på lågene af de glaskrukkerne som skal indgå i spillet.
                 </p>
-                <p>Hvis du endnu ikke har et spil kan du teste med nedenstående billede.</p>
+                <p data-i18n="setup14">Hvis du endnu ikke har et spil kan du teste med nedenstående billede.</p>
                 <figure class="figure">
-                  <img class="img-fluid rounded" alt="image whit jars for testing" src="/images/jarsfortest.jpeg">
+                  <img class="img-fluid rounded" alt="image with jars for testing" src="/images/jarsfortest.jpeg">
 
                   <figcaption class="figure-caption">
-                      <b>Billede til test</b><br>
-                      Dette billede kan anvedes til test af WebApp'en. Skriv billedet ud og brug det i stedet for glaskrupper med QR-kode på låget.
-
+                      <b  data-i18n="setup15">Billede til test</b><br>
+                      <span  data-i18n="setup16">Dette billede kan anvendes til test af WebApp'en. Skriv billedet ud og brug det i stedet for glaskrukker med QR-kode på låget.</span>
                   </figcaption>
               </figure>
 

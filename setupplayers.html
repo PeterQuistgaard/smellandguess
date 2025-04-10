@@ -49,50 +49,50 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
-    <div class="container-md">
-      <a class="navbar-brand" href="index.html">Smell and Guess</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link" href="game.html">Start spillet</a>
+    <!-- #region Nav menu -->
+    <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
+      <div class="container-md">
+          <a class="navbar-brand" href="index.html">Smell and Guess</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="game.html" data-i18n="startgame">Start spillet</a>
+                  </li>
+                  
+                  <li class="nav-item">
+                      <a class="nav-link"  href="setup.html" data-i18n="setup">Settings</a>
+                  </li>
+              </ul>
 
-          <!-- Setup -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Setup
-            </a>
-            <ul class="dropdown-menu">
-              <li><button class="dropdown-item" id="btnClearGame" data-i18n="cleargame">Clear Game</button></li>
-              <li><a class="dropdown-item disabled" aria-disabled="true" href="setupplayers.html"
-                  data-i18n="setupplayers">Players</a></li>
-              <li><a class="dropdown-item" href="setupsmells.html" data-i18n="setupsmells">Smells</a></li>
-            </ul>
-          </li>
+              <!-- #region language selector -->
+              <div class="nav-item dropdown ms-auto" id="languageselector">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                      aria-expanded="false">
+                      <img class="imgselectedlang" src="images/flagslanguage/en.png" />
+                  </a>
 
+                  <ul class="dropdown-menu dropdown-menu-md-end">
+                      <li><a class="dropdown-item" href="#" data-lang="da"><img
+                                  src="images/flagslanguage/da.png" /></a>
+                      </li>
+                      <li><a class="dropdown-item" href="#" data-lang="en"><img
+                                  src="images/flagslanguage/en.png" /></a>
+                      </li>
 
-          <!-- #region language selector -->
-          <li class="nav-item dropdown" id="languageselector">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img class="imgselectedlang" src="images/flagslanguage/en.png" />
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" data-lang="da"><img src="images/flagslanguage/da.png" /></a>
-              </li>
-              <li><a class="dropdown-item" href="#" data-lang="en"><img src="images/flagslanguage/en.png" /></a>
-              </li>
-            </ul>
-          </li>
-          <!-- #endregion language selector -->
-
-
-        </div>
+                  </ul>
+              </div>
+              <!-- #endregion language selector -->
+          </div>
       </div>
-    </div>
   </nav>
+  <!-- #endregion Nav menu -->
+
+
+
   <div class="container-md mt-3">
 
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
@@ -180,8 +180,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Opret de spiller der skal deltage i spillet.</p>
-        <p>For hver spiller kan der vælges et sprog - så får spilleren præsenteret lugtene på det sprog.</p>
+        <p  data-i18n="setup11">Opret de spiller der skal deltage i spillet.</p>
+        <p data-i18n="setup12">For hver spiller kan der vælges et sprog - så får spilleren præsenteret lugtene på det sprog.</p>
 
         
       </div>
