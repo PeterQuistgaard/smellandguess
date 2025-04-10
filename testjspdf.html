@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+          jsPDF - Create PDFs with HTML5 JavaScript Library
+      </title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js" defer></script>
+</head>
+ 
+<body>
+
+    <h3>
+          Generate PDF file using jsPDF library
+      </h3>
+    <div class="container">                    
+        <input  type="button" value="Create PDF"               
+                onclick="generatePDF()">
+    </div> 
+ 
+    <script type="text/javascript">
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF("p","mm","a0");//l or p for landscape or portal,unit mm, 
+
+            let jar_diameter=40.55;
+            let jar_height=50;
+
+            let pw = doc.internal.pageSize.getWidth();
+            let ph=  doc.internal.pageSize.getHeight();        
+            //let fz=doc.internal.getFontSize();
+            //console.log(fz)  
+
+
+
+
+            let s1=jar_diameter*4;//kort side
+            let s2=jar_diameter*5; //lang side
+            let t=6;//cardboard thickness
+            let h=jar_height+t; //box innerheight + t
+            let hi=h;//inner wrap height
+            let flapheight=5*t//
+
+
+            
+
+            let ox=pw/2;
+            let oy=ph/2;
+
+            //ox=-10;
+            //oy=-10
+
+
+
+
+            // doc.text("10,10", 10, 10);//1cm, 1cm
+            // doc.text("20,20", 20, 20);//2cm, 2cm
+            // doc.text("5,5", 5, 5);//            
+            // doc.text("1,1", 1, 1);//
+
+            doc.setDrawColor(255,0,0);
+            
+            doc.rect(ox-(s1/2), oy-(s2/2), s1, s2); // grundpladen
+
+            //væggene
+            doc.rect(ox+s1/2+t, oy-(s2/2), h, s2); // right side
+            doc.rect(ox-s1/2-t-h, oy-(s2/2), h, s2); // left side
+
+            doc.rect(ox-(s1/2)-t, oy-(s2/2)-t-h, s1+2*t, h); // øverste side
+            doc.rect(ox-(s1/2)-t, oy+(s2/2)+t, s1+2*t, h); // nederste side
+            doc.setDrawColor(255,0,255);
+
+            doc.setDrawColor(255,125,0);
+            //top på væggene
+            doc.rect(ox+s1/2+t+h, oy-(s2/2)-t, t, s2+2*t); // right side top off wall
+            doc.rect(ox-s1/2-t-h-t, oy-(s2/2)-t, t, s2+2*t); // left side top off wall
+
+
+            //skrå hjørner
+            let linestart;
+            linestartX=ox-s1/2-t;
+            linestartY=oy-s2/2-t-h;
+            doc.line(linestartX,linestartY,linestartX+t,linestartY-t)//øverst til venstre
+            linestartX=ox+s1/2+t;
+            linestartY=oy-s2/2-t-h;
+            doc.line(linestartX,linestartY,linestartX-t,linestartY-t)//øverst til højre
+            linestartX=ox-s1/2-t;
+            linestartY=oy+s2/2+t+h;
+            doc.line(linestartX,linestartY,linestartX+t,linestartY+t)//nederst til venstre
+            linestartX=ox+s1/2+t;
+            linestartY=oy+s2/2+t+h;
+            doc.line(linestartX,linestartY,linestartX-t,linestartY+t)//nederst til højre
+
+
+
+
+
+            //Det er havner på indersiden af væggene
+            //doc.setDrawColor(255,255,0);
+            doc.rect(ox+s1/2+t+h+t, oy-(s2/2), hi, s2); // right side inner            
+            doc.rect(ox-s1/2-t-h-t-hi, oy-(s2/2), hi, s2); // left side inner
+            doc.rect(ox-(s1/2), oy-(s2/2)-t-h-t-hi, s1, hi);// øverste side inner
+            doc.rect(ox-(s1/2), oy+(s2/2)+t+h+t, s1, hi);// nederste side inner
+
+
+
+
+
+            //flapper
+            doc.rect(ox+s1/2+t+1, oy-(s2/2)-t-flapheight, h-1, flapheight); // right side upper flap
+            doc.rect(ox+s1/2+t+1, oy+(s2/2)+t, h-1, flapheight); // right side lower flap
+
+            doc.rect(ox-s1/2-t-h, oy-(s2/2)-t-flapheight, h-1,flapheight ); // left side upper flap
+            doc.rect(ox-s1/2-t-h, oy+(s2/2)+t, h-1,flapheight ); // left side lower flap
+
+            doc.save("newFile.pdf");                
+        }            
+    </script>        
+</body>
+</html>
