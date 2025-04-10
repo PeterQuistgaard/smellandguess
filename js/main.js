@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // console.log(smells, smells)
 
   if (players.length === 0 || smells.length === 0) {
-    alert("Spillet skal sættes op før det kan startes")
+    //alert("Spillet skal sættes op før det kan startes")
     location.replace("/setup.html")
   }
   // if (smells.length === 0) {
@@ -771,7 +771,7 @@ function getLanguageButtons(round_total){
 
 
 
-  btnClearGame.addEventListener("click", clearGame)
+  //btnClearGame.addEventListener("click", clearGame)
 
   /*Nulstiller game i localstorage for at starter et nyt spil*/
   function clearGame() {

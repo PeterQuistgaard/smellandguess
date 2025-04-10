@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-
+//#region change
   function drawDropdown() {
     const fragment = document.createDocumentFragment();
 
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }, false)
 
-
+//#endregion
 
 
   //add listener to all elements in containerplayers

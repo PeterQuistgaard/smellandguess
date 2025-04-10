@@ -17,12 +17,29 @@ let locale;
 
 
 const translationsDa = {
+    "setup01":"Før man kan spille Smell and Guess, skal spillet have oprettet spillere og lugte.",
+    "setup02":"Disse spiller er oprettet i det aktuelle spil:",   
+    "setup03":"Disse lugte er oprettet i det aktuelle spil:",      
+    "setup04":"Opret eller ret spillere med",     
+    "setup05":"Opret eller ret lugte med", 
+    "setup06":"Spillere",      
+    "setup07":"Lugte",       
+    "setup08":"Spillet", 
+    "setup09":"Der er ikke oprettet nogen lugte i det aktuelle spil.",
+    "setup10":"Der er ikke oprettet nogen spillere i det aktuelle spil.",     
+    "setup11":"Opret de spiller der skal deltage i spillet.",       
+    "setup12":"For hver spiller kan der vælges et sprog - så får spilleren præsenteret lugtene på det sprog.",   
+    "setup14":"Hvis du endnu ikke har et spil kan du teste med nedenstående billede.",  
+    "setup15":"Billede til test",  
+    "setup16":"Dette billede kan anvendes til test af WebApp'en. Skriv billedet ud og brug det i stedet for glaskrukker med QR-kode på låget.",  
+    "setup13":"Scan QR-koden på lågene af de glaskrukkerne som skal indgå i spillet.",  
     "help":"Hjælp",
+    "startgame":"Start spillet",
     "showtotalscore":"Vis det samlede resultat",
     "cleargame": "Nulstil spillet",
     "scanstart": "Start QR skanner",
     "scanstop": "Stop QR skanner",
-    "setup": "Opsætning",
+    "setup": "Indstillinger",
     "setupplayers": "Opsæt spillere",
     "setupsmells": "Opsæt lugte",
     "nextplayer": "Næste spiller",
@@ -39,6 +56,10 @@ const translationsDa = {
       "one": "{count} runde",
       "other": "{count} runder"
     },
+    "gameinprogress-plural": {
+      "one": "Et spil er i gang, en runde er spillet.",
+      "other": "Et spil er i gang, {count} runder er spillet."
+    },
     "correct-plural": {
       "one": "{count} rigtig",
       "other": "{count} rigtige"
@@ -47,12 +68,29 @@ const translationsDa = {
     "publish-date": "Publiseret {publishDate}"
 };
 const translationsEn = {
+  "setup01":"Before you can play Smell and Guess, the game must have created players and smells.",
+  "setup02":"These players are created in the current game:",   
+  "setup03":"These smells are created in the current game:",      
+  "setup04":"Create or edit players with",     
+  "setup05":"Create or edit smells with",  
+  "setup06":"Players",      
+  "setup07":"Smells",       
+  "setup08":"The game", 
+  "setup09":"No smells have been created in the current game.",
+  "setup10":"No players have been created in the current game.",      
+  "setup11":"Create the players who will participate in the game.",       
+  "setup12":"For each player, a language can be selected - then the player will be presented with the smells in that language.", 
+  "setup13":"Scan the QR code on the lids of the glass jars that will be included in the game.",  
+  "setup14":"If you don't have a game yet, you can test with the image below.",  
+  "setup15":"Image for testing",  
+  "setup16":"This image can be used to test the WebApp. Print the image and use it instead of glass jars with QR codes on the lids.",  
   "help":"Help",
+  "startgame":"Start the game",
   "showtotalscore":"Show the total result",
   "cleargame": "Reset the game",
   "scanstart": "EN Start QR skanner",
   "scanstop": "EN Stop QR skanner",
-  "setup": "Setup",
+  "setup": "Settings",
   "setupplayers": "Setup players",
   "setupsmells": "Setup smells",
   "nextplayer": "Next player",
@@ -67,6 +105,10 @@ const translationsEn = {
   "round-plural": {
     "one": "{count} round",
     "other": "{count} rounds"
+  },
+  "gameinprogress-plural": {
+    "one": "A game is in progress, one rounds have been played.",
+    "other": "A game is in progress, {count} rounds have been played."
   },
   "correct-plural": {
     "one": "{count} correct",
