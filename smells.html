@@ -4,32 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex">
-    <!--Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-    <title>Smell and Guess</title>
+    <!-- <meta name="robots" content="noindex"> -->
+
+    
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="./lib/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <title data-i18n="smell01">Smell and Guess</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
-        <div class="container-lg">
+    <!-- #region Nav menu -->
+    <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
+        <div class="container-md">
             <a class="navbar-brand" href="index.html">Smell and Guess</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link" href="game.html">Start spillet</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="game.html" data-i18n="startgame">Start spillet</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="setup.html" data-i18n="setup">Settings</a>
+                    </li>
+                </ul>
+
+                <!-- #region language selector -->
+                <div class="nav-item dropdown ms-auto" id="languageselector">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img class="imgselectedlang" src="images/flagslanguage/en.png" alt="Select language"/>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-md-end">
+                        <li><a class="dropdown-item" href="#" data-lang="da"><img
+                                    src="images/flagslanguage/da.png" alt="da"/></a>
+                        </li>
+                        <li><a class="dropdown-item" href="#" data-lang="en"><img
+                                    src="images/flagslanguage/en.png" alt="en"/></a>
+                        </li>
+
+                    </ul>
                 </div>
+                <!-- #endregion language selector -->
             </div>
         </div>
     </nav>
-    <div class="container-lg">
+    <!-- #endregion Nav menu -->
+
+
+
+
+
+    <div class="container-sm mt-3">
+
+
+
+        <!-- <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item"><a href="setup.html" data-i18n="setup">Setup</a></li>
+                <li class="breadcrumb-item active" aria-current="page" data-i18n="setupsmells">Setup smells</li>
+            </ol>
+        </nav> -->
 
 
 
@@ -37,90 +79,146 @@
 
         <div class="row">
             <div class="col-md-12 ">
-                <h2>Lugte tilgængelig i WebApp</h1>
-                    <p>
-                        Lige nu er der <span id="smellcount"></span> lugte tilgængelig i WebApp'en.
-                    </p>
-                    <p>
-                        Her kan du udvælge og udskrive QR koder til de lugte du ønsker. <a
-                            href="qrcodeprint.html">Udskriv QR koder</a>
+                <h2 data-i18n="smell01">Lugte tilgængelig i WebApp</h1>
+                    <!-- <p data-i18n="smell02" data-i18n-opt='{"smellscount":999}'> -->
+                    <p data-i18n="smell02" id="smell02"> 
+                        Lige nu er der xx lugte tilgængelig i WebApp'en.
                     </p>
 
+
+                    <p>
+                        <span data-i18n="smell03"> Vælg hvilke lugte du vil komme i glassene og udskriv de tilhørende QR
+                            koder. </span>
+                        <a href="qrcodeprint.html" data-i18n="smell04">Udskriv QR koder</a>
+                    </p>
+                    <p data-i18n="smell05">
+                        Lugtene er tilgængelig på disse sprog.
+                    </p>
+                    <p>
+                    <div id="flagbuttons" class="btn-group" role="group"></div>
+                    </p>
                     <ul id="smellcontainer">
                     </ul>
             </div>
 
 
+            <script src="./lib/bootstrap.min.js"></script>
+            <script src="./lib/i18next.min.js"></script>
+            <script src="./lib/i18nextHttpBackend.min.js"></script>
+            <script src="./lib/i18nextBrowserLanguageDetector.min.js"></script>
+            
+            <script src="./js/defaultsmells.js" ></script>  
+            <script src="./js/i18nextresources.js"></script>
+            <script src="./js/i18nextutil.js"></script>
+            
+            <script src="./js/setup.js" ></script>
 
 
-
-            <script src="./js/defaultsmells.js"></script>
             <script>
- 
+
+                document.addEventListener("DOMContentLoaded", function () {
+                    const smellcontainer = document.getElementById("smellcontainer");
+                    //const smellcount = document.getElementById("smellcount");
+
+            
+
+                    // const flags = document.getElementById("flags")
+                    let flagbuttons = document.getElementById("flagbuttons")
+
+                    function drawflagbuttons() {
+
+                        langAvailableGame.forEach((lan) => {
+                            const btn = document.createElement("BUTTON");
+                            btn.classList.add("btn");
+                            btn.classList.add("btn-light");
+                            btn.classList.add("btn-sn");
+                            btn.setAttribute("type", "button")
+                            const img = document.createElement("IMG");
+                            img.setAttribute("src", `/images/flagslanguage/${lan}.png`);
+                            img.setAttribute("alt", lan);
+                            btn.appendChild(img)
+
+                            btn.addEventListener("click", () => {
+                                drawlist(defaultsmells3, lan)
+                            })
+                            flagbuttons.appendChild(btn)
 
 
-            </script>
+                        })
+                    }
 
 
-            <script>
-                
-                const defaultlang = "da";//hvis ikke det ønskede sprog findes
 
-                //let smells = defaultsmells.sort((a, b) =>a.name !== b.name ? a.name < b.name ? -1 : 1 : 0)
-                let smells = defaultsmells3.sort(function(a, b) {
-                    let nameA=getSmellNameById(a.id);
-                    let nameB=getSmellNameById(b.id);
-                    return nameA !== nameB ? nameA < nameB ? -1 : 1 : 0}
-                
-                )
-               // let smells = defaultsmells
-             
-                console.log(smells)
-
-                const smellcontainer = document.getElementById("smellcontainer");
-                const smellcount = document.getElementById("smellcount");
-
-                smellcount.innerText = smells.length;
-
-                smells.forEach(smell => {
-
-                    const _li = document.createElement("li");
-                    const _span = document.createElement("span");
-                  // _span.innerText = smell.name;
-
-                     _span.innerText = getSmellNameById(smell.id);
-
-                    _li.appendChild(_span)
+                    drawflagbuttons()
 
 
-                    smellcontainer.appendChild(_li)
+                    i18next.on('languageChanged', function (lng) {
+                        drawlist(defaultsmells3, i18next.language)
+                    })
+
+                    // let smells = defaultsmells3.sort(function (a, b) {
+                    //     let nameA = getSmellNameById(a.id);
+                    //     let nameB = getSmellNameById(b.id);
+                    //     return nameA !== nameB ? nameA < nameB ? -1 : 1 : 0
+                    // })
+
+                   
+                    //Lige nu er der xx lugte tilgængelig i WebApp'en.
+                    const smell02 = document.getElementById("smell02");
+                    const numberofsmells=defaultsmells3.length;
+                    smell02.innerText=i18next.t("smell02",{"smellscount":numberofsmells})
+                    smell02.setAttribute("data-i18n-opt",`{"smellscount":${numberofsmells}}`)                
+
+                    drawlist(defaultsmells3, i18next.language)
+
+                    function drawlist(listofsmells, _lang) {
+                        smellcontainer.innerHTML = ""
+
+                        let _smells = listofsmells.sort(function (a, b) {
+                            let nameA = getSmellNameById(a.id,_lang);
+                            let nameB = getSmellNameById(b.id,_lang);
+                            return nameA !== nameB ? nameA < nameB ? -1 : 1 : 0
+                        })
+                      
+
+                        _smells.forEach(smell => {
+                            const _li = document.createElement("li");
+                            const _span = document.createElement("span");
+                            _span.innerText = getSmellNameById(smell.id, _lang);
+                            _li.appendChild(_span)
+                            smellcontainer.appendChild(_li)
+                        });
+
+                    }
+
+
+                    const defaultlang = "en";
+                    function getSmellNameById(id, lang = "da") {
+                        if (id === -1) return "";
+
+                        _tmp = defaultsmells3.find(field => field.id == id);
+
+                        if (!_tmp.hasOwnProperty("languages")) {
+                            return _tmp.name;
+                        }
+
+                        if (_tmp.languages.hasOwnProperty(lang) && _tmp.languages[lang] > "")
+                            return _tmp.languages[lang];
+                        else if (_tmp.languages.hasOwnProperty(defaultlang) && _tmp.languages[defaultlang] > "") {
+                            return _tmp.languages[defaultlang];
+                        }
+                        else {
+
+                            return _tmp.name;
+                        }
+                    }
+
                 });
-
-
-
-
-
-                
-                function getSmellNameById(id, lang = "da") {
-                    if (id === -1) return "";
-
-
-                    console.log("ID",id)
-                    _tmp = defaultsmells3.find(field => field.id == id);
-
-                    if (!_tmp.hasOwnProperty("languages")) {
-                        return _tmp.name ;
-                    }
-                    if (_tmp.languages.hasOwnProperty(lang) && _tmp.languages[lang] > "")
-                        return _tmp.languages[lang];
-                    else if (_tmp.languages.hasOwnProperty(defaultlang) && _tmp.languages[defaultlang] > "") {
-                        return _tmp.languages[defaultlang];
-                    }
-                    else {
-                        return _tmp.name;
-                    }
-                }
             </script>
+
+
+
+
 
 
 </body>

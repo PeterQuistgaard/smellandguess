@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex">
-    <!--Bootstrap-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <!-- <meta name="robots" content="noindex"> -->
+     
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="./lib/font-awesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="manifest" href="site.webmanifest" />
+
+
     <title>Smell and Guess</title>
     <style>
         figure {
@@ -24,8 +25,8 @@
         }
 
         #flags img {
-           width: 25px;
-           margin-left: 5px;
+            width: 25px;
+            margin-left: 5px;
         }
 
         #iconbar svg {
@@ -42,39 +43,61 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark " data-bs-theme="dark">
-        <div class="container-lg">
-            <a class="navbar-brand" href="#">Smell and Guess</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+    <!-- #region Nav menu -->
+    <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
+        <div class="container-md">
+            <a class="navbar-brand" href="index.html">Smell and Guess</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link" href="game.html">Start spillet</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="game.html" data-i18n="startgame">Start spillet</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="setup.html" data-i18n="setup">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="privacy.html" data-i18n="privacy01">Privacy</a>
+                    </li>
 
-                    <!-- <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Setup
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="game.html">Players</a></li>
-                            <li><a class="dropdown-item" href="#">Smells</a></li>
-                        </ul>
-                    </li> -->
+                </ul>
+
+                <!-- #region language selector -->
+                <div class="nav-item dropdown ms-auto" id="languageselector">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img class="imgselectedlang" alt="Select language" src="images/flagslanguage/en.png" />
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-md-end">
+                        <li><a class="dropdown-item" href="#" data-lang="da" alt="da"><img
+                                    src="images/flagslanguage/da.png"  alt="da"/></a>
+                        </li>
+                        <li><a class="dropdown-item" href="#" data-lang="en" alt="en"><img
+                                    src="images/flagslanguage/en.png"  alt="en"/></a>
+                        </li>
+
+                    </ul>
                 </div>
+                <!-- #endregion language selector -->
             </div>
         </div>
     </nav>
-    <div class="container-lg">
+    <!-- #endregion Nav menu -->
+
+
+    <div class="container-md mt-3">
 
 
         <div class="row">
             <div class="col-md-12 ">
                 <p class="mt-3">
                 <h1 style="color: red;">Smell and Guess</h1>
-                <h4>Test din egen og dine venners lugtesans</h4>
+                <h4 data-i18n="index01">Test din egen og dine venners lugtesans</h4>
                 </p>
 
                 <p id="iconbar">
@@ -82,40 +105,42 @@
                         class="bi bi-people-fill" viewBox="0 0 16 16">
                         <path
                             d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5" />
-                    </svg></i> 1 til 8 spillere<br>
+                    </svg></i> <span data-i18n="index02">1 til 8 spillere</span><br>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="curren0olor"
                         class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                    </svg> Fra 8 år<br>
+                    </svg> <span data-i18n="index03">Fra 8 år</span><br>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-clock-fill" viewBox="0 0 16 16">
                         <path
                             d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
-                    </svg> 20 - 90 minutter<br>
+                    </svg> <span data-i18n="index04">20 - 90 minutter</span><br>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-tablet" viewBox="0 0 16 16">
                         <path
                             d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
                         <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
-                    </svg> WebApp tilgængelig<br>
+                    </svg> <span data-i18n="index05">WebApp tilgængelig</span><br>
 
-                    
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-translate" viewBox="0 0 16 16">
-                    <path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
-                    <path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
-                  </svg> 8 sprog 
-                  <span id="flags">
-                    <img src="images/flagslanguage/da.png">
-                    <img src="images/flagslanguage/de.png">
-                    <img src="images/flagslanguage/en.png">
-                    <img src="images/flagslanguage/fr.png">
-                    <img src="images/flagslanguage/es.png">
-                    <img src="images/flagslanguage/sv.png">
-                    <img src="images/flagslanguage/fi.png">
-                    <img src="images/flagslanguage/zh.png">      
 
-                  </span>
-                  <br>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-translate" viewBox="0 0 16 16">
+                        <path
+                            d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z" />
+                        <path
+                            d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
+                    </svg> <span data-i18n="index06">8 sprog</span>
+                    <span id="flags">
+                        <img alt="da" src="images/flagslanguage/da.png">
+                        <img alt="de" src="images/flagslanguage/de.png">
+                        <img alt="en"  src="images/flagslanguage/en.png">
+                        <img alt="fr"  src="images/flagslanguage/fr.png">
+                        <img alt="es"  src="images/flagslanguage/es.png">
+                        <img alt="sv"  src="images/flagslanguage/sv.png">
+                        <img alt="fi"  src="images/flagslanguage/fi.png">
+                        <img alt="zh"  src="images/flagslanguage/zh.png">
+                    </span>
+                    <br>
                 </p>
 
 
@@ -126,11 +151,13 @@
 
         <div class="row">
             <div class="col-md-12 ">
-                <p>Oven på glaskrukkernes låg er der en QR kode. Hver QR kode svarer til en helt bestemt lugt.</p>
+                <p data-i18n="index07">Oven på glaskrukkernes låg er der en QR kode. Hver QR kode svarer til en helt bestemt lugt.</p>
                 <p>
-                    <img class="img-fluid rounded" alt="Smell and Guess" src="/images/gamedisplay.jpeg">
+                    <img class=" img-fluid rounded" alt="Smell and Guess" src="/images/gamedisplay.jpeg">
                 </p>
-                <p><hr></p>
+                <p>
+                    <hr>
+                </p>
             </div>
         </div>
 
@@ -141,8 +168,9 @@
                 <p>
                 <figure class="figure">
 
-                    <figcaption class="figure-caption">
-                        Start en runde med at scannes QR koden på låget af en glaskrukke. Det gøres med den indbyggede QR-scanner i WebApp’en til Smell and Guess.
+                    <figcaption class="figure-caption" data-i18n="index08">
+                        Start en runde med at scannes QR koden på låget af en glaskrukke. Det gøres med den indbyggede
+                        QR-scanner i WebApp’en til Smell and Guess.
                     </figcaption>
 
                     <img class="img-fluid rounded" alt="Scan QR code on lid" src="/images/scan.png">
@@ -153,13 +181,16 @@
 
 
 
-            
+
             <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
                 <p>
                 <figure class="figure">
                     <figcaption class="figure-caption">
-                        Første spiller får præsenteret et antal forskellige valgmuligheder. <br>
-                        Spilleren lugter til indholdet i glaskrukken og trykker på den ønskede lugt.
+                        <p data-i18n="index09">
+                            Første spiller får præsenteret et antal forskellige valgmuligheder. </p>
+                        <p data-i18n="index10">
+                            Spilleren lugter til indholdet i glaskrukken og trykker på den ønskede lugt.
+                        </p>
                     </figcaption>
                     <img class="img-fluid rounded" alt="WebApp first player" src="/images/firstplayer.png">
 
@@ -170,43 +201,48 @@
 
 
 
-          
+
             <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
 
                 <p>
                 <figure class="figure">
                     <figcaption class="figure-caption">
-                        Turen går herefter videre til næste spiller - som også skal gættet hvad der er i
-                        glasset.
+                        <p data-i18n="index11">
+                            Turen går herefter videre til næste spiller - som også skal gættet hvad der er i
+                            glasset.</p>
                     </figcaption>
-                    <img class="img-fluid rounded" alt="WebApp nest player" src="/images/nextplayer.png">
+                    <img class="img-fluid rounded" alt="WebApp next player" src="/images/nextplayer.png">
                 </figure>
                 </p>
             </div>
 
-           
+
             <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
                 <p>
                 <figure class="figure">
                     <figcaption class="figure-caption">
-                        Når alle spillere har givet et bud på hvad lugten hedder, viser WebApp’en hvad det rigtige svar
-                        er, og hvad hver spiller har gættet på.
+                        <p data-i18n="index12">
+                            Når alle spillere har givet et bud på hvad lugten hedder, viser WebApp’en hvad det rigtige
+                            svar
+                            er, og hvad hver spiller har gættet på.</p>
                     </figcaption>
                     <img class="img-fluid rounded" alt="WebApp result of round" src="/images/runderesultat.png">
                 </figure>
                 </p>
-                
+
             </div>
 
 
 
-           
+
             <div class="col-md-4 col-lg-3  col-xl-2 align-text-bottom">
                 <p>
                 <figure class="figure">
                     <figcaption class="figure-caption">
-                        På den måde går man gennem alle glaskrukkerne - eller så mange af dem man nu gider.<br>
-                        Når man ønsker det - kan man få vist det samlede resultat.
+                        <p data-i18n="index13">
+                            På den måde går man gennem alle glaskrukkerne - eller så mange af dem man nu gider.</p>
+                        <p data-i18n="index14">
+                            Når man ønsker det - kan man få vist det samlede resultat.</p>
                     </figcaption>
                     <img class="img-fluid rounded" alt="WebApp total score" src="/images/totalscore.png">
                 </figure>
@@ -219,42 +255,44 @@
 
         <div class="row">
             <div class="col-md-12 ">
-                <p><hr></p>
-                <h2>Antal spillere</h2>
-                <p>Spillet kan spilles af én person som ønsker at teste sin egen lugtesans.
-                </p>
                 <p>
-                    Men man kan også spille mod hinanden. Op til 8
-                    spillere
+                    <hr>
+                </p>
+                <h2 data-i18n="index16">Antal spillere</h2>
+                <p data-i18n="index17">Spillet kan spilles af én person som ønsker at teste sin egen lugtesans.
+                </p>
+                <p data-i18n="index18">
+                    Men man kan også spille mod hinanden. Op til 8 spillere
                     er et passende antal - så bliver runderne ikke alt for lange.</p>
 
 
-                <h2>Lav selv spillet</h2>
-                <p>Spillet kan pt. ikke købes - så du må selv lave det.</p>
-                <p>Køb 10-20 brune glas krukker med låg, <a href="dealers.html" target="_blank">se her
+                <h2 data-i18n="index19">Lav selv spillet</h2>
+                <p data-i18n="index20">Spillet kan pt. ikke købes - så du må selv lave det.</p>
+                <p data-i18n="index21">Køb 10-20 brune glas krukker med låg, <a href="dealers.html" target="_blank"
+                        data-i18n="index22">se her
                         hvor de kan købes</a></p>
 
 
-                <p>Vælg hvilke lugte du vil komme i glassene og udskriv de tilhørende QR
-                    koder. <a href="qrcodeprint.html" target="_blank">Udskriv QR-koder</a>
+                <p data-i18n="index22">Vælg hvilke lugte du vil komme i glassene og udskriv de tilhørende QR
+                    koder. <a href="qrcodeprint.html" target="_blank" data-i18n="smell04">Udskriv QR-koder</a>
                 </p>
 
-                <p>QR-koderne limes på glaskrukkens låg.<br>
-                    Hver QR-kode repræsenterer en bestemt lugt.
+                <p data-i18n="index23">QR-koderne limes på glaskrukkens låg.<br>
+                    <span data-i18n="index24">Hver QR-kode repræsenterer en bestemt lugt.</span>
 
                 </p>
 
-                <p>Det er alt der skal til for at komme i gang.</p>
+                <p data-i18n="index25">Det er alt der skal til for at komme i gang.</p>
 
 
-                <p>
+                <p data-i18n="index26">
                     WebApp er frit tilgængeligt på denne hjemmeside.</p>
 
 
                 <p>
-                    Vil du teste WebApp'en før du har lavet glaskrukker med QR-koder, kan du
-                    gøre det her.<br>
-                    <a href="setup.html" target="_blank">Test af WebApp uden
+                    <span data-i18n="index27">Vil du teste WebApp'en før du har lavet glaskrukker med QR-koder, kan du
+                        gøre det her.</span><br>
+                    <a href="setup.html" target="_blank" data-i18n="index28">Test af WebApp uden
                         glaskrukker</a>
                 </p>
             </div>
@@ -263,10 +301,10 @@
 
         <div class="row">
             <div class="col-md-6">
-                <h2>Hvad er der i glaskrukkerne?</h2>
+                <h2 data-i18n="index29">Hvad er der i glaskrukkerne?</h2>
                 <p>
-                    Man kan anvende alt der afgiver en lugt.<br>
-                    <a href="smells.html" target="_blank">Tilgængelige lugte i WebApp'en</a>
+                    <span data-i18n="index30"> Man kan anvende alt der afgiver en lugt.</span><br>
+                    <a href="smells.html" target="_blank" data-i18n="index31">Tilgængelige lugte i WebApp'en</a>
                 </p>
 
             </div>
@@ -282,15 +320,17 @@
                     <img class="img-fluid rounded" alt="Prepare jar for the game" src="/images/createjar.jpeg">
 
                     <figcaption class="figure-caption">
-                        <b>Sådan lavet en glaskrukke til spillet</b><br>
-                        Man drysser lidt pulver i bunden af glaskrukken.
-                        Er det en væske kan man komme nogle dråber på en lille tot bomuldsvat og
-                        placere denne i bunden af
-                        glaskrukken.<br>
-                        Oven på indholdet i bunden af glaskrukken, placerer man en tot bomuldsvat -
-                        så kan man ikke se hvad
-                        der er i bunden af
-                        glasset.
+                        <b data-i18n="index32">Sådan lavet en glaskrukke til spillet</b><br>
+                        <p data-i18n="index33">
+                            Man drysser lidt pulver i bunden af glaskrukken.
+                            Er det en væske kan man komme nogle dråber på en lille tot bomuldsvat og
+                            placere denne i bunden af
+                            glaskrukken.<br></p>
+                        <p data-i18n="index34">
+                            Oven på indholdet i bunden af glaskrukken, placerer man en tot bomuldsvat -
+                            så kan man ikke se hvad
+                            der er i bunden af
+                            glasset.</p>
                     </figcaption>
                 </figure>
                 </p>
@@ -302,11 +342,13 @@
                     <img class="img-fluid rounded" alt="Prepare jar for the game" src="/images/spices.jpeg">
 
                     <figcaption class="figure-caption">
-                        <b>Tørrede krydderier</b><br>
-                        I de fleste husholdninger vil man have en række forskellige tørrede
-                        krydderier der kan anvendes i spillet.<br>
-                        Kanel, peber, timian, rosmarin, muscat og desuden en række bagekrydderier som
-                        kardemonne, nellike og allehånde.
+                        <b data-i18n="index35">Tørrede krydderier</b><br>
+                        <p data-i18n="index36">
+                            I de fleste husholdninger vil man have en række forskellige tørrede
+                            krydderier der kan anvendes i spillet.<br></p>
+                        <p data-i18n="index37">
+                            Kanel, peber, timian, rosmarin, muscat og desuden en række bagekrydderier som
+                            kardemonne, nellike og allehånde.</p>
                     </figcaption>
                 </figure>
                 </p>
@@ -318,8 +360,9 @@
                 <figure class="figure">
                     <img src="/images/essenser1.jpeg" class="figure-img img-fluid rounded" alt="Essences">
                     <figcaption class="figure-caption">
-                        <b>Essenser</b><br>
-                        I almindelige dagligvarebutikker kan man købe essenser som mandel, vanilje og banan.
+                        <b data-i18n="index38">Essenser</b><br>
+                        <p data-i18n="index39">
+                            I almindelige dagligvarebutikker kan man købe essenser som mandel, vanilje og banan.</p>
                     </figcaption>
                 </figure>
                 </p>
@@ -333,40 +376,43 @@
                 <figure class="figure">
                     <img class="img-fluid rounded" alt="Essences" src="/images/essenser2.jpeg">
                     <figcaption class="figure-caption">
-                        I specialbutikker kan man købe en lang række andre essenser som pebermynte,
-                        anis, jordbær, lime og mange flere.
+                        <p data-i18n="index40">
+                            I specialbutikker kan man købe en lang række andre essenser som pebermynte,
+                            anis, jordbær, lime og mange flere.</p>
                     </figcaption>
                 </figure>
                 </p>
             </div>
-            
 
-           
-            <div class="col-md-6 col-lg-4">                
+
+
+            <div class="col-md-6 col-lg-4">
                 <p>
                 <figure class="figure">
                     <img class="img-fluid rounded" alt="Essential oils" src="/images/essentialoils.jpeg">
                     <figcaption class="figure-caption">
-                        <b>Æteriske olier</b><br>
-                        Man kan også købe forskellige æteriske olier som
-                        lavendel, rosmarin, eucalyptus, kamfer, cedertræ, gran og mange flere.
+                        <b data-i18n="index41">Æteriske olier</b><br>
+                        <p data-i18n="index42">
+                            Man kan også købe forskellige æteriske olier som
+                            lavendel, rosmarin, eucalyptus, kamfer, cedertræ, gran og mange flere.</p>
                     </figcaption>
                 </figure>
                 </p>
             </div>
             <div class="col-md-6 col-lg-4">
                 <p>
-                    <figure class="figure">
-                     
-                        <figcaption class="figure-caption">
-                            <b>Andre lugte</b><br>
-                            Endelig vil man i de fleste husholdninger have lugte som f.eks. eddike,
-                            kaffe og kamillete.
-                        </figcaption>
-                    </figure>
-                    </p>
+                <figure class="figure">
 
-          
+                    <figcaption class="figure-caption">
+                        <b data-i18n="index43">Andre lugte</b><br>
+                        <p data-i18n="index44">
+                            Endelig vil man i de fleste husholdninger have lugte som f.eks. eddike,
+                            kaffe og kamillete.</p>
+                    </figcaption>
+                </figure>
+                </p>
+
+
             </div>
         </div>
 
@@ -378,10 +424,18 @@
     </div>
 
     <div class="mt-5 p-2 bg-dark text-white text-center">
-        <p>Spildesign af <a href="mailto:peter@quistgaard.dk">peter@quistgaard.dk</a></p>
+        <p><span data-i18n="index45">Spildesign af</span> <a href="mailto:peter@quistgaard.dk">peter@quistgaard.dk</a>
+        </p>
     </div>
 
-
+    <script src="./lib/bootstrap.min.js"></script>
+    <script src="./lib/i18next.min.js"></script>
+    <script src="./lib/i18nextHttpBackend.min.js"></script>
+    <script src="./lib/i18nextBrowserLanguageDetector.min.js"></script>
+    
+    <!-- <script src="./js/defaultsmells.js" ></script>   -->
+    <script src="./js/i18nextresources.js"></script>
+    <script src="./js/i18nextutil.js"></script>
 </body>
 
 </html>
