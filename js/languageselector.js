@@ -1,6 +1,11 @@
 const languageselector = document.getElementById("languageselector")
 const languageselectordropdownmenu = languageselector.querySelector(".dropdown-menu")
 const imgselectedlang = languageselector.querySelector(".imgselectedlang")
+
+
+
+
+
 languageselectordropdownmenu.addEventListener("click", (e) => {
   //e.preventDefault()
 
@@ -12,6 +17,8 @@ languageselectordropdownmenu.addEventListener("click", (e) => {
 
     //change img in menu
     imgselectedlang.src = `images/flagslanguage/${selectedlang}.png`
+
+     
 
     //do other stuf
     setLocale(selectedlang);

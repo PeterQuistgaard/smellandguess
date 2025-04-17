@@ -1,5 +1,3 @@
-//:
-
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -20,8 +18,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const userlanguage = document.getElementById("userlanguage");
 
-  usertxtlanguage.value=locale;
-  userimgselectedlang.src=`images/flagslanguage/${locale}.png`
+  usertxtlanguage.value=i18next.language;
+  userimgselectedlang.src=`images/flagslanguage/${i18next.language}.png`
+  userimgselectedlang.alt=`Select language`
 
   document.getElementById("btnAddPlayer").addEventListener("click", (e) => {
     e.preventDefault();
@@ -56,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const img = document.createElement("IMG");
       img.setAttribute("src", `images/flagslanguage/${lang}.png`);
-
+      img.setAttribute("alt", lang);
       img.style.width = "20px"
 
       a.appendChild(img)
@@ -77,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let selectedlang = _a.getAttribute("data-lang")
       //change img in menu
       userimgselectedlang.src = `images/flagslanguage/${selectedlang}.png`
+      
       usertxtlanguage.value = selectedlang
     }
   }, false)
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       img.setAttribute("src", `/images/flagslanguage/${item.lang}.png`)
-
+      img.setAttribute("alt", item.lang)
 
       span = document.createElement("SPAN");
       span.innerText = item.name;

@@ -6,7 +6,6 @@ const supportedLocales = ["da", "en"];
 
 const fullyQualifiedLocaleDefaults = {
   en: "en-US",
-  ar: "ar-EG",
   da: "da-DK",
 };
 
@@ -107,7 +106,7 @@ const translationsEn = {
     "other": "{count} rounds"
   },
   "gameinprogress-plural": {
-    "one": "A game is in progress, one rounds have been played.",
+    "one": "A game is in progress, 1 round has been played.",
     "other": "A game is in progress, {count} rounds have been played."
   },
   "correct-plural": {
@@ -190,11 +189,10 @@ function translatePage() {
 // Replace the inner text of the given HTML element
 // with the translation in the active locale,
 // corresponding to the element's data-i18n
-function translateElement(element) {
-  const key = element.getAttribute("data-i18n");
-
-  const options = JSON.parse(element.getAttribute("data-i18n-opt")) || {};
-  element.innerText = translate(key, options);
+function translateElement(_element) {
+  const _key=_element.getAttribute("data-i18n")
+  const _options = JSON.parse(_element.getAttribute("data-i18n-opt")) || {};
+  _element.innerHTML = translate(_key,_options)
 }
 
 function translate(key, interpolations = {}) {

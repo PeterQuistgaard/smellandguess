@@ -3,6 +3,8 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
+
+ 
   //Global variables
   let id = -1;
   let nextplayerindex = -1;
@@ -245,7 +247,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       div.classList.add("me-1");
-      div.innerHTML = item.name;
+      //div.innerHTML = item.name;
+      div.innerHTML = getSmellNameById(item.id,i18next.language);
       icon = document.createElement("i")
       icon.classList.add("fa");
       icon.classList.add("fa-times");
@@ -286,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (smells.length > 0) {
       console.log(smells.length)
-      divsmellcount.innerHTML =`${translate("numberofregistratesmells")}: ${smells.length}` ;// 
+      divsmellcount.innerHTML =`${i18next.t("numberofregistratesmells")}: ${smells.length}` ;// 
       divsmellcount.setAttribute("data-i18n","numberofregistratesmells")
       clearAllSmells.hidden=false;
       outercontainersmells.hidden=false;
@@ -306,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!isExist) {
       let newsmell = {
         "id": id,
-        "name": getSmellNameById(id)
+        "name": getSmellNameById(id,i18next.language)
       }
       smells.unshift(newsmell);
 
@@ -391,7 +394,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   const defaultlang = "da";
-  function getSmellNameById(id, lang = "da") {
+  function getSmellNameById(id, lang = "en") {
+   
     if (id === -1) return "";
 
     _tmp = defaultsmells3.find(field => field.id == id);
@@ -399,12 +403,16 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!_tmp.hasOwnProperty("languages")) {
       return _tmp.name;
     }
-    if (_tmp.languages.hasOwnProperty(lang) && _tmp.languages[lang] > "")
+    if (_tmp.languages.hasOwnProperty(lang) && _tmp.languages[lang] > ""){
+      //alert(lang)
       return _tmp.languages[lang];
+    }
     else if (_tmp.languages.hasOwnProperty(defaultlang) && _tmp.languages[defaultlang] > "") {
+      //alert("2")
       return _tmp.languages[defaultlang];
     }
     else {
+      //alert("3")
       return _tmp.name;
     }
   }
@@ -433,7 +441,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
+  i18next.on('languageChanged', function(lng) {
+    drawSmells2()
+  })
 
 
   const smellsremovebuttons = containersmells.querySelectorAll('[data-id')

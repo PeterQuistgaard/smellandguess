@@ -132,9 +132,13 @@ document.addEventListener("DOMContentLoaded", function () {
             //console.log("Ikke en del af spillet")
             containerplayer.style.color = "red";
             containerplayer.style.backgroundColor = "Black";
-            //containerplayer.innerText = `${getSmellNameById(id)} - men denne lugt er ikke aktiveret i dette spil!`;
-            containerplayer.innerText = `${getSmellNameById(id)} - ${translate("butthissmellisnotactivatedinthisgame")}!`;
-            //translate("butthissmellisnotactivatedinthisgame")
+
+
+            containerplayer.innerText = `${getSmellNameById(id)} - ${i18next.t("butthissmellisnotactivatedinthisgame")}!`;
+
+
+
+
             containersmells.innerHTML = "";
             btnGetTotalScore.hidden = true;//vis knappen "Get total score"
             containerplayer.hidden = false;
@@ -475,18 +479,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (_game.length == 1) {
       strRunder = "runde"
     }
-    //tdleft.append(`${_game.length} ${strRunder}`);
-    
 
-   // tdleft.append(translate("round-plural",{"count": _game.length}));
-   // tdleft.setAttribute("data-i18n-opt",`{"count": ${_game.length}}`)
-
-    //tdleft.setAttribute("data-i18n-opt",`{"count": ${_game.length}}`)
-
-    tdleft.setAttribute("data-i18n","round-plural")
-    //tdleft.setAttribute("data-i18n-key","round-plural")
+    tdleft.setAttribute("data-i18n","round")
     tdleft.setAttribute("data-i18n-opt",`{"count": ${_game.length}}`)
-    tdleft.append(translate("round-plural",{"count": _game.length}));
+    tdleft.append(i18next.t("round",{"count": _game.length}));
 
     tr.appendChild(tdleft);
     tr.classList.add("table-dark")
@@ -495,16 +491,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const td = document.createElement("Td");
       let points = getPointsByUserIndex(index);
 
-      // let strPoints = "rigtige";
-      // if (points == 1) {
-      //   strPoints = "rigtig";
-      // }
-      //td.append(`${points} ${strPoints}`);      
-      //data-i18n-key="setupsmells"
-      //data-i18n-opt='{"count": 2}'
-      td.setAttribute("data-i18n","correct-plural")
+
+      td.setAttribute("data-i18n","correct")
       td.setAttribute("data-i18n-opt",`{"count": ${points}}`)
-      td.append(translate("correct-plural",{"count": points}));
+      td.append(i18next.t("correct",{"count": points}));
     
 
       tr.appendChild(td);
@@ -524,23 +514,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     getLanguageButtons("total")
 
-    // let userslanguages = [...new Set(players.map((p) => p.lang))] //distinct! Hvert anvendt sprog kun en gang
-    // if (!(userslanguages.length == 1 && userslanguages[0] == "da")) {
-    //   userslanguages.forEach((lan) => {
-    //     const btn = document.createElement("BUTTON");
-    //     btn.classList.add("btn");
-    //     btn.classList.add("btn-light");
-    //     btn.classList.add("btn-sn");
-    //     const img = document.createElement("IMG");
-    //     img.setAttribute("src", `/images/flagslanguage/${lan}.png`);
-    //     btn.appendChild(img)
-
-    //     btn.addEventListener("click", () => {
-    //       getTotalScore1(lan);
-    //     })
-    //     containertotalscore.appendChild(btn);
-    //   })
-    // }
 
   }
 
@@ -609,7 +582,7 @@ function getLanguageButtons(round_total){
 
    //language buttons
    let userslanguages = [...new Set(players.map((p) => p.lang))] //distinct! Hvert anvendt sprog kun en gang
-   if (!(userslanguages.length == 1 && userslanguages[0] == locale)) {
+   if (!(userslanguages.length == 1 && userslanguages[0] == i18next.language)) {
 
 
 
@@ -625,6 +598,7 @@ function getLanguageButtons(round_total){
        btn.setAttribute("type","button")
        const img = document.createElement("IMG");
        img.setAttribute("src", `/images/flagslanguage/${lan}.png`);
+       img.setAttribute("alt",lan)
        btn.appendChild(img)
 
        btn.addEventListener("click", () => {
@@ -658,7 +632,7 @@ function getLanguageButtons(round_total){
     div = document.createElement("DIV");
     let rigtigtsvar = getSmellNameById(id,lan);
     //div.append(`Det rigtige svar var: ${rigtigtsvar} `)
-    div.append(`${translate("thecorrectanswerwas")}: ${rigtigtsvar} `)
+    div.append(`${i18next.t("thecorrectanswerwas")}: ${rigtigtsvar} `)
     //Det rigtige svar var
     fragment.appendChild(div);
     ul = document.createElement("UL");
@@ -748,8 +722,8 @@ function getLanguageButtons(round_total){
         containerplayer.style.backgroundColor = "black";
         //containerplayer.innerText = "Alle har givet deres gæt på denne lugt";
         //everyonehasgiventheirguesses
-        containerplayer.innerText = translate("everyonehasgiventheirguesses");
-        getRoundResult(id,locale);//vis resultatet for runden
+        containerplayer.innerText = i18next.t("everyonehasgiventheirguesses");
+        getRoundResult(id,i18next.language);//vis resultatet for runden
         containersmells.innerHTML = "";
         btnGetTotalScore.hidden = false;//vis knappen "Get total score"
         btnScanStart.hidden = false;
@@ -791,8 +765,8 @@ function getLanguageButtons(round_total){
     
     containersmells.innerHTML = "";
     if (nextplayerindex == -1) return;
-    //containersmells.innerHTML = "Næste spiller";
-    containersmells.innerHTML = translate("nextplayer");
+
+    containersmells.innerHTML = i18next.t("nextplayer");
 
 
     let _nxtPlayer = players[nextplayerindex]
@@ -831,7 +805,7 @@ function getLanguageButtons(round_total){
 
   btnGetTotalScore.addEventListener("click", () => {
     
-    getTotalScore1(locale);
+    getTotalScore1(i18next.language);
     btnGetTotalScore.hidden = true;
   });
 
@@ -865,7 +839,7 @@ languageselectordropdownmenu.addEventListener("click", (e) => {
     imgselectedlang.src = `images/flagslanguage/${selectedlang}.png`
 
     //do other stuf
-    setLocale(selectedlang);
+    //setLocale(selectedlang);
 
         //Save user's language selection to localStorage
     localStorage.setItem("lang3", JSON.stringify(selectedlang));

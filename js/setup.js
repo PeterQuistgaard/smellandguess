@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     const containerplayers = document.getElementById("containerplayers");
     const containersmells = document.getElementById("containersmells2");
     const currentgame = document.getElementById("currentgame");
-
     const userlanguage = document.getElementById("userlanguage");
 
 
@@ -51,12 +50,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             
             div = document.createElement("DIV");
             span = document.createElement("SPAN")
-            // span.setAttribute("data-i18n-opt", `{"round": ${game.length}}`)
-            // span.innerText = translate("round-plural", { "count": game.length })
 
-            span.setAttribute("data-i18n","gameinprogress-plural")
+
+            span.setAttribute("data-i18n","gameinprogress")
             span.setAttribute("data-i18n-opt",`{"count": ${_game.length}}`)
-            span.innerText=translate("gameinprogress-plural",{"count": _game.length});
+            span.innerText=i18next.t("gameinprogress",{"count": _game.length});
 
             
             div.appendChild(span)
@@ -66,14 +64,14 @@ document.addEventListener("DOMContentLoaded", async function () {
             btn.classList.add("btn-warning");
             btn.classList.add("btn-sn");
             btn.setAttribute("type", "button")
-            btn.innerText = translate("cleargame");
+            btn.innerText = i18next.t("cleargame");
+
+            btn.innerText = i18next.t("cleargame");
             btn.setAttribute("data-i18n", "cleargame")
             btn.addEventListener("click", clearGame)
             currentgame.appendChild(btn)
         }
         }
-
-
     }
 
 
@@ -93,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         if (smells[0]) {
             //så er mindst en smell oprettet
 
-            div.innerText = translate("setup03")
+            div.innerText = i18next.t("setup03")
             div.setAttribute("data-i18n","setup03")           
             
             containersmells.appendChild(div);
@@ -110,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             containersmells.classList.add("alert-secondary")
         }
         else {
-            div.innerText =translate("setup09") //"Der er ikke oprettet nogen lugte i det aktuelle spil."
+            div.innerText =i18next.t("setup09") //"Der er ikke oprettet nogen lugte i det aktuelle spil."
             div.setAttribute("data-i18n","setup09")  
             containersmells.appendChild(div);
             
@@ -131,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         if (players[0]) {
             //så er mindst en spiller oprettet
-            div.innerText =translate("setup02") //"Disse spiller er oprettet i det aktuelle spil:"
+            div.innerText =i18next.t("setup02") //"Disse spiller er oprettet i det aktuelle spil:"
             div.setAttribute("data-i18n","setup02")     
             fragment.appendChild(div);
 
@@ -141,6 +139,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 img.classList.add("mx-2");
                 img.style.width = "20px";
                 img.setAttribute("src", `/images/flagslanguage/${item.lang}.png`)
+                img.setAttribute("alt", item.lang)
                 span = document.createElement("SPAN");
                 span.innerText = item.name;
                 div.append(span);
@@ -156,9 +155,8 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         }
         else {
-            div.innerText =translate("setup10") //"Der er ikke oprettet nogen spillere i det aktuelle spil."
-            div.setAttribute("data-i18n","setup10")  
-            //div.style.color="red";
+            div.innerText =i18next.t("setup10") //"Der er ikke oprettet nogen spillere i det aktuelle spil."
+            div.setAttribute("data-i18n","setup10")              
             containerplayers.appendChild(div);
             containerplayers.classList.add("alert")
             containerplayers.classList.add("alert-danger")
