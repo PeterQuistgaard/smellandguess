@@ -5,20 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    
-    <link rel="stylesheet" href="./lib/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="./lib/font-awesome.min.css"> -->
-    <!-- <link rel="stylesheet" href="style.css"> -->
 
 
+
+
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="./css/main.min.css">
+    <script src="./lib/bootstrap.bundle.min.js"></script>
+
+    <script src="./js/i18nextutil.js" type="module" defer></script>
+    <script src="./js/index.js" type="module" defer></script>
 
     <title data-i18n="dealers01">Forhandlere</title>
+
 </head>
 
 <body>
 
     <!-- #region Nav menu -->
-    <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md  navbar-dark bg-dark">
         <div class="container-md">
             <a class="navbar-brand" href="index.html">Smell and Guess</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -34,7 +41,7 @@
                         <a class="nav-link " href="setup.html" data-i18n="setup">Settings</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="privacy.html" data-i18n="privacy01">Privacy</a>
+                        <a class="nav-link" href="privacy.html" data-i18n="privacy01">Privacy</a>
                     </li>
                     <!-- <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#" data-i18n="setup">Settings</a>
@@ -45,16 +52,11 @@
                 <div class="nav-item dropdown ms-auto" id="languageselector">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img class="imgselectedlang" src="images/flagslanguage/en.png" />
+                        <img class="imgselectedlang" src="./images/flagslanguage/en.png" />
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-md-end">
-                        <li><a class="dropdown-item" href="#" data-lang="da"><img
-                                    src="images/flagslanguage/da.png" /></a>
-                        </li>
-                        <li><a class="dropdown-item" href="#" data-lang="en"><img
-                                    src="images/flagslanguage/en.png" /></a>
-                        </li>
+
 
                     </ul>
                 </div>
@@ -76,10 +78,12 @@
                 <p data-i18n="dealers02">Brune glaskrukker på mellem 10 og 30 ml egner sig godt til spillet. Det brune
                     glas gør, at man ikke kan se gennem glasset.
                 </p>
-
                 <p>
-                <figure class="figure">
-                    <img class="img-fluid rounded" alt="Amber glass jars 30 ml" src="/images/glassjar30ml.jpeg">
+                    <img class="img-fluid rounded" alt="Amber glass jars 10 and 30 ml" src="./images/glassjars.jpeg">
+                </p>
+                <p>
+                <figure class="figure mt-5">
+                    <img class="img-fluid rounded" alt="Amber glass jars 30 ml" src="./images/glassjar30ml.jpeg">
                     <figcaption class="figure-caption">
                         <b data-i18n="dealers03">Brun glaskrukke "med låg 30 ml</b> </br>
                         <span data-i18n="dealers04">
@@ -95,8 +99,8 @@
 
 
                 <p>
-                <figure class="figure">
-                    <img class="img-fluid rounded" alt="Amber glass jars 10 ml" src="/images/glassjar10ml.jpeg">
+                <figure class="figure mt-5">
+                    <img class="img-fluid rounded" alt="Amber glass jars 10 ml" src="./images/glassjar10ml.jpeg">
                     <figcaption class="figure-caption">
                         <b data-i18n="dealers06">Brun glaskrukke med låg 10 ml</b> </br>
                         <span data-i18n="dealers07">35 mm høj og 35 mm i diameter.</span>
@@ -109,31 +113,6 @@
 
 
             </div>
-
-
-
-
-
-
-
-            <!-- <div class="mt-5 p-2 bg-dark text-white text-center">
-        <p></p>
-    </div> -->
-
-
-
-
-    <script src="./lib/bootstrap.min.js"></script>
-    <script src="./lib/i18next.min.js"></script>
-    <script src="./lib/i18nextHttpBackend.min.js"></script>
-    <script src="./lib/i18nextBrowserLanguageDetector.min.js"></script>
-    
-    <script src="./js/defaultsmells.js" ></script>  
-    <script src="./js/i18nextresources.js"></script>
-    <script src="./js/i18nextutil.js"></script>
-
-
-
 
 </body>
 

@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Select QR codes for print</title>
-        <link rel="stylesheet" href="./lib/bootstrap.min.css">
-        <link rel="stylesheet" href="./lib/font-awesome.min.css">
+   
+
+
     <style>
         .select-wrapper {
             /* margin: 150px auto; */
@@ -115,13 +116,35 @@
             width: 100%;
         }
     </style>
+
+
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./lib/font-awesome.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="./css/main.min.css">
+    <script src="./lib/bootstrap.bundle.min.js"></script>
+    <script src="./js/i18nextutil.js" type="module" defer></script>
+
+
+
+    <script src="./lib/qrcode.min.js" defer></script>
+    <script src="./js/asyncqrcode.js" defer></script>
+    <script src="./lib/jspdf.umd.min.js" defer></script>
+
+    <script src="./lib/selectpure.min.js" defer></script>
+    <script src="./js/qrcodeprint.js" type="module" defer>
+
+    </script>
+
+
 </head>
 
 <body>
+
     <body>
 
         <!-- #region Nav menu -->
-        <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
+        <nav class="navbar navbar-expand-md  navbar-dark bg-dark">
             <div class="container-md">
                 <a class="navbar-brand" href="index.html">Smell and Guess</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -138,7 +161,7 @@
                             <a class="nav-link" href="setup.html" data-i18n="setup">Settings</a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="privacy.html" data-i18n="privacy01">Privacy</a>
+                            <a class="nav-link" href="privacy.html" data-i18n="privacy01">Privacy</a>
                         </li>
                     </ul>
 
@@ -146,16 +169,11 @@
                     <div class="nav-item dropdown ms-auto" id="languageselector">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img class="imgselectedlang" src="images/flagslanguage/en.png" alt="Select language"/>
+                            <img class="imgselectedlang" src="images/flagslanguage/en.png" alt="Select language" />
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-md-end">
-                            <li><a class="dropdown-item" href="#" data-lang="da"><img
-                                        src="images/flagslanguage/da.png" alt="da"/></a>
-                            </li>
-                            <li><a class="dropdown-item" href="#" data-lang="en"><img
-                                        src="images/flagslanguage/en.png" alt="en"/></a>
-                            </li>
+
 
                         </ul>
                     </div>
@@ -185,7 +203,7 @@
             <div class="row">
                 <div class="col-md-12 ">
                     <p class="mt-3">
-                    <h3  data-i18n="setup17">Vælg de lugte der skal have udskrevet QR koder</h3>
+                    <h3 data-i18n="setup17">Vælg de lugte der skal have udskrevet QR koder</h3>
                     </p>
 
                 </div>
@@ -199,7 +217,7 @@
                 </div>
                 <div class="col-md-6 ">
                     <p>
-                        <button id="print" class="btn btn-primary"  data-i18n="setup18">Make pdf</button>
+                        <button id="print" class="btn btn-primary" data-i18n="setup18">Make pdf</button>
                     </p>
                 </div>
 
@@ -218,156 +236,9 @@
 
 
 
-        <script src="./lib/bootstrap.min.js"></script>
-        <script src="./lib/i18next.min.js"></script>
-        <script src="./lib/i18nextHttpBackend.min.js"></script>
-        <script src="./lib/i18nextBrowserLanguageDetector.min.js"></script>
-        <!-- <script src="./lib/jsQR.min.js"></script> -->
-      
-        <script src="./js/defaultsmells.js"></script>  
-        <script src="./js/i18nextresources.js"></script>
-        <script src="./js/i18nextutil.js"></script>    
-
-        <script src="./lib/qrcode.min.js" defer></script>
-        <script src="./js/asyncqrcode.js" defer></script>
-
-        <script src="./lib/jspdf.umd.min.js" defer></script>
-
-        <script src="./lib/selectpure.min.js"></script>
-
-
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-
-
-                function drawautocomplete(lang) {
-                    let options = defaultsmells3.map(({ id, languages }) => ({ "label": languages[i18next.language], "value": id.toString() }));
-
-                    options = options.sort((a, b) => a.label !== b.label ? a.label < b.label ? -1 : 1 : 0)
-
-                    //get last qrprint ids form localStorage
-                    const qrprintIntegers = JSON.parse(localStorage.getItem("qrprint"));
-
-                    let qrprintStrings = []//autocomplet needs array of strings
-                    if (qrprintIntegers) {
-                        qrprintStrings = qrprintIntegers.map((id) => (id.toString()));//convert from integers to strings
-                    }
-
-
-                    const autocomplete_select=document.querySelector(".autocomplete-select");
-                    autocomplete_select.innerHTML = ""; 
-
-                    var autocomplete = new SelectPure(".autocomplete-select", {
-                        options: options,
-                        value: qrprintStrings,
-                        multiple: true,
-                        autocomplete: true,
-                        icon: "fa fa-times",
-                        onChange: value => { console.log(value); }//virker ikke!
-                    });
-
-                  
-
-                }
-                drawautocomplete(i18next.language)
-
-
-
-                i18next.on('languageChanged', function (lng) {
-                    drawautocomplete(lng)
-                })
-
-
-                document.getElementById("print").addEventListener("click", () => getSelectedSmells());
-                selectedcontainer = document.querySelector(".select-pure__label");
-                //console.log(selectedcontainer)
-
-
-                async function getSelectedSmells() {
-
-                    const selecteditems = selectedcontainer.querySelectorAll(`[data-value]`);
-                    selectedSmells = [];
-
-                    selecteditems.forEach((element) => {
-                        selectedSmells.push(parseInt(element.getAttribute('data-value')));
-                    });
-
-                    localStorage.setItem("qrprint", JSON.stringify(selectedSmells));
-
-                    const { jsPDF } = window.jspdf;
-                    let doc = new jsPDF("p", "mm", "a4");//l or p for landscape or portal,unit mm, 
-
-                    const leftmargin = 20;
-                    doc.text(`${i18next.t("setup19")} `, leftmargin, 20);//overskrift
-
-                    let ox = leftmargin;
-                    let oy = 30;
-                    const w = 16;//size on QR-kode in mm
-                    // doc.setDrawColor(255, 0, 0);
-                    doc.setDrawColor(125, 125, 125);
-                    doc.setLineWidth(0.075)
-
-                    const columns = 6;
-                    let rows = Math.ceil(selectedSmells.length / columns);
-
-                    console.log("rows colums", rows, columns);
-                    const space = 1.5;
-
-                    let x = 0;
-                    let y = 0;
-                    let idx = 0;
-
-                    for (let r = 0; r < rows; r++) {
-                        y = oy + (w * r) + (space * r)
-
-                        for (let c = 0; c < columns; c++) {
-                            idx = r * columns + c;
-                            const element = selectedSmells[idx];
-                            x = ox + (w * c) + (space * c);
-
-                            if (element != undefined) {
-                                doc.addImage(await asyncqrcode(element.toString()), 'png', x, y, w, w);
-                            }
-                        }
-
-                    }
-
-                    //vandrette skæremærker
-                    for (let r = 0; r < rows + 1; r++) {
-                        let y1 = oy + r * (w + space) - space / 2
-                        let y2 = y1
-
-                        let x1 = ox - space
-                        let x2 = x1 + columns * (w + space) + space
-
-                        doc.line(x1, y1, x2, y2)
-                    }
-
-                    //lodrette skæremærker
-                    for (let c = 0; c < columns + 1; c++) {
-                        let x1 = ox - space / 2 + c * (w + space)
-                        let x2 = x1
-
-                        let y1 = oy - space
-                        let y2 = y1 + rows * (w + space) + space
-
-                        doc.line(x1, y1, x2, y2)
-
-                    }
-
-                    doc.save("qrcodes.pdf");
-
-                }
-            });
-        </script>
-
-
-
-
 
 
 
     </body>
 
-    </html>
+</html>

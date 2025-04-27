@@ -4,15 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <meta name="robots" content="noindex"> -->
-     
-    <link rel="stylesheet" href="./lib/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="./lib/font-awesome.min.css"> -->
-    <!-- <link rel="stylesheet" href="style.css"> -->
+
     <link rel="manifest" href="site.webmanifest" />
 
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
 
-    <title>Smell and Guess</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="./css/main.min.css">
+    <script src="./lib/bootstrap.bundle.min.js"></script>
+  
+    <script src="./js/i18nextutil.js" type="module" defer></script>
+    <script src="./js/index.js" type="module" defer></script>
+    
+    <title>Smell and Guess</title>    
+
     <style>
         figure {
 
@@ -45,7 +50,7 @@
 <body>
 
     <!-- #region Nav menu -->
-    <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-md  navbar-dark bg-dark" >
         <div class="container-md">
             <a class="navbar-brand" href="index.html">Smell and Guess</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -70,16 +75,11 @@
                 <div class="nav-item dropdown ms-auto" id="languageselector">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
-                        <img class="imgselectedlang" alt="Select language" src="images/flagslanguage/en.png" />
+                        <img class="imgselectedlang" alt="Select language" src="./images/flagslanguage/en.png" />
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-md-end">
-                        <li><a class="dropdown-item" href="#" data-lang="da" alt="da"><img
-                                    src="images/flagslanguage/da.png"  alt="da"/></a>
-                        </li>
-                        <li><a class="dropdown-item" href="#" data-lang="en" alt="en"><img
-                                    src="images/flagslanguage/en.png"  alt="en"/></a>
-                        </li>
+
 
                     </ul>
                 </div>
@@ -131,14 +131,14 @@
                             d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31" />
                     </svg> <span data-i18n="index06">8 sprog</span>
                     <span id="flags">
-                        <img alt="da" src="images/flagslanguage/da.png">
-                        <img alt="de" src="images/flagslanguage/de.png">
-                        <img alt="en"  src="images/flagslanguage/en.png">
-                        <img alt="fr"  src="images/flagslanguage/fr.png">
-                        <img alt="es"  src="images/flagslanguage/es.png">
-                        <img alt="sv"  src="images/flagslanguage/sv.png">
-                        <img alt="fi"  src="images/flagslanguage/fi.png">
-                        <img alt="zh"  src="images/flagslanguage/zh.png">
+                        <img alt="da" src="./images/flagslanguage/da.png">
+                        <img alt="de" src="./images/flagslanguage/de.png">
+                        <img alt="en" src="./images/flagslanguage/en.png">
+                        <img alt="fr" src="./images/flagslanguage/fr.png">
+                        <img alt="es" src="./images/flagslanguage/es.png">
+                        <img alt="sv" src="./images/flagslanguage/sv.png">
+                        <img alt="fi" src="./images/flagslanguage/fi.png">
+                        <img alt="zh" src="./images/flagslanguage/zh.png">
                     </span>
                     <br>
                 </p>
@@ -151,9 +151,10 @@
 
         <div class="row">
             <div class="col-md-12 ">
-                <p data-i18n="index07">Oven på glaskrukkernes låg er der en QR kode. Hver QR kode svarer til en helt bestemt lugt.</p>
+                <p data-i18n="index07">Oven på glaskrukkernes låg er der en QR kode. Hver QR kode svarer til en helt
+                    bestemt lugt.</p>
                 <p>
-                    <img class=" img-fluid rounded" alt="Smell and Guess" src="/images/gamedisplay.jpeg">
+                    <img class=" img-fluid rounded" alt="Smell and Guess" src="./images/gamedisplay.jpeg">
                 </p>
                 <p>
                     <hr>
@@ -173,7 +174,7 @@
                         QR-scanner i WebApp’en til Smell and Guess.
                     </figcaption>
 
-                    <img class="img-fluid rounded" alt="Scan QR code on lid" src="/images/scan.png">
+                    <img class="img-fluid rounded" alt="Scan QR code on lid" src="./images/scan.png">
 
                 </figure>
                 </p>
@@ -192,7 +193,7 @@
                             Spilleren lugter til indholdet i glaskrukken og trykker på den ønskede lugt.
                         </p>
                     </figcaption>
-                    <img class="img-fluid rounded" alt="WebApp first player" src="/images/firstplayer.png">
+                    <img class="img-fluid rounded" alt="WebApp first player" src="./images/firstplayer.png">
 
                 </figure>
                 </p>
@@ -211,7 +212,7 @@
                             Turen går herefter videre til næste spiller - som også skal gættet hvad der er i
                             glasset.</p>
                     </figcaption>
-                    <img class="img-fluid rounded" alt="WebApp next player" src="/images/nextplayer.png">
+                    <img class="img-fluid rounded" alt="WebApp next player" src="./images/nextplayer.png">
                 </figure>
                 </p>
             </div>
@@ -226,7 +227,7 @@
                             svar
                             er, og hvad hver spiller har gættet på.</p>
                     </figcaption>
-                    <img class="img-fluid rounded" alt="WebApp result of round" src="/images/runderesultat.png">
+                    <img class="img-fluid rounded" alt="WebApp result of round" src="./images/runderesultat.png">
                 </figure>
                 </p>
 
@@ -244,7 +245,7 @@
                         <p data-i18n="index14">
                             Når man ønsker det - kan man få vist det samlede resultat.</p>
                     </figcaption>
-                    <img class="img-fluid rounded" alt="WebApp total score" src="/images/totalscore.png">
+                    <img class="img-fluid rounded" alt="WebApp total score" src="./images/totalscore.png">
                 </figure>
                 </p>
             </div>
@@ -278,11 +279,11 @@
 
                 <p>
                     <span data-i18n="index22">Vælg hvilke lugte du vil komme i glassene og udskriv de tilhørende QR
-                    koder.</span> 
+                        koder.</span>
                     <a href="qrcodeprint.html" target="_blank" data-i18n="smell04">Udskriv QR-koder</a>
                 </p>
 
-                <p><span data-i18n="index23">QR-koderne limes på glaskrukkens låg.</span> 
+                <p><span data-i18n="index23">QR-koderne limes på glaskrukkens låg.</span>
                     <span data-i18n="index24">Hver QR-kode repræsenterer en bestemt lugt.</span>
 
                 </p>
@@ -322,7 +323,7 @@
             <div class="col-md-6 col-lg-4">
                 <p>
                 <figure class="figure">
-                    <img class="img-fluid rounded" alt="Prepare jar for the game" src="/images/createjar.jpeg">
+                    <img class="img-fluid rounded" alt="Prepare jar for the game" src="./images/createjar.jpeg">
 
                     <figcaption class="figure-caption">
                         <b data-i18n="index32">Sådan lavet en glaskrukke til spillet</b><br>
@@ -344,7 +345,7 @@
             <div class="col-md-6 col-lg-4">
                 <p>
                 <figure class="figure">
-                    <img class="img-fluid rounded" alt="Prepare jar for the game" src="/images/spices.jpeg">
+                    <img class="img-fluid rounded" alt="Prepare jar for the game" src="./images/spices.jpeg">
 
                     <figcaption class="figure-caption">
                         <b data-i18n="index35">Tørrede krydderier</b><br>
@@ -363,7 +364,7 @@
             <div class="col-md-6 col-lg-4">
                 <p>
                 <figure class="figure">
-                    <img src="/images/essenser1.jpeg" class="figure-img img-fluid rounded" alt="Essences">
+                    <img src="./images/essenser1.jpeg" class="figure-img img-fluid rounded" alt="Essences">
                     <figcaption class="figure-caption">
                         <b data-i18n="index38">Essenser</b><br>
                         <p data-i18n="index39">
@@ -379,7 +380,7 @@
 
                 <p>
                 <figure class="figure">
-                    <img class="img-fluid rounded" alt="Essences" src="/images/essenser2.jpeg">
+                    <img class="img-fluid rounded" alt="Essences" src="./images/essenser2.jpeg">
                     <figcaption class="figure-caption">
                         <p data-i18n="index40">
                             I specialbutikker kan man købe en lang række andre essenser som pebermynte,
@@ -394,7 +395,7 @@
             <div class="col-md-6 col-lg-4">
                 <p>
                 <figure class="figure">
-                    <img class="img-fluid rounded" alt="Essential oils" src="/images/essentialoils.jpeg">
+                    <img class="img-fluid rounded" alt="Essential oils" src="./images/essentialoils.jpeg">
                     <figcaption class="figure-caption">
                         <b data-i18n="index41">Æteriske olier</b><br>
                         <p data-i18n="index42">
@@ -433,14 +434,8 @@
         </p>
     </div>
 
-    <script src="./lib/bootstrap.min.js"></script>
-    <script src="./lib/i18next.min.js"></script>
-    <script src="./lib/i18nextHttpBackend.min.js"></script>
-    <script src="./lib/i18nextBrowserLanguageDetector.min.js"></script>
-    
-    <!-- <script src="./js/defaultsmells.js" ></script>   -->
-    <script src="./js/i18nextresources.js"></script>
-    <script src="./js/i18nextutil.js"></script>
+
+
 </body>
 
 </html>

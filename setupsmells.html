@@ -7,22 +7,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <meta name="robots" content="noindex"> -->
 
-  <title data-i18n="setupsmells">Smell and Guess</title>
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="./css/main.min.css">
+  <script src="./lib/bootstrap.bundle.min.js"></script>
+  <script src="./js/i18nextutil.js" type="module" defer></script>
 
 
-
-  <link rel="stylesheet" href="./lib/bootstrap.min.css">
+  <script src="./js/setupsmells.js" type="module" defer></script>
+ 
   <link rel="stylesheet" href="./lib/font-awesome.min.css">
 
-  <link rel="stylesheet" href="style.css">
+
+  <script src="./lib/jsQR.min.js" defer></script>
 
 
+
+
+  <title data-i18n="setupsmells">Smell and Guess</title>
 
 </head>
 
 <body>
    <!-- #region Nav menu -->
-   <nav class="navbar navbar-expand-md bg-dark " data-bs-theme="dark">
+   <nav class="navbar navbar-expand-md  navbar-dark bg-dark" >
     <div class="container-md">
         <a class="navbar-brand" href="index.html">Smell and Guess</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -47,17 +56,9 @@
             <div class="nav-item dropdown ms-auto" id="languageselector">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    <img class="imgselectedlang" src="images/flagslanguage/en.png" alt="Select language"/>
+                    <img class="imgselectedlang" src="./images/flagslanguage/en.png" alt="Select language"/>
                 </a>
-
                 <ul class="dropdown-menu dropdown-menu-md-end">
-                    <li><a class="dropdown-item" href="#" data-lang="da"><img
-                                src="images/flagslanguage/da.png" alt="da"/></a>
-                    </li>
-                    <li><a class="dropdown-item" href="#" data-lang="en"><img
-                                src="images/flagslanguage/en.png" alt="en"/></a>
-                    </li>
-
                 </ul>
             </div>
             <!-- #endregion language selector -->
@@ -132,7 +133,7 @@
                 </p>
                 <p data-i18n="setup14">Hvis du endnu ikke har et spil kan du teste med nedenstående billede.</p>
                 <figure class="figure">
-                  <img class="img-fluid rounded" alt="image with jars for testing" src="/images/jarsfortest.jpeg">
+                  <img class="img-fluid rounded" alt="image with jars for testing" src="./images/jarsfortest.jpeg">
 
                   <figcaption class="figure-caption">
                       <b  data-i18n="setup15">Billede til test</b><br>
@@ -156,17 +157,7 @@
 
 
   
-  <script src="./lib/bootstrap.min.js"></script>
-  <script src="./lib/i18next.min.js"></script>
-  <script src="./lib/i18nextHttpBackend.min.js"></script>
-  <script src="./lib/i18nextBrowserLanguageDetector.min.js"></script>
-  <script src="./lib/jsQR.min.js"></script>
 
-  <script src="./js/defaultsmells.js"></script>  
-  <script src="./js/i18nextresources.js"></script>
-  <script src="./js/i18nextutil.js"></script>
-
-  <script src="./js/setupsmells.js"></script>
 
 
 
