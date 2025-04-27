@@ -1,5 +1,8 @@
-
-
+"use strict";
+import { defaultsmells } from "./defaultsmells.js";
+import i18next from '../lib/i18next.js';
+import { getallsmells, getnumberoffavailablesmells,drawlanguagemenuDD,browserlocales} from "./smellsutil.js";
+// import {langAvailableHomepage,langAvailableGame} from './constants.js';
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -133,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
         //if(Number.isNaN(id)){console.error(`Er ikke et nummer! ${id}`)}
 
         //tjek om id er et nummer og om dette nummer findes i defaultsmells
-        if (!Number.isNaN(id) && defaultsmells3.some(field => field.id == id)) {
+        if (!Number.isNaN(id) && defaultsmells.some(field => field.id == id)) {
           drawCorners("green", 15);
 
           addSmell(id);
@@ -240,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
     containersmells.innerHTML = "";
 
     smells.forEach((item) => {
-      div = document.createElement("div");
+     const div = document.createElement("div");
       div.setAttribute('data-id', item.id);
       if (item.id == id) {
         div.classList.add("currentDiv")
@@ -249,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function () {
       div.classList.add("me-1");
       //div.innerHTML = item.name;
       div.innerHTML = getSmellNameById(item.id,i18next.language);
-      icon = document.createElement("i")
+      const icon = document.createElement("i")
       icon.classList.add("fa");
       icon.classList.add("fa-times");
       icon.classList.add("ms-1");
@@ -398,7 +401,7 @@ document.addEventListener("DOMContentLoaded", function () {
    
     if (id === -1) return "";
 
-    _tmp = defaultsmells3.find(field => field.id == id);
+    const _tmp = defaultsmells.find(field => field.id == id);
 
     if (!_tmp.hasOwnProperty("languages")) {
       return _tmp.name;
@@ -455,7 +458,8 @@ document.addEventListener("DOMContentLoaded", function () {
   })
 
 
-
+  const languageselectordropdownmenu = document.querySelector("#languageselector>.dropdown-menu")
+  drawlanguagemenuDD(languageselectordropdownmenu)
 
 });
 

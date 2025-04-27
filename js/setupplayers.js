@@ -1,3 +1,7 @@
+"use strict";
+import i18next from '../lib/i18next.js';
+import {langAvailableHomepage,langAvailableGame} from './constants.js';
+import { drawlanguagemenuDD} from "./smellsutil.js";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -6,6 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //Global variables
   let players;
+
+
+
 
   //references to UI elements
   const containerplayers = document.getElementById("containerplayers");
@@ -18,9 +25,44 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const userlanguage = document.getElementById("userlanguage");
 
-  usertxtlanguage.value=i18next.language;
-  userimgselectedlang.src=`images/flagslanguage/${i18next.language}.png`
-  userimgselectedlang.alt=`Select language`
+
+
+
+    /**
+     * Retrieve user-preferred locales from browser
+     *
+     * @param {boolean} languageCodeOnly - when true, returns
+     * ["en", "fr"] instead of ["en-US", "fr-FR"]
+     * @returns array | undefined
+     */
+    function browserLocales(languageCodeOnly = false) {
+      return navigator.languages.map((locale) =>
+        languageCodeOnly ? locale.split("-")[0] : locale,
+      );
+    }
+  
+  
+
+    // const navigatorlanguages = browserLocales()[0];//first language from browser - tjek for undefined!!
+
+
+
+function setdefaultlanguage(){
+      let _lan=i18next.language;
+
+      const navigatorlanguages = browserLocales()
+      //navigatorlanguages not undefined and first browserlanguage is in array langAvailableGame but not in langAvailableHomepage
+      if(navigatorlanguages && !langAvailableHomepage.includes(navigatorlanguages[0]) && langAvailableGame.includes(navigatorlanguages[0] )){
+        _lan=navigatorlanguages[0];
+        console.log("LANGUAGE from browser")
+      }
+      usertxtlanguage.value = _lan;
+      userimgselectedlang.src = `./images/flagslanguage/${_lan}.png`
+}
+setdefaultlanguage()
+
+
+  userimgselectedlang.alt = `Select language`
 
   document.getElementById("btnAddPlayer").addEventListener("click", (e) => {
     e.preventDefault();
@@ -36,30 +78,28 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       addPlayer(_player);
+
     }
   });
 
 
-//#region change
+  //#region change
+ 
+
   function drawDropdown() {
     const fragment = document.createDocumentFragment();
 
 
-    langAvailableGame.forEach(lang => { 
+    langAvailableGame.forEach(lang => {
       const li = document.createElement("LI");
       li.classList.add("dropdown-item");
-      const a = document.createElement("A");
-      a.classList.add("dropdown-item");
-      a.setAttribute("href", "#");
-      a.setAttribute("data-lang", lang);
-
+      li.classList.add("dropdown-item");
+      li.setAttribute("data-lang", lang);
       const img = document.createElement("IMG");
-      img.setAttribute("src", `images/flagslanguage/${lang}.png`);
+      img.setAttribute("src", `./images/flagslanguage/${lang}.png`);
       img.setAttribute("alt", lang);
       img.style.width = "20px"
-
-      a.appendChild(img)
-      li.appendChild(a)
+      li.appendChild(img)
       fragment.appendChild(li)
     });
     userlanguageselectordropdownmenu.appendChild(fragment)
@@ -68,20 +108,17 @@ document.addEventListener("DOMContentLoaded", function () {
   drawDropdown();
 
   userlanguageselectordropdownmenu.addEventListener("click", (e) => {
-    //e.preventDefault()
+    const _li = e.target.closest(`li`)
 
-    const _a = e.target.closest(`a`)
-
-    if (_a.hasAttribute("data-lang")) {
-      let selectedlang = _a.getAttribute("data-lang")
+    if (_li.hasAttribute("data-lang")) {
+      let selectedlang = _li.getAttribute("data-lang")
       //change img in menu
-      userimgselectedlang.src = `images/flagslanguage/${selectedlang}.png`
-      
+      userimgselectedlang.src = `./images/flagslanguage/${selectedlang}.png`
       usertxtlanguage.value = selectedlang
     }
   }, false)
 
-//#endregion
+  //#endregion
 
 
   //add listener to all elements in containerplayers
@@ -134,8 +171,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const fragment = document.createDocumentFragment();
 
     players.forEach((item) => {
-     // console.log("INDEX", item)
-      div = document.createElement("DIV");
+      // console.log("INDEX", item)
+      const div = document.createElement("DIV");
       //div.style.border="solid 1px"
 
       div.classList.add("p-2")
@@ -143,7 +180,7 @@ document.addEventListener("DOMContentLoaded", function () {
       div.classList.add("rounded")
 
 
-      deletebutton = document.createElement("I");
+      const deletebutton = document.createElement("I");
       deletebutton.classList.add("fa");
       deletebutton.classList.add("fa-times");
       deletebutton.classList.add("mx-2");
@@ -161,10 +198,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-      img.setAttribute("src", `/images/flagslanguage/${item.lang}.png`)
+      img.setAttribute("src", `./images/flagslanguage/${item.lang}.png`)
       img.setAttribute("alt", item.lang)
 
-      span = document.createElement("SPAN");
+      const span = document.createElement("SPAN");
       span.innerText = item.name;
       div.append(span);
       div.append(img)
@@ -186,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
   players = getPlayers();
   drawContainerPlayers();
 
-
-
+    const languageselectordropdownmenu = document.querySelector("#languageselector>.dropdown-menu")
+    drawlanguagemenuDD(languageselectordropdownmenu)
 
 });

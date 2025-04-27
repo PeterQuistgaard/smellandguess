@@ -1,4 +1,6 @@
-const resources = {
+
+
+export const resources = {
     en: {
         translation:
         {

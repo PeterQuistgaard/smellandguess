@@ -1,5 +1,6 @@
-
-
+"use strict";
+import i18next from '../lib/i18next.js';
+import { drawlanguagemenuDD} from "./smellsutil.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
     //Global variables
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     function initPlayers() {
         const defaultplayers = [];
-        setPlayers(defaultplayers);
+       // setPlayers(defaultplayers);
         return JSON.stringify(defaultplayers);
     }
 
@@ -48,8 +49,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             if(_game.length > 0){
             
             
-            div = document.createElement("DIV");
-            span = document.createElement("SPAN")
+            const div = document.createElement("DIV");
+            const span = document.createElement("SPAN")
 
 
             span.setAttribute("data-i18n","gameinprogress")
@@ -87,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     function drawSmells2(smells) {
 
         // console.log(smells)                        
-        div = document.createElement("DIV");
+        const div = document.createElement("DIV");
         if (smells[0]) {
             //så er mindst en smell oprettet
 
@@ -95,10 +96,10 @@ document.addEventListener("DOMContentLoaded", async function () {
             div.setAttribute("data-i18n","setup03")           
             
             containersmells.appendChild(div);
-            ul = document.createElement("UL");
+            const ul = document.createElement("UL");
 
             smells.forEach((item) => {
-                li = document.createElement("LI");
+                const li = document.createElement("LI");
                 li.innerHTML = item.name;
                 ul.appendChild(li);
             });
@@ -135,12 +136,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             players.forEach((item) => {
                 div = document.createElement("DIV");
-                let img = document.createElement("IMG");
+                const  img = document.createElement("IMG");
                 img.classList.add("mx-2");
                 img.style.width = "20px";
-                img.setAttribute("src", `/images/flagslanguage/${item.lang}.png`)
+                img.setAttribute("src", `./images/flagslanguage/${item.lang}.png`)
                 img.setAttribute("alt", item.lang)
-                span = document.createElement("SPAN");
+                const span = document.createElement("SPAN");
                 span.innerText = item.name;
                 div.append(span);
                 div.append(img)
@@ -173,5 +174,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     drawContainerPlayers(players);
     drawSmells2(smells)
+
+
+        const languageselectordropdownmenu = document.querySelector("#languageselector>.dropdown-menu")
+        drawlanguagemenuDD(languageselectordropdownmenu)
 
 });
