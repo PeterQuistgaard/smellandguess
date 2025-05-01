@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const _smellsorderdbyname=getallsmells(_lang);
 
-
         _smellsorderdbyname.forEach(smell => {
             const _li = document.createElement("li");
             const _span = document.createElement("span");

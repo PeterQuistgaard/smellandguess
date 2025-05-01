@@ -1,613 +1,822 @@
 "use strict";
 
-export const defaultsmells = [
-  {
-    id: 0,
-    name: "Hindbær",
-    languages: {
-      "da": "Hindbær",
-      "sv": "Hallon",
-      "fi": "Vadelma",
-      "en": "Raspberry",
-      "es": "Frambuesa",
-      "zh": "树莓",
-      "fr": "Framboise",
-      "de": "Himbeere",
-      "la": "Rubus idaeus"
+export const defaultsmells =
+[
+    {
+      "id": 0,
+      "languages": {
+        "da": "Hindbær",
+        "de": "Himbeere",
+        "el": "Σμέουρο",
+        "en": "Raspberry",
+        "es": "Frambuesa",
+        "fi": "Vadelma",
+        "fr": "Framboise",
+        "it": "Lampone",
+        "nl": "Framboos",
+        "no": "Bringebær",
+        "pl": "Malina",
+        "pt": "Framboesa",
+        "sv": "Hallon",
+        "zh": "树莓"
+      }
+    },
+    {
+      "id": 1,
+      "languages": {
+        "da": "Lime",
+        "de": "Limette",
+        "el": "Λάιμ",
+        "en": "Lime",
+        "es": "Lima",
+        "fi": "Lime",
+        "fr": "Citron vert",
+        "it": "Lime",
+        "nl": "Limoen",
+        "no": "Lime",
+        "pl": "Lima",
+        "pt": "Limão",
+        "sv": "Lime",
+        "zh": "酸橙"
+      }
+    },
+    {
+      "id": 2,
+      "languages": {
+        "da": "Timian",
+        "de": "Thymian",
+        "el": "Θυμάρι",
+        "en": "Thymus",
+        "es": "Tomillo",
+        "fi": "Ajuruohot",
+        "fr": "Thym",
+        "it": "Timo",
+        "nl": "Tijm",
+        "no": "Timian",
+        "pl": "Tymianek",
+        "pt": "Tomilho",
+        "sv": "Timjansläktet",
+        "zh": "百里香"
+      }
+    },
+    {
+      "id": 3,
+      "languages": {
+        "da": "Eddike",
+        "de": "Essig",
+        "el": "Ξύδι",
+        "en": "Vinegar",
+        "es": "Vinagre",
+        "fi": "Etikka",
+        "fr": "Vinaigre",
+        "it": "Aceto",
+        "nl": "Azijn",
+        "no": "Eddik",
+        "pl": "Ocet",
+        "pt": "Vinagre",
+        "sv": "Vinäger",
+        "zh": "醋"
+      }
+    },
+    {
+      "id": 4,
+      "languages": {
+        "da": "Karry",
+        "de": "Curry",
+        "el": "Κάρυ",
+        "en": "Curry",
+        "es": "Curry",
+        "fi": "Curry",
+        "fr": "Curry",
+        "it": "Curry",
+        "nl": "Kerrie",
+        "no": "Karri",
+        "pl": "Curry",
+        "pt": "Caril",
+        "sv": "Curry",
+        "zh": "咖喱"
+      }
+    },
+    {
+      "id": 5,
+      "languages": {
+        "da": "Karamel",
+        "de": "Karamell",
+        "el": "Καραμέλα",
+        "en": "Caramel",
+        "es": "Caramelo",
+        "fi": "Karamelli",
+        "fr": "Caramel",
+        "it": "Caramello",
+        "nl": "Karamel",
+        "no": "Karamell",
+        "pl": "Karmel",
+        "pt": "Caramelo",
+        "sv": "Karamell",
+        "zh": "焦糖"
+      }
+    },
+    {
+      "id": 6,
+      "languages": {
+        "da": "Ananas",
+        "de": "Ananas",
+        "el": "Ανανάς",
+        "en": "Pineapple",
+        "es": "Piña",
+        "fi": "Ananas",
+        "fr": "Ananas",
+        "it": "Ananas",
+        "nl": "Ananas",
+        "no": "Ananas",
+        "pl": "Ananas",
+        "pt": "Abacaxi",
+        "sv": "Ananas",
+        "zh": "菠萝"
+      }
+    },
+    {
+      "id": 7,
+      "languages": {
+        "da": "Pebermynte",
+        "de": "Pfefferminze",
+        "el": "Μέντα",
+        "en": "Peppermint",
+        "es": "Menta",
+        "fi": "Piparminttu",
+        "fr": "Menthe poivrée",
+        "it": "Menta piperita",
+        "nl": "Pepermunt",
+        "no": "Peppermynte",
+        "pl": "Mięta pieprzowa",
+        "pt": "Hortelã-pimenta",
+        "sv": "Pepparmynta",
+        "zh": "薄荷"
+      }
+    },
+    {
+      "id": 8,
+      "languages": {
+        "da": "Kamille",
+        "de": "Kamille",
+        "el": "Χαμομήλι",
+        "en": "Camomile",
+        "es": "Manzanilla",
+        "fi": "Kamomilla",
+        "fr": "Camomille",
+        "it": "Camomilla",
+        "nl": "Kamille",
+        "no": "Kamille",
+        "pl": "Rumianek",
+        "pt": "Camomila",
+        "sv": "Kamomill",
+        "zh": "洋甘菊"
+      }
+    },
+    {
+      "id": 9,
+      "languages": {
+        "da": "Kirsebær",
+        "de": "Kirsche",
+        "el": "Κεράσι",
+        "en": "Cherry",
+        "es": "Cereza",
+        "fi": "Kirsikka",
+        "fr": "Cerise",
+        "it": "Ciliegia",
+        "nl": "Kers",
+        "no": "Kirsebær",
+        "pl": "Wiśnia",
+        "pt": "Cereja",
+        "sv": "Körsbär",
+        "zh": "樱桃"
+      }
+    },
+    {
+      "id": 10,
+      "languages": {
+        "da": "Abrikos",
+        "de": "Aprikose",
+        "el": "Βερίκοκο",
+        "en": "Apricot",
+        "es": "Albaricoque",
+        "fi": "Aprikoosi",
+        "fr": "Abricot",
+        "it": "Albicocca",
+        "nl": "Abrikoos",
+        "no": "Aprikos",
+        "pl": "Morela",
+        "pt": "Damasco",
+        "sv": "Aprikos",
+        "zh": "杏"
+      }
+    },
+    {
+      "id": 11,
+      "languages": {
+        "da": "Kardemomme",
+        "de": "Kardamom",
+        "el": "Καρδαμώμο",
+        "en": "Cardamom",
+        "es": "Cardamomo",
+        "fi": "Kardemumma",
+        "fr": "Cardamome",
+        "it": "Cardamomo",
+        "nl": "Kardemom",
+        "no": "Kardemomme",
+        "pl": "Kardamon",
+        "pt": "Cardamomo",
+        "sv": "Kardemumma",
+        "zh": "豆蔻"
+      }
+    },
+    {
+      "id": 12,
+      "languages": {
+        "da": "Allehånde",
+        "de": "Piment",
+        "el": "Μπαχάρ",
+        "en": "Allspice",
+        "es": "Pimienta de Jamaica",
+        "fi": "Maustepippuri",
+        "fr": "Piment de la Jamaïque",
+        "it": "Pepe della Giamaica",
+        "nl": "Allspice",
+        "no": "Allehånde",
+        "pl": "Ziele angielskie",
+        "pt": "Pimenta-da-Jamaica",
+        "sv": "Kryddpeppar",
+        "zh": "多香果"
+      }
+    },
+    {
+      "id": 13,
+      "languages": {
+        "da": "Koriander",
+        "de": "Koriander",
+        "el": "Κολίανδρος",
+        "en": "Coriander",
+        "es": "Cilantro",
+        "fi": "Korianteri",
+        "fr": "Coriandre",
+        "it": "Coriandolo",
+        "nl": "Koriander",
+        "no": "Koriander",
+        "pl": "Kolendra",
+        "pt": "Coentro",
+        "sv": "Koriander",
+        "zh": "香菜"
+      }
+    },
+    {
+      "id": 14,
+      "languages": {
+        "da": "Spidskommen",
+        "de": "Kreuzkümmel",
+        "el": "Κύμινο",
+        "en": "Cumin",
+        "es": "Comino",
+        "fi": "Roomankumina",
+        "fr": "Cumin",
+        "it": "Cumino",
+        "nl": "Komijn",
+        "no": "Spisskummen",
+        "pl": "Kminek",
+        "pt": "Cominho",
+        "sv": "Spiskummin",
+        "zh": "孜然"
+      }
+    },
+    {
+      "id": 15,
+      "languages": {
+        "da": "Kaffe",
+        "de": "Kaffee",
+        "el": "Καφές",
+        "en": "Coffee",
+        "es": "Café",
+        "fi": "Kahvi",
+        "fr": "Café",
+        "it": "Caffè",
+        "nl": "Koffie",
+        "no": "Kaffe",
+        "pl": "Kawa",
+        "pt": "Café",
+        "sv": "Kaffe",
+        "zh": "咖啡"
+      }
+    },
+    {
+      "id": 16,
+      "languages": {
+        "da": "Kanel",
+        "de": "Zimt",
+        "el": "Κανέλα",
+        "en": "Cinnamon",
+        "es": "Canela",
+        "fi": "Kaneli",
+        "fr": "Cannelle",
+        "it": "Cannella",
+        "nl": "Kaneel",
+        "no": "Kanel",
+        "pl": "Cynamon",
+        "pt": "Canela",
+        "sv": "Kanel",
+        "zh": "肉桂"
+      }
+    },
+    {
+      "id": 17,
+      "languages": {
+        "da": "Mandel",
+        "de": "Mandel",
+        "el": "Αμύγδαλο",
+        "en": "Almond",
+        "es": "Almendra",
+        "fi": "Manteli",
+        "fr": "Amande",
+        "it": "Mandorla",
+        "nl": "Amandel",
+        "no": "Mandel",
+        "pl": "Migdał",
+        "pt": "Amêndoa",
+        "sv": "Mandel",
+        "zh": "杏仁"
+      }
+    },
+    {
+      "id": 18,
+      "languages": {
+        "da": "Vanilje",
+        "de": "Vanille",
+        "el": "Βανίλια",
+        "en": "Vanilla",
+        "es": "Vainilla",
+        "fi": "Vaniljat",
+        "fr": "Vanille",
+        "it": "Vaniglia",
+        "nl": "Vanille",
+        "no": "Vanilje",
+        "pl": "Wanilia",
+        "pt": "Baunilha",
+        "sv": "Vanilj",
+        "zh": "香草"
+      }
+    },
+    {
+      "id": 19,
+      "languages": {
+        "da": "Nellike",
+        "de": "Nelke",
+        "el": "Γαρίφαλο",
+        "en": "Clove",
+        "es": "Clavo",
+        "fi": "Neilikka",
+        "fr": "Clou de girofle",
+        "it": "Chiodo di garofano",
+        "nl": "Kruidnagel",
+        "no": "Kryddernellik",
+        "pl": "Goździk",
+        "pt": "Cravo",
+        "sv": "Nejlika",
+        "zh": "丁香"
+      }
+    },
+    {
+      "id": 20,
+      "languages": {
+        "da": "Rosmarin",
+        "de": "Rosmarin",
+        "el": "Δενδρολίβανο",
+        "en": "Rosemary",
+        "es": "Romero",
+        "fi": "Rosmariini",
+        "fr": "Romarin",
+        "it": "Rosmarino",
+        "nl": "Rozemarijn",
+        "no": "Rosmarin",
+        "pl": "Rozmaryn",
+        "pt": "Alecrim",
+        "sv": "Rosmarin",
+        "zh": "迷迭香"
+      }
+    },
+    {
+      "id": 21,
+      "languages": {
+        "da": "Muskatnød",
+        "de": "Muskatnuss",
+        "el": "Μοσχοκάρυδο",
+        "en": "Nutmeg",
+        "es": "Nuez Moscada",
+        "fi": "Muskottipähkinä",
+        "fr": "Muscade",
+        "it": "Noce moscata",
+        "nl": "Nootmuskaat",
+        "no": "Muskatt",
+        "pl": "Gałka muszkatołowa",
+        "pt": "Noz-moscada",
+        "sv": "Muskot",
+        "zh": "肉豆蔻"
+      }
+    },
+    {
+      "id": 22,
+      "languages": {
+        "da": "Ingefær",
+        "de": "Ingwer",
+        "el": "Τζίντζερ",
+        "en": "Ginger",
+        "es": "Jengibre",
+        "fi": "Inkivääri",
+        "fr": "Gingembre",
+        "it": "Zenzero",
+        "nl": "Gember",
+        "no": "Ingefær",
+        "pl": "Imbir",
+        "pt": "Gengibre",
+        "sv": "Ingefära",
+        "zh": "生姜"
+      }
+    },
+    {
+      "id": 23,
+      "languages": {
+        "da": "Cayennepeber",
+        "de": "Cayennepfeffer",
+        "el": "Καγιέν",
+        "en": "Cayenne pepper",
+        "es": "Pimienta de Cayena",
+        "fi": "Cayennepippuri",
+        "fr": "Poivre de Cayenne",
+        "it": "Peperoncino di Cayenna",
+        "nl": "Cayennepeper",
+        "no": "Cayennepepper",
+        "pl": "Pieprz cayenne",
+        "pt": "Pimenta-caiena",
+        "sv": "Cayennepeppar",
+        "zh": "辣椒粉"
+      }
+    },
+    {
+      "id": 24,
+      "languages": {
+        "da": "Anis",
+        "de": "Anis",
+        "el": "Γλυκάνισος",
+        "en": "Anise",
+        "es": "Anís",
+        "fi": "Anis",
+        "fr": "Anis",
+        "it": "Anice",
+        "nl": "Anijs",
+        "no": "Anis",
+        "pl": "Anyż",
+        "pt": "Anis",
+        "sv": "Anis",
+        "zh": "茴香"
+      }
+    },
+    {
+      "id": 25,
+      "languages": {
+        "da": "Banan",
+        "de": "Banane",
+        "el": "Μπανάνα",
+        "en": "Banana",
+        "es": "Plátano",
+        "fi": "Banaani",
+        "fr": "Banane",
+        "it": "Banana",
+        "nl": "Banaan",
+        "no": "Banan",
+        "pl": "Banan",
+        "pt": "Banana",
+        "sv": "Banan",
+        "zh": "香蕉"
+      }
+    },
+    {
+      "id": 26,
+      "languages": {
+        "da": "Kokos",
+        "de": "Kokosnuss",
+        "el": "Καρύδα",
+        "en": "Coconut",
+        "es": "Coco",
+        "fi": "Kookos",
+        "fr": "Noix de coco",
+        "it": "Noce di cocco",
+        "nl": "Kokosnoot",
+        "no": "Kokosnøtt",
+        "pl": "Kokos",
+        "pt": "Coco",
+        "sv": "Kokos",
+        "zh": "椰子"
+      }
+    },
+    {
+      "id": 27,
+      "languages": {
+        "da": "Peanuts",
+        "de": "Erdnüsse",
+        "el": "Φυστίκια",
+        "en": "Peanuts",
+        "es": "Cacahuetes",
+        "fi": "Maapähkinät",
+        "fr": "Cacahuètes",
+        "it": "Arachidi",
+        "nl": "Pinda's",
+        "no": "Peanøtter",
+        "pl": "Orzeszki ziemne",
+        "pt": "Amendoim",
+        "sv": "Jordnötter",
+        "zh": "花生"
+      }
+    },
+    {
+      "id": 28,
+      "languages": {
+        "da": "Mandarin",
+        "de": "Mandarine",
+        "el": "Μανταρίνι",
+        "en": "Mandarin",
+        "es": "Mandarina",
+        "fi": "Mandariini",
+        "fr": "Mandarine",
+        "it": "Mandarino",
+        "nl": "Mandarijn",
+        "no": "Mandarin",
+        "pl": "Mandarynka",
+        "pt": "Tangerina",
+        "sv": "Mandarin",
+        "zh": "柑橘"
+      }
+    },
+    {
+      "id": 29,
+      "languages": {
+        "da": "Jordbær",
+        "de": "Erdbeere",
+        "el": "Φράουλα",
+        "en": "Strawberry",
+        "es": "Fresa",
+        "fi": "Mansikka",
+        "fr": "Fraise",
+        "it": "Fragola",
+        "nl": "Aardbei",
+        "no": "Jordbær",
+        "pl": "Truskawka",
+        "pt": "Morango",
+        "sv": "Jordgubbe",
+        "zh": "草莓"
+      }
+    },
+    {
+      "id": 30,
+      "languages": {
+        "da": "Estragon",
+        "de": "Estragon",
+        "el": "Εστραγκόν",
+        "en": "Tarragon",
+        "es": "Estragón",
+        "fi": "Rakuuna",
+        "fr": "Estragon",
+        "it": "Dragoncello",
+        "nl": "Dragon",
+        "no": "Estragon",
+        "pl": "Estragon",
+        "pt": "Estragão",
+        "sv": "Dragon",
+        "zh": "龙蒿"
+      }
+    },
+    {
+      "id": 31,
+      "languages": {
+        "da": "Peber",
+        "de": "Pfeffer",
+        "el": "Πιπέρι",
+        "en": "Pepper",
+        "es": "Pimienta",
+        "fi": "Pippuri",
+        "fr": "Poivre",
+        "it": "Pepe",
+        "nl": "Peper",
+        "no": "Pepper",
+        "pl": "Pieprz",
+        "pt": "Pimenta",
+        "sv": "Peppar",
+        "zh": "胡椒"
+      }
+    },
+    {
+      "id": 32,
+      "languages": {
+        "da": "Basilikum",
+        "de": "Basilikum",
+        "el": "Βασιλικός",
+        "en": "Basil",
+        "es": "Albahaca",
+        "fi": "Maustebasilika",
+        "fr": "Basilic",
+        "it": "Basilico",
+        "nl": "Basilicum",
+        "no": "Basilikum",
+        "pl": "Bazylia",
+        "pt": "Manjericão",
+        "sv": "Basilika",
+        "zh": "罗勒"
+      }
+    },
+    {
+      "id": 33,
+      "languages": {
+        "da": "Enebær",
+        "de": "Wacholder",
+        "el": "Αρκεύθος",
+        "en": "Juniper",
+        "es": "Enebro",
+        "fi": "Kataja",
+        "fr": "Genièvre",
+        "it": "Ginepro",
+        "nl": "Jeneverbes",
+        "no": "Einerbær",
+        "pl": "Jagoda jałowca",
+        "pt": "Zimbro",
+        "sv": "Enbär",
+        "zh": "杜松子"
+      }
+    },
+    {
+      "id": 34,
+      "languages": {
+        "da": "Citron",
+        "de": "Zitrone",
+        "el": "Λεμόνι",
+        "en": "Lemon",
+        "es": "Limón",
+        "fi": "Sitruuna",
+        "fr": "Citron",
+        "it": "Limone",
+        "nl": "Citroen",
+        "no": "Sitron",
+        "pl": "Cytryna",
+        "pt": "Limão",
+        "sv": "Citron",
+        "zh": "柠檬"
+      }
+    },
+    {
+      "id": 35,
+      "languages": {
+        "da": "Eucalyptus",
+        "de": "Eukalyptus",
+        "el": "Ευκάλυπτος",
+        "en": "Eucalyptus",
+        "es": "Eucalipto",
+        "fi": "Eukalyptus",
+        "fr": "Eucalyptus",
+        "it": "Eucalipto",
+        "nl": "Eucalyptus",
+        "no": "Eukalyptus",
+        "pl": "Eukaliptus",
+        "pt": "Eucalipto",
+        "sv": "Eukalyptus",
+        "zh": "桉树"
+      }
+    },
+    {
+      "id": 36,
+      "languages": {
+        "da": "Appelsin",
+        "de": "Orange",
+        "el": "Πορτοκάλι",
+        "en": "Orange",
+        "es": "Naranja",
+        "fi": "Appelsiini",
+        "fr": "Orange",
+        "it": "Arancia",
+        "nl": "Sinaasappel",
+        "no": "Appelsin",
+        "pl": "Pomarańcza",
+        "pt": "Laranja",
+        "sv": "Apelsin",
+        "zh": "橙子"
+      }
+    },
+    {
+      "id": 37,
+      "languages": {
+        "da": "Lavendel",
+        "de": "Lavendel",
+        "el": "Λεβάντα",
+        "en": "Lavender",
+        "es": "Lavanda",
+        "fi": "Laventeli",
+        "fr": "Lavande",
+        "it": "Lavanda",
+        "nl": "Lavendel",
+        "no": "Lavendel",
+        "pl": "Lawenda",
+        "pt": "Lavanda",
+        "sv": "Lavendel",
+        "zh": "薰衣草"
+      }
+    },
+    {
+      "id": 38,
+      "languages": {
+        "da": "Grapefrugt",
+        "de": "Grapefruit",
+        "el": "Γκρέιπφρουτ",
+        "en": "Grapefruit",
+        "es": "Pomelo",
+        "fi": "Greippi",
+        "fr": "Pamplemousse",
+        "it": "Pompelmo",
+        "nl": "Grapefruit",
+        "no": "Grapefrukt",
+        "pl": "Grejpfrut",
+        "pt": "Toranja",
+        "sv": "Grapefrukt",
+        "zh": "柚子"
+      }
+    },
+    {
+      "id": 39,
+      "languages": {
+        "da": "Rose",
+        "de": "Rose",
+        "el": "Τριαντάφυλλο",
+        "en": "Rose",
+        "es": "Rosa",
+        "fi": "Ruusu",
+        "fr": "Rose",
+        "it": "Rosa",
+        "nl": "Roos",
+        "no": "Rose",
+        "pl": "Róża",
+        "pt": "Rosa",
+        "sv": "Ros",
+        "zh": "玫瑰"
+      }
+    },
+    {
+      "id": 40,
+      "languages": {
+        "da": "Kamfer",
+        "de": "Kampfer",
+        "el": "Καμφόρα",
+        "en": "Camphor",
+        "es": "Alcanfor",
+        "fi": "Kamferi",
+        "fr": "Camphre",
+        "it": "Canfora",
+        "nl": "Kamfer",
+        "no": "Kamfer",
+        "pl": "Kamfora",
+        "pt": "Cânfora",
+        "sv": "Kamfer",
+        "zh": "樟脑"
+      }
+    },
+    {
+      "id": 41,
+      "languages": {
+        "da": "Cedertræ",
+        "de": "Zedernholz",
+        "el": "Κέδρος",
+        "en": "Cedarwood",
+        "es": "Cedro",
+        "fi": "Setri",
+        "fr": "Bois de cèdre",
+        "it": "Cedro",
+        "nl": "Cederhout",
+        "no": "Sedertre",
+        "pl": "Drewno cedrowe",
+        "pt": "Cedro",
+        "sv": "Cederträ",
+        "zh": "雪松"
+      }
+    },
+    {
+      "id": 42,
+      "languages": {
+        "da": "Gran",
+        "de": "Fichte",
+        "el": "Έλατο",
+        "en": "Spruce",
+        "es": "Abeto",
+        "fi": "Kuusi",
+        "fr": "Épinette",
+        "it": "Abete",
+        "nl": "Spar",
+        "no": "Gran",
+        "pl": "Świerk",
+        "pt": "Abeto",
+        "sv": "Gran",
+        "zh": "云杉"
+      }
     }
-  },
-  {
-    id: 1,
-    name: "Lime",
-    languages: {
-      "da": "Lime",
-      "sv": "Lime",
-      "fi": "Lime",
-      "en": "Lime",
-      "es": "Lima",
-      "zh": "酸橙",
-      "fr": "Citron vert",
-      "de": "Limette"
-    }
-  },
-  {
-    id: 2,
-    name: "Timian",
-    languages: {
-      "da": "Timian",
-      "sv": "Timjansläktet",
-      "fi": "Ajuruohot",
-      "en": "Thymus",
-      "es": "Tomillo",
-      "zh": "百里香",
-      "fr": "Thym",
-      "de": "Thymian"
-    }
-  },
-  {
-    id: 3,
-    name: "Eddike",
-    languages: {
-      "da": "Eddike",
-      "sv": "Vinäger",
-      "fi": "Etikka",
-      "en": "Vinegar",
-      "es": "Vinagre",
-      "zh": "醋",
-      "fr": "Vinaigre",
-      "de": "Essig"
-    }
-  },
-  {
-    id: 4,
-    name: "Karry",
-    languages: {
-      "da": "Karry",
-      "sv": "Curry",
-      "fi": "Curry",
-      "en": "Curry",
-      "es": "Curry",
-      "zh": "咖喱",
-      "fr": "Curry",
-      "de": "Curry"
-    }
-  },
-  {
-    id: 5,
-    name: "Karamel",
-    languages: {
-      "da": "Karamel",
-      "sv": "Karamell",
-      "fi": "Karamelli",
-      "en": "Caramel",
-      "es": "Caramelo",
-      "zh": "焦糖",
-      "fr": "Caramel",
-      "de": "Karamell"
-    }
-  },
-  {
-    id: 6,
-    name: "Ananas",
-    languages: {
-      "da": "Ananas",
-      "sv": "Ananas",
-      "fi": "Ananas",
-      "en": "Pineapple",
-      "es": "Piña",
-      "zh": "菠萝",
-      "fr": "Ananas",
-      "de": "Ananas"
-    }
-  },
-  {
-    id: 7,
-    name: "Pebermynte",
-    languages: {
-      "da": "Pebermynte",
-      "sv": "Pepparmynta",
-      "fi": "Piparminttu",
-      "en": "Peppermint",
-      "es": "Menta",
-      "zh": "薄荷",
-      "fr": "Menthe poivrée",
-      "de": "Pfefferminze"
-    }
-  },
-  {
-    id: 8,
-    name: "Kamille",
-    languages: {
-      "da": "Kamille",
-      "sv": "Kamomill",
-      "fi": "Kamomilla",
-      "en": "Camomile",
-      "es": "Manzanilla",
-      "zh": "洋甘菊",
-      "fr": "Camomille",
-      "de": "Kamille"
-    }
-  },
-  {
-    id: 9,
-    name: "Kirsebær",
-    languages: {
-      "da": "Kirsebær",
-      "sv": "Körsbär",
-      "fi": "Kirsikka",
-      "en": "Cherry",
-      "es": "Cereza",
-      "zh": "樱桃",
-      "fr": "Cerise",
-      "de": "Kirsche"
-    }
-  },
-  {
-    id: 10,
-    name: "Abrikos",
-    languages: {
-      "da": "Abrikos",
-      "sv": "Aprikos",
-      "fi": "Aprikoosi",
-      "en": "Apricot",
-      "es": "Albaricoque",
-      "zh": "杏",
-      "fr": "Abricot",
-      "de": "Aprikose"
-    }
-  },
-  {
-    id: 11,
-    name: "Kardemomme",
-    languages: {
-      "da": "Kardemomme",
-      "sv": "Kardemumma",
-      "fi": "Kardemumma",
-      "en": "Cardamom",
-      "es": "Cardamomo",
-      "zh": "豆蔻",
-      "fr": "Cardamome",
-      "de": "Kardamom"
-    }
-  },
-  {
-    id: 12,
-    name: "Allehånde",
-    languages: {
-      "da": "Allehånde",
-      "sv": "Kryddpeppar",
-      "fi": "Maustepippuri",
-      "en": "Allspice",
-      "es": "Pimienta de Jamaica",
-      "zh": "多香果",
-      "fr": "Piment de la Jamaïque",
-      "de": "Piment",
-      "la": "Pimenta dioica"
-    }
-  },
-  {
-    id: 13,
-    name: "Koriander",
-    languages: {
-      "da": "Koriander",
-      "sv": "Koriander",
-      "fi": "Korianteri",
-      "en": "Coriander",
-      "es": "Cilantro",
-      "zh": "香菜",
-      "fr": "Coriandre",
-      "de": "Koriander"
-    }
-  },
-  {
-    id: 14,
-    name: "Spidskommen",
-    languages: {
-      "da": "Spidskommen",
-      "sv": "Spiskummin",
-      "fi": "Roomankumina",
-      "en": "Cumin",
-      "es": "Comino",
-      "zh": "孜然",
-      "fr": "Cumin",
-      "de": "Kreuzkümmel"
-    }
-  },
-  {
-    id: 15,
-    name: "Kaffe",
-    languages: {
-      "da": "Kaffe",
-      "sv": "Kaffe",
-      "fi": "Kahvi",
-      "en": "Coffee",
-      "es": "Café",
-      "zh": "咖啡",
-      "fr": "Café",
-      "de": "Kaffee"
-    }
-  },
-  {
-    id: 16,
-    name: "Kanel",
-    languages: {
-      "da": "Kanel",
-      "sv": "Kanel",
-      "fi": "Kaneli",
-      "en": "Cinnamon",
-      "es": "Canela",
-      "zh": "肉桂",
-      "fr": "Cannelle",
-      "de": "Zimt"
-    }
-  },
-  {
-    id: 17,
-    name: "Mandel",
-    languages: {
-      "da": "Mandel",
-      "sv": "Mandel",
-      "fi": "Manteli",
-      "en": "Almond",
-      "es": "Almendra",
-      "zh": "杏仁",
-      "fr": "Amande",
-      "de": "Mandel"
-    }
-  },
-{
-    id: 18,
-    name: "Vanilje",
-    languages: {
-      "da": "Vanilje",
-      "sv": "Vanilj",
-      "fi": "Vaniljat",
-      "en": "Vanilla",
-      "es": "Vainilla",
-      "zh": "香草",
-      "fr": "Vanille",
-      "de": "Vanille"
-    }
-  },
-  {
-    id: 19,
-    name: "Nellike",
-    languages: {
-      "da": "Nellike",
-      "sv": "Nejlika",
-      "fi": "Neilikka",
-      "en": "Clove",
-      "es": "Clavo",
-      "zh": "丁香",
-      "fr": "Clou de girofle",
-      "de": "Nelke"
-    }
-  },
-  {
-    id: 20,
-    name: "Rosmarin",
-    languages: {
-      "da": "Rosmarin",
-      "sv": "Rosmarin",
-      "fi": "Rosmariini",
-      "en": "Rosemary",
-      "es": "Romero",
-      "zh": "迷迭香",
-      "fr": "Romarin",
-      "de": "Rosmarin"
-    }
-  },
-  {
-    id: 21,
-    name: "Muskatnød",
-    languages: {
-      "da": "Muskatnød",
-      "sv": "Muskot",
-      "fi": "Muskottipähkinä",
-      "en": "Nutmeg",
-      "es": "Nuez Moscada",
-      "zh": "肉豆蔻",
-      "fr": "Muscade",
-      "de": "Muskatnuss"
-    }
-  },
-  {
-    id: 22,
-    name: "Ingefær",
-    languages: {
-      "da": "Ingefær",
-      "sv": "Ingefära",
-      "fi": "Inkivääri",
-      "en": "Ginger",
-      "es": "Jengibre",
-      "zh": "生姜",
-      "fr": "Gingembre",
-      "de": "Ingwer"
-    }
-  },
-  {
-    id: 23,
-    name: "Cayennepeber",
-    languages: {
-      "da": "Cayennepeber",
-      "sv": "Cayennepeppar",
-      "fi": "Cayennepippuri",
-      "en": "Cayenne pepper",
-      "es": "Pimienta de Cayena",
-      "zh": "辣椒粉",
-      "fr": "Poivre de Cayenne",
-      "de": "Cayennepfeffer"
-    }
-  },
-  {
-    id: 24,
-    name: "Anis",
-    languages: {
-      "da": "Anis",
-      "sv": "Anis",
-      "fi": "Anis",
-      "en": "Anise",
-      "es": "Anís",
-      "zh": "茴香",
-      "fr": "Anis",
-      "de": "Anis"
-    }
-  },
-  {
-    id: 25,
-    name: "Banan",
-    languages: {
-      "da": "Banan",
-      "sv": "Banan",
-      "fi": "Banaani",
-      "en": "Banana",
-      "es": "Plátano",
-      "zh": "香蕉",
-      "fr": "Banane",
-      "de": "Banane"
-    }
-  },
-  {
-    id: 26,
-    name: "Kokos",
-    languages: {
-      "da": "Kokos",
-      "sv": "Kokos",
-      "fi": "Kookos",
-      "en": "Coconut",
-      "es": "Coco",
-      "zh": "椰子",
-      "fr": "Noix de coco",
-      "de": "Kokosnuss"
-    }
-  },
-  {
-    id: 27,
-    name: "Peanuts",
-    languages: {
-      "da": "Peanuts",
-      "sv": "Jordnötter",
-      "fi": "Maapähkinät",
-      "en": "Peanuts",
-      "es": "Cacahuetes",
-      "zh": "花生",
-      "fr": "Cacahuètes",
-      "de": "Erdnüsse"
-    }
-  },
-  {
-    id: 28,
-    name: "Mandarin",
-    languages: {
-      "da": "Mandarin",
-      "sv": "Mandarin",
-      "fi": "Mandariini",
-      "en": "Mandarin",
-      "es": "Mandarina",
-      "zh": "柑橘",
-      "fr": "Mandarine",
-      "de": "Mandarine"
-    }
-  },
-  {
-    id: 29,
-    name: "Jordbær",
-    languages: {
-      "da": "Jordbær",
-      "sv": "Jordgubbe",
-      "fi": "Mansikka",
-      "en": "Strawberry",
-      "es": "Fresa",
-      "zh": "草莓",
-      "fr": "Fraise",
-      "de": "Erdbeere"
-    }
-  },
-  {
-    id: 30,
-    name: "Estragon",
-    languages: {
-      "da": "Estragon",
-      "sv": "Dragon",
-      "fi": "Rakuuna",
-      "en": "Tarragon",
-      "es": "Estragón",
-      "zh": "龙蒿",
-      "fr": "Estragon",
-      "de": "Estragon"
-    }
-  },
-  {
-    id: 31,
-    name: "Peber",
-    languages: {
-      "da": "Peber",
-      "sv": "Peppar",
-      "fi": "Pippuri",
-      "en": "Pepper",
-      "es": "Pimienta",
-      "zh": "胡椒",
-      "fr": "Poivre",
-      "de": "Pfeffer"
-    }
-  },
-  {
-    id: 32,
-    name: "Basilikum",
-    languages: {
-      "da": "Basilikum",
-      "sv": "Basilika",
-      "fi": "Maustebasilika",
-      "en": "Basil",
-      "es": "Albahaca",
-      "zh": "罗勒",
-      "fr": "Basilic",
-      "de": "Basilikum"
-    }
-  },
-  {
-    id: 33,
-    name: "Enebær",
-    languages: {
-      "da": "Enebær",
-      "sv": "Enbär",
-      "fi": "Kataja",
-      "en": "Juniper",
-      "es": "Enebro",
-      "zh": "杜松子",
-      "fr": "Genièvre",
-      "de": "Wacholder"
-    }
-  },
-  {
-    id: 34,
-    name: "Citron",
-    languages: {
-      "da": "Citron",
-      "sv": "Citron",
-      "fi": "Sitruuna",
-      "en": "Lemon",
-      "es": "Limón",
-      "zh": "柠檬",
-      "fr": "Citron",
-      "de": "Zitrone"
-    }
-  },
-  {
-    id: 35,
-    name: "Eucalyptus",
-    languages: {
-      "da": "Eucalyptus",
-      "sv": "Eukalyptus",
-      "fi": "Eukalyptus",
-      "en": "Eucalyptus",
-      "es": "Eucalipto",
-      "zh": "桉树",
-      "fr": "Eucalyptus",
-      "de": "Eukalyptus"
-    }
-  },
-  {
-    id: 36,
-    name: "Appelsin",
-    languages: {
-      "da": "Appelsin",
-      "sv": "Apelsin",
-      "fi": "Appelsiini",
-      "en": "Orange",
-      "es": "Naranja",
-      "zh": "橙子",
-      "fr": "Orange",
-      "de": "Orange"
-    }
-  },
-  {
-    id: 37,
-    name: "Lavendel",
-    languages: {
-      "da": "Lavendel",
-      "sv": "Lavendel",
-      "fi": "Laventeli",
-      "en": "Lavender",
-      "es": "Lavanda",
-      "zh": "薰衣草",
-      "fr": "Lavande",
-      "de": "Lavendel"
-    }
-  },
-  {
-    id: 38,
-    name: "Grape",
-    languages: {
-      "da": "Grape",
-      "sv": "Grapefrukt",
-      "fi": "Greippi",
-      "en": "Grapefruit",
-      "es": "Pomelo",
-      "zh": "柚子",
-      "fr": "Pamplemousse",
-      "de": "Grapefruit"
-    }
-  },
-  {
-    id: 39,
-    name: "Rose",
-    languages: {
-      "da": "Rose",
-      "sv": "Ros",
-      "fi": "Ruusut",
-      "en": "Rose",
-      "es": "Rosa",
-      "zh": "玫瑰",
-      "fr": "Rose",
-      "de": "Rose"
-    }
-  },
-  {
-    id: 40,
-    name: "Kamfer",
-    languages: {
-      "da": "Kamfer",
-      "sv": "Kamfer",
-      "fi": "Kamferi",
-      "en": "Camphor",
-      "es": "Alcanfor",
-      "zh": "樟脑",
-      "fr": "Camphre",
-      "de": "Kampfer"
-    }
-  },
-  {
-    id: 41,
-    name: "Cedertræ",
-    languages: {
-      "da": "Cedertræ",
-      "sv": "Cederträ",
-      "fi": "Setri",
-      "en": "Cedarwood",
-      "es": "Cedro",
-      "zh": "雪松",
-      "fr": "Bois de cèdre",
-      "de": "Zedernholz"
-    }
-  },
-  {
-    id: 42,
-    name: "Gran",
-    languages: {
-      "da": "Gran",
-      "sv": "Gran",
-      "fi": "Kuusi",
-      "en": "Spruce",
-      "es": "Abeto",
-      "zh": "云杉",
-      "fr": "Épinette",
-      "de": "Fichte"
-    }
-  }
-];
-
-
-
-
-
+  ]
