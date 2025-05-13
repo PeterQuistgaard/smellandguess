@@ -81,6 +81,27 @@
 
         <!-- #region QR scanner -->
           <div id="containerqrscanner" hidden class="border border-2 p-2 rounded-2 pt-5 ">
+            <i  id="btnTorch" onclick="myFunction(this)" class="fa fa-lg fa-lightbulb-o pt-1"></i>
+            <script>
+              function myFunction(e) {
+                
+                const result = e.classList.toggle("text-warning");//yellow color on/off on icon
+                console.log(result)
+                if(result){
+                  //alert("tænd")
+                  const track = stream.getVideoTracks()[0];
+                  track.applyConstraints({
+                    advanced: [{ torch: true }]
+                  })
+                }
+                else {
+                  //alert("sluk")
+                }
+               
+
+              }
+            </script>
+            
             <button type="button" class="btn-close" id="btnScanStop" aria-label="Close"></button>
             <div id="loadingMessage" hidden></div>
             <canvas id="canvas" hidden></canvas>
@@ -94,8 +115,6 @@
       <div class="col-md-12 ">
         <div class="mt-2">   
           <button id="btnScanStart" type="button" class="btn btn-dark " title="Start QR scanner"><i class="fa fa-qrcode fa-3x p-2"></i></button>
-
-          
         </div>
       </div>
     </div>
