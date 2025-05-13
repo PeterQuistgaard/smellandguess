@@ -173,10 +173,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 
   btnTorch.addEventListener("click", (e) => {
+    //alert("Torch")
+    const stream = video.srcObject;
+    console.log(stream.id)
 
-    const stream = video.srcObject.getVideoTracks()[0];
+
+
+    const track = stream.getVideoTracks()[0];
+
+    // video.addEventListener('loadedmetadata', (e) => {      });
+      window.setTimeout(() => (
+        onCapabilitiesReady(track.getCapabilities())
+      ), 500);
+
+
+    function onCapabilitiesReady(capabilities) {  
+      console.log(capabilities);
+
+      if (capabilities.torch) {
+        console.log("torch er tilgængelig")
+
+        btnTorch.hidden = false;
+      }
+      else {
+        btnTorch.hidden = false;
+        console.log("torch ikke tilgængelig")
+      }
+    }
+
     const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
-    console.log(result)
+
     if (result) {
       //alert("tænd")
       const track = stream.getVideoTracks()[0];
@@ -191,6 +217,8 @@ document.addEventListener("DOMContentLoaded", function () {
         advanced: [{ torch: false }]
       })
     }
+    
+
 
 
   })
@@ -238,13 +266,12 @@ document.addEventListener("DOMContentLoaded", function () {
             function onCapabilitiesReady(capabilities) {              
 
               if (capabilities.torch) {
-                  console.log("torch er tilgængelig")
-                
+                  console.log("torch er tilgængelig")               
 
                 btnTorch.hidden = false;
               }
               else {
-                btnTorch.hidden=true;
+                btnTorch.hidden=false;
                 console.log("torch ikke tilgængelig")
               }
 
