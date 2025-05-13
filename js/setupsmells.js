@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const scanstart = document.getElementById("btnScanStart");
   const scanstop = document.getElementById("btnScanStop");
+  const btnTorch= document.getElementById("btnTorch");
+
   const clearAllSmells = document.getElementById("clearAllSmells");
   const outercontainersmells=document.getElementById("outercontainersmells")
   const containerqrscanner = document.getElementById("containerqrscanner");
@@ -188,6 +190,58 @@ document.addEventListener("DOMContentLoaded", function () {
         scanstart.hidden = true;
         scanstop.hidden = false;
         containerqrscanner.hidden = false;
+
+
+//#region torch
+
+
+            // get the active track of the stream
+            const track = stream.getVideoTracks()[0];
+
+            video.addEventListener('loadedmetadata', (e) => {
+              window.setTimeout(() => (
+                onCapabilitiesReady(track.getCapabilities())
+              ), 500);
+            });
+
+            function onCapabilitiesReady(capabilities) {              
+
+              if (capabilities.torch) {
+                  btnTorch.hidden=false;
+                  btnTorch.addEventListener("click", (e) => {
+
+                  const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+                  console.log(result)
+                  if (result) {
+                    //alert("tænd")
+                    const track = stream.getVideoTracks()[0];
+                    track.applyConstraints({
+                      advanced: [{ torch: true }]
+                    })
+                  }
+                  else {
+                    //alert("sluk")
+                    const track = stream.getVideoTracks()[0];
+                    track.applyConstraints({
+                      advanced: [{ torch: false }]
+                    })
+                  }
+
+                })
+
+              }
+              else {
+                //btnTorch.hidden=true;
+                console.log("torch ikke tilgængelig")
+              }
+
+            }
+
+//#endregion torch
+
+
+
+
       }
       ).catch((err) => {
         /* handle the error */
