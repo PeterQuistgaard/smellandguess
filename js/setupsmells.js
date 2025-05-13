@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             btnTorch.hidden = false;
           }
           else {
-            btnTorch.hidden = false;
+            btnTorch.hidden = true;
             console.log("torch ikke tilgængelig")
           }
         }
