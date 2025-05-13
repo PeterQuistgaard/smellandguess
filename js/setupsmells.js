@@ -177,8 +177,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const stream = video.srcObject;
     console.log(stream.id)
 
-
-
     const track = stream.getVideoTracks()[0];
 
     // video.addEventListener('loadedmetadata', (e) => {      });
@@ -187,37 +185,33 @@ document.addEventListener("DOMContentLoaded", function () {
       ), 500);
 
 
-    function onCapabilitiesReady(capabilities) {  
+    function onCapabilitiesReady(capabilities) {
       console.log(capabilities);
 
       if (capabilities.torch) {
-        console.log("torch er tilgængelig")
+        const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
 
-        btnTorch.hidden = false;
+        //result er true or false
+        if (result) {
+          const track = stream.getVideoTracks()[0];
+          track.applyConstraints({
+            advanced: [{ torch: result }]
+          })
+        }
+
       }
-      else {
-        btnTorch.hidden = false;
-        console.log("torch ikke tilgængelig")
-      }
+
     }
 
-    const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
 
-    if (result) {
-      //alert("tænd")
-      const track = stream.getVideoTracks()[0];
-      track.applyConstraints({
-        advanced: [{ torch: true }]
-      })
-    }
-    else {
-      //alert("sluk")
-      const track = stream.getVideoTracks()[0];
-      track.applyConstraints({
-        advanced: [{ torch: false }]
-      })
-    }
-    
+    // else {
+    //   //alert("sluk")
+    //   const track = stream.getVideoTracks()[0];
+    //   track.applyConstraints({
+    //     advanced: [{ torch: false }]
+    //   })
+    // }
+
 
 
 
@@ -250,33 +244,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //#region torch
-
-
             // get the active track of the stream
-            //const track = video.srcObject.getVideoTracks()[0];
             const track = stream.getVideoTracks()[0];
-            // console.log(track)
-            // console.log("antal streams",stream.getVideoTracks().length)
             video.addEventListener('loadedmetadata', (e) => {
               window.setTimeout(() => (
                 onCapabilitiesReady(track.getCapabilities())
               ), 500);
             });
 
-            function onCapabilitiesReady(capabilities) {              
-
+            function onCapabilitiesReady(capabilities) {
               if (capabilities.torch) {
-                  console.log("torch er tilgængelig")               
-
+                console.log("torch er tilgængelig")
                 btnTorch.hidden = false;
               }
               else {
-                btnTorch.hidden=false;
+                btnTorch.hidden=true;
                 console.log("torch ikke tilgængelig")
               }
-
             }
-
 //#endregion torch
 
 
