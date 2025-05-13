@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const outputData = document.getElementById("outputData");
   const btnScanStart = document.getElementById("btnScanStart");
   const btnScanStop = document.getElementById("btnScanStop");
+  const btnTorch= document.getElementById("btnTorch");
 
   const containerqrscanner = document.getElementById("containerqrscanner");
 
@@ -243,29 +244,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
             function onCapabilitiesReady(capabilities) {              
 
-              if (capabilities.torch) {                
-                track.applyConstraints({
-                  advanced: [{ torch: true }]
-                }).catch(e => console.log(e));
+              if (capabilities.torch) {
+                  btnTorch.hidden=false;
+                  btnTorch.addEventListener("click", (e) => {
 
+                  const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+                  console.log(result)
+                  if (result) {
+                    //alert("tænd")
+                    const track = stream.getVideoTracks()[0];
+                    track.applyConstraints({
+                      advanced: [{ torch: true }]
+                    })
+                  }
+                  else {
+                    //alert("sluk")
+                                        const track = stream.getVideoTracks()[0];
+                    track.applyConstraints({
+                      advanced: [{ torch: false }]
+                    })
+                  }
 
-                // torchon.addEventListener("click", (e) => {
-                //   e.preventDefault();
-                //   track.applyConstraints({
-                //     advanced: [{ torch: true }]
-                //   })
-                //     .catch(e => console.log(e));
-                // });
-                // torchoff.addEventListener("click", (e) => {
-                //   e.preventDefault();
-                //   track.applyConstraints({
-                //     advanced: [{ torch: false }]
-                //   })
-                //     .catch(e => console.log(e));
-                // });
+                })
 
               }
               else {
+                btnTorch.hidden=true;
                 console.log("torch ikke tilgængelig")
               }
 
@@ -285,6 +289,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error(err);
       });;
   }
+
+
+
 
   btnScanStart.addEventListener("click", (e) => {
     e.preventDefault();
