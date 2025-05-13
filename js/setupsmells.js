@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const scanstart = document.getElementById("btnScanStart");
   const scanstop = document.getElementById("btnScanStop");
   const btnTorch = document.getElementById("btnTorch");
+  const btnTorchIcon=btnTorch.querySelector("i");
 
   const clearAllSmells = document.getElementById("clearAllSmells");
   const outercontainersmells = document.getElementById("outercontainersmells")
@@ -164,7 +165,8 @@ document.addEventListener("DOMContentLoaded", function () {
     scanstop.hidden = true;
     containerqrscanner.hidden = true;
     scanstart.hidden = false;
-    btnTorch.classList.remove("text-warning");
+    btnTorchIcon.classList.remove("text-warning");
+
     setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter cancas
 
 
@@ -189,7 +191,10 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(capabilities);
 
       if (capabilities.torch) {
-        const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+     //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+      const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
+     
+
 
         //result er true or false
         if (result) {
@@ -206,7 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     }
-    
+
   })
 
 
@@ -250,7 +255,7 @@ document.addEventListener("DOMContentLoaded", function () {
             btnTorch.hidden = false;
           }
           else {
-            btnTorch.hidden = true;
+            btnTorch.hidden = false;
             console.log("torch ikke tilgængelig")
           }
         }
