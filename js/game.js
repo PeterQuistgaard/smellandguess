@@ -188,6 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+
+
   let language = navigator.language; //from browser 
   let languages = navigator.languages; //from browser 
   // let locale = Intl.getCanonicalLocales(language); //from browser validated
@@ -226,7 +228,56 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(tick);
         btnScanStart.hidden = true;
         containerqrscanner.hidden = false;
-        //btnScanStop.hidden = false;
+
+
+
+
+            // get the active track of the stream
+            const track = stream.getVideoTracks()[0];
+
+            video.addEventListener('loadedmetadata', (e) => {
+              window.setTimeout(() => (
+                onCapabilitiesReady(track.getCapabilities())
+              ), 500);
+            });
+
+            function onCapabilitiesReady(capabilities) {              
+
+              if (capabilities.torch) {                
+                track.applyConstraints({
+                  advanced: [{ torch: true }]
+                }).catch(e => console.log(e));
+
+
+                // torchon.addEventListener("click", (e) => {
+                //   e.preventDefault();
+                //   track.applyConstraints({
+                //     advanced: [{ torch: true }]
+                //   })
+                //     .catch(e => console.log(e));
+                // });
+                // torchoff.addEventListener("click", (e) => {
+                //   e.preventDefault();
+                //   track.applyConstraints({
+                //     advanced: [{ torch: false }]
+                //   })
+                //     .catch(e => console.log(e));
+                // });
+
+              }
+              else {
+                console.log("torch ikke tilgængelig")
+              }
+
+            }
+
+
+
+
+
+
+        
+        
       }
       ).catch((err) => {
         /* handle the error */
