@@ -199,18 +199,14 @@ document.addEventListener("DOMContentLoaded", function () {
           })
         }
         else {
-const track = stream.getVideoTracks()[0];
+          const track = stream.getVideoTracks()[0];
           track.applyConstraints({
             advanced: [{ torch: false }]
           })
-
-
         }
-
       }
-
     }
-
+    
   })
 
 

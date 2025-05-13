@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const outputData = document.getElementById("outputData");
   const btnScanStart = document.getElementById("btnScanStart");
   const btnScanStop = document.getElementById("btnScanStop");
-  const btnTorch= document.getElementById("btnTorch");
+  const btnTorch = document.getElementById("btnTorch");
 
   const containerqrscanner = document.getElementById("containerqrscanner");
 
@@ -239,18 +239,14 @@ document.addEventListener("DOMContentLoaded", function () {
           })
         }
         else {
-const track = stream.getVideoTracks()[0];
+          const track = stream.getVideoTracks()[0];
           track.applyConstraints({
             advanced: [{ torch: false }]
           })
-
-
         }
-
       }
-
     }
-
+    
   })
 
 
@@ -301,8 +297,8 @@ const track = stream.getVideoTracks()[0];
 
 
 
-        
-        
+
+
       }
       ).catch((err) => {
         /* handle the error */
