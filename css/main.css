@@ -10769,10 +10769,17 @@ textarea.form-control-lg {
   background-color: whitesmoke;
 }
 
-#containerqrscanner button {
+#btnScanStop {
   top: 10px;
   right: 10px;
   position: absolute !important;
+}
+
+#btnTorch {
+  top: 3px;
+  left: 2px;
+  position: absolute !important;
+  cursor: pointer;
 }
 
 .currentDiv {
