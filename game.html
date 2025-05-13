@@ -81,8 +81,8 @@
 
         <!-- #region QR scanner -->
           <div id="containerqrscanner" hidden class="border border-2 p-2 rounded-2 pt-5 ">
-            <i  id="btnTorch" onclick="myFunction(this)" class="fa fa-lg fa-lightbulb-o pt-1"></i>
-            <script>
+            <i  id="btnTorch" hidden class="fa fa-lg fa-lightbulb-o pt-1"></i>
+            <!-- <script>
               function myFunction(e) {
                 
                 const result = e.classList.toggle("text-warning");//yellow color on/off on icon
@@ -100,7 +100,7 @@
                
 
               }
-            </script>
+            </script> -->
             
             <button type="button" class="btn-close" id="btnScanStop" aria-label="Close"></button>
             <div id="loadingMessage" hidden></div>
