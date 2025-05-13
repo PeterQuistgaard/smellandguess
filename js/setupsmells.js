@@ -164,10 +164,39 @@ document.addEventListener("DOMContentLoaded", function () {
     scanstop.hidden = true;
     containerqrscanner.hidden = true;
     scanstart.hidden = false;
+    btnTorch.classList.remove("text-warning");
     setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter cancas
 
 
   }
+
+
+                
+  btnTorch.addEventListener("click", (e) => {
+
+    const stream = video.srcObject.getVideoTracks()[0];
+    const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+    console.log(result)
+    if (result) {
+      //alert("tænd")
+      const track = stream.getVideoTracks()[0];
+      track.applyConstraints({
+        advanced: [{ torch: true }]
+      })
+    }
+    else {
+      //alert("sluk")
+      const track = stream.getVideoTracks()[0];
+      track.applyConstraints({
+        advanced: [{ torch: false }]
+      })
+    }
+
+
+  })
+
+
+
 
   function startScanner() {
     loadingMessage.hidden = false;
@@ -196,8 +225,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
             // get the active track of the stream
+            //const track = video.srcObject.getVideoTracks()[0];
             const track = stream.getVideoTracks()[0];
-
+            // console.log(track)
+            // console.log("antal streams",stream.getVideoTracks().length)
             video.addEventListener('loadedmetadata', (e) => {
               window.setTimeout(() => (
                 onCapabilitiesReady(track.getCapabilities())
@@ -207,31 +238,13 @@ document.addEventListener("DOMContentLoaded", function () {
             function onCapabilitiesReady(capabilities) {              
 
               if (capabilities.torch) {
-                  btnTorch.hidden=false;
-                  btnTorch.addEventListener("click", (e) => {
+                  console.log("torch er tilgængelig")
+                
 
-                  const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
-                  console.log(result)
-                  if (result) {
-                    //alert("tænd")
-                    const track = stream.getVideoTracks()[0];
-                    track.applyConstraints({
-                      advanced: [{ torch: true }]
-                    })
-                  }
-                  else {
-                    //alert("sluk")
-                    const track = stream.getVideoTracks()[0];
-                    track.applyConstraints({
-                      advanced: [{ torch: false }]
-                    })
-                  }
-
-                })
-
+                btnTorch.hidden = false;
               }
               else {
-                //btnTorch.hidden=true;
+                btnTorch.hidden=true;
                 console.log("torch ikke tilgængelig")
               }
 
