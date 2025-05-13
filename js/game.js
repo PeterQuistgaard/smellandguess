@@ -212,7 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-
   btnTorch.addEventListener("click", (e) => {
     //alert("Torch")
     const stream = video.srcObject;
@@ -236,14 +235,25 @@ document.addEventListener("DOMContentLoaded", function () {
         if (result) {
           const track = stream.getVideoTracks()[0];
           track.applyConstraints({
-            advanced: [{ torch: result }]
+            advanced: [{ torch: true }]
           })
+        }
+        else {
+const track = stream.getVideoTracks()[0];
+          track.applyConstraints({
+            advanced: [{ torch: false }]
+          })
+
+
         }
 
       }
 
     }
+
   })
+
+
 
 
   function startScanner() {

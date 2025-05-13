@@ -1,35 +1,35 @@
 "use strict";
 import { defaultsmells } from "./defaultsmells.js";
 import i18next from '../lib/i18next.js';
-import { getallsmells, getnumberoffavailablesmells,drawlanguagemenuDD,browserlocales} from "./smellsutil.js";
+import { getallsmells, getnumberoffavailablesmells, drawlanguagemenuDD, browserlocales } from "./smellsutil.js";
 // import {langAvailableHomepage,langAvailableGame} from './constants.js';
 
 
 document.addEventListener("DOMContentLoaded", function () {
 
- 
+
   //Global variables
   let id = -1;
   let nextplayerindex = -1;
   let players;
   let smells;
   let game;
- 
+
 
 
   /* #region scanner */
   const video = document.createElement("video");
-  const canvasElement = document.getElementById("canvas"); 
+  const canvasElement = document.getElementById("canvas");
   const canvas = canvasElement.getContext("2d", { willReadFrequently: true });
 
   const loadingMessage = document.getElementById("loadingMessage");
 
   const scanstart = document.getElementById("btnScanStart");
   const scanstop = document.getElementById("btnScanStop");
-  const btnTorch= document.getElementById("btnTorch");
+  const btnTorch = document.getElementById("btnTorch");
 
   const clearAllSmells = document.getElementById("clearAllSmells");
-  const outercontainersmells=document.getElementById("outercontainersmells")
+  const outercontainersmells = document.getElementById("outercontainersmells")
   const containerqrscanner = document.getElementById("containerqrscanner");
 
 
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
       canvasElement.width = video.videoWidth;
 
       //video-frame tegnes som billede på canvas 
-     canvas.drawImage(video, 0, 0, canvasElement.width * 1, canvasElement.height * 1);
+      canvas.drawImage(video, 0, 0, canvasElement.width * 1, canvasElement.height * 1);
       // canvas.drawImage(video, 0, 0, canvasElement.width*1.5, canvasElement.height*1.5);
 
       var imageData = canvas.getImageData(canvasElement.width / 4, canvasElement.height / 4, canvasElement.width / 2, canvasElement.height / 2);
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-                
+
   btnTorch.addEventListener("click", (e) => {
     //alert("Torch")
     const stream = video.srcObject;
@@ -180,9 +180,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const track = stream.getVideoTracks()[0];
 
     // video.addEventListener('loadedmetadata', (e) => {      });
-      window.setTimeout(() => (
-        onCapabilitiesReady(track.getCapabilities())
-      ), 500);
+    window.setTimeout(() => (
+      onCapabilitiesReady(track.getCapabilities())
+    ), 500);
 
 
     function onCapabilitiesReady(capabilities) {
@@ -195,25 +195,21 @@ document.addEventListener("DOMContentLoaded", function () {
         if (result) {
           const track = stream.getVideoTracks()[0];
           track.applyConstraints({
-            advanced: [{ torch: result }]
+            advanced: [{ torch: true }]
           })
+        }
+        else {
+const track = stream.getVideoTracks()[0];
+          track.applyConstraints({
+            advanced: [{ torch: false }]
+          })
+
+
         }
 
       }
 
     }
-
-
-    // else {
-    //   //alert("sluk")
-    //   const track = stream.getVideoTracks()[0];
-    //   track.applyConstraints({
-    //     advanced: [{ torch: false }]
-    //   })
-    // }
-
-
-
 
   })
 
@@ -243,26 +239,26 @@ document.addEventListener("DOMContentLoaded", function () {
         containerqrscanner.hidden = false;
 
 
-//#region torch
-            // get the active track of the stream
-            const track = stream.getVideoTracks()[0];
-            video.addEventListener('loadedmetadata', (e) => {
-              window.setTimeout(() => (
-                onCapabilitiesReady(track.getCapabilities())
-              ), 500);
-            });
+        //#region torch
+        // get the active track of the stream
+        const track = stream.getVideoTracks()[0];
+        video.addEventListener('loadedmetadata', (e) => {
+          window.setTimeout(() => (
+            onCapabilitiesReady(track.getCapabilities())
+          ), 500);
+        });
 
-            function onCapabilitiesReady(capabilities) {
-              if (capabilities.torch) {
-                console.log("torch er tilgængelig")
-                btnTorch.hidden = false;
-              }
-              else {
-                btnTorch.hidden=true;
-                console.log("torch ikke tilgængelig")
-              }
-            }
-//#endregion torch
+        function onCapabilitiesReady(capabilities) {
+          if (capabilities.torch) {
+            console.log("torch er tilgængelig")
+            btnTorch.hidden = false;
+          }
+          else {
+            btnTorch.hidden = true;
+            console.log("torch ikke tilgængelig")
+          }
+        }
+        //#endregion torch
 
 
 
@@ -322,7 +318,7 @@ document.addEventListener("DOMContentLoaded", function () {
     containersmells.innerHTML = "";
 
     smells.forEach((item) => {
-     const div = document.createElement("div");
+      const div = document.createElement("div");
       div.setAttribute('data-id', item.id);
       if (item.id == id) {
         div.classList.add("currentDiv")
@@ -330,7 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       div.classList.add("me-1");
       //div.innerHTML = item.name;
-      div.innerHTML = getSmellNameById(item.id,i18next.language);
+      div.innerHTML = getSmellNameById(item.id, i18next.language);
       const icon = document.createElement("i")
       icon.classList.add("fa");
       icon.classList.add("fa-times");
@@ -346,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  
+
     setcountsmells()
   }
 
@@ -356,7 +352,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function setGame(game) {
     localStorage.setItem("game2", JSON.stringify(game));
 
-    
+
   };
 
   function setPlayers(players) {
@@ -364,22 +360,22 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   function setcountsmells() {
-   
+
     divsmellcount.innerHTML = "";
 
-    
+
 
     if (smells.length > 0) {
       console.log(smells.length)
-      divsmellcount.innerHTML =`${i18next.t("numberofregistratesmells")}: ${smells.length}` ;// 
-      divsmellcount.setAttribute("data-i18n","numberofregistratesmells")
-      clearAllSmells.hidden=false;
-      outercontainersmells.hidden=false;
+      divsmellcount.innerHTML = `${i18next.t("numberofregistratesmells")}: ${smells.length}`;// 
+      divsmellcount.setAttribute("data-i18n", "numberofregistratesmells")
+      clearAllSmells.hidden = false;
+      outercontainersmells.hidden = false;
     }
-    else{
-    
-      clearAllSmells.hidden=true;
-      outercontainersmells.hidden=true;
+    else {
+
+      clearAllSmells.hidden = true;
+      outercontainersmells.hidden = true;
       //clearAllSmells.hidden=true
     }
 
@@ -391,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!isExist) {
       let newsmell = {
         "id": id,
-        "name": getSmellNameById(id,i18next.language)
+        "name": getSmellNameById(id, i18next.language)
       }
       smells.unshift(newsmell);
 
@@ -402,7 +398,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     //setcountsmells()
-   
+
     drawSmells2();
   }
 
@@ -477,7 +473,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const defaultlang = "da";
   function getSmellNameById(id, lang = "en") {
-   
+
     if (id === -1) return "";
 
     const _tmp = defaultsmells.find(field => field.id == id);
@@ -485,7 +481,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!_tmp.hasOwnProperty("languages")) {
       return _tmp.name;
     }
-    if (_tmp.languages.hasOwnProperty(lang) && _tmp.languages[lang] > ""){
+    if (_tmp.languages.hasOwnProperty(lang) && _tmp.languages[lang] > "") {
       //alert(lang)
       return _tmp.languages[lang];
     }
@@ -523,7 +519,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  i18next.on('languageChanged', function(lng) {
+  i18next.on('languageChanged', function (lng) {
     drawSmells2()
   })
 
@@ -533,7 +529,8 @@ document.addEventListener("DOMContentLoaded", function () {
   containersmells.addEventListener("click", (e) => {
     if (e.target.classList.contains("fa-times")) {
       const dataId = e.target.parentNode.getAttribute("data-id");
-      removeSmell(dataId);    }
+      removeSmell(dataId);
+    }
   })
 
 
