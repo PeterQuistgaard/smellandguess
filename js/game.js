@@ -182,7 +182,8 @@ document.addEventListener("DOMContentLoaded", function () {
     videoElem.srcObject = null;
     //btnScanStop.hidden = true;
     containerqrscanner.hidden = true;
-
+    
+    btnTorch.classList.remove("text-warning");
     setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter canvas
 
   }
