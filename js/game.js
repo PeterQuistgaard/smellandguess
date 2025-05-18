@@ -184,8 +184,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //btnScanStop.hidden = true;
     containerqrscanner.hidden = true;
 
-   // btnTorch.classList.remove("text-warning");
-     btnTorchIcon.classList.remove("text-warning");
+
+    // btnTorchIcon.classList.remove("text-warning");
     setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter canvas
 
   }
@@ -213,11 +213,38 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
+  function onCapabilitiesReady(capabilities) {
+    //console.log(capabilities);
+
+    if (capabilities.torch) {
+      console.log("torch er tilgængelig")
+      //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+      const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
+
+      //result er true or false
+      if (result) {
+        const track = stream.getVideoTracks()[0];
+        track.applyConstraints({
+          advanced: [{ torch: true }]
+        })
+      }
+      else {
+        const track = stream.getVideoTracks()[0];
+        track.applyConstraints({
+          advanced: [{ torch: false }]
+        })
+      }
+    }
+    else{
+      console.log("torch ikke tilgængelig")
+      btnTorch.hidden = true;
+    }
+  }
 
   btnTorch.addEventListener("click", (e) => {
     //alert("Torch")
     const stream = video.srcObject;
-    console.log(stream.id)
+    //console.log(stream.id)
 
     const track = stream.getVideoTracks()[0];
 
@@ -227,30 +254,30 @@ document.addEventListener("DOMContentLoaded", function () {
     ), 500);
 
 
-    function onCapabilitiesReady(capabilities) {
-      console.log(capabilities);
+    // function onCapabilitiesReady(capabilities) {
+    //   //console.log(capabilities);
 
-      if (capabilities.torch) {
-     //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
-      const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
+    //   if (capabilities.torch) {
+    //  //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+    //   const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
      
 
 
-        //result er true or false
-        if (result) {
-          const track = stream.getVideoTracks()[0];
-          track.applyConstraints({
-            advanced: [{ torch: true }]
-          })
-        }
-        else {
-          const track = stream.getVideoTracks()[0];
-          track.applyConstraints({
-            advanced: [{ torch: false }]
-          })
-        }
-      }
-    }
+    //     //result er true or false
+    //     if (result) {
+    //       const track = stream.getVideoTracks()[0];
+    //       track.applyConstraints({
+    //         advanced: [{ torch: true }]
+    //       })
+    //     }
+    //     else {
+    //       const track = stream.getVideoTracks()[0];
+    //       track.applyConstraints({
+    //         advanced: [{ torch: false }]
+    //       })
+    //     }
+    //   }
+    // }
 
   })
 
@@ -288,16 +315,16 @@ document.addEventListener("DOMContentLoaded", function () {
           ), 500);
         });
 
-        function onCapabilitiesReady(capabilities) {
-          if (capabilities.torch) {
-            console.log("torch er tilgængelig")
-            btnTorch.hidden = false;
-          }
-          else {
-            btnTorch.hidden = true;
-            console.log("torch ikke tilgængelig")
-          }
-        }
+        // function onCapabilitiesReady(capabilities) {
+        //   if (capabilities.torch) {
+        //     console.log("torch er tilgængelig")
+        //     btnTorch.hidden = false;
+        //   }
+        //   else {
+        //     btnTorch.hidden = true;
+        //     console.log("torch ikke tilgængelig")
+        //   }
+        // }
         //#endregion torch
 
 
