@@ -218,6 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function startScanner() {
+    alert("q1")
     loadingMessage.hidden = false;
 
     navigator.mediaDevices.getUserMedia(
@@ -231,6 +232,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     )
       .then(function (stream) {
+        alert("q2")
         video.srcObject = stream;
         video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
         video.play();
