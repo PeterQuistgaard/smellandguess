@@ -1,7 +1,7 @@
 "use strict";
 import { defaultsmells } from "./defaultsmells.js";
 import i18next from '../lib/i18next.js';
-import { getallsmells, getnumberoffavailablesmells, drawlanguagemenuDD, browserlocales } from "./smellsutil.js";
+import { drawlanguagemenuDD, errorMsg } from "./smellsutil.js";
 // import {langAvailableHomepage,langAvailableGame} from './constants.js';
 
 
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const scanstart = document.getElementById("btnScanStart");
   const scanstop = document.getElementById("btnScanStop");
   const btnTorch = document.getElementById("btnTorch");
-  const btnTorchIcon=btnTorch.querySelector("i");
+  const btnTorchIcon = btnTorch.querySelector("i");
 
   const clearAllSmells = document.getElementById("clearAllSmells");
   const outercontainersmells = document.getElementById("outercontainersmells")
@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //     if (capabilities.torch) {
   //    //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
   //     const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
-     
+
 
 
   //       //result er true or false
@@ -218,7 +218,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function startScanner() {
-    alert("q1")
     loadingMessage.hidden = false;
 
     navigator.mediaDevices.getUserMedia(
@@ -230,48 +229,47 @@ document.addEventListener("DOMContentLoaded", function () {
           //height: { min: 576, ideal: 720, max: 1080 }
         }
       }
-    )
-      .then(function (stream) {
-        alert("q2")
-        video.srcObject = stream;
-        video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
-        video.play();
-        requestAnimationFrame(tick);
-        scanstart.hidden = true;
-        scanstop.hidden = false;
-        containerqrscanner.hidden = false;
+    ).then(function (stream) {
+      video.srcObject = stream;
+      video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+      video.play();
+      requestAnimationFrame(tick);
+      scanstart.hidden = true;
+      scanstop.hidden = false;
+      containerqrscanner.hidden = false;
 
 
-        //#region torch
-        // get the active track of the stream
-        // const track = stream.getVideoTracks()[0];
-        // video.addEventListener('loadedmetadata', (e) => {
-        //   window.setTimeout(() => (
-        //     onCapabilitiesReady(track.getCapabilities())
-        //   ), 500);
-        // });
+      //#region torch
+      // get the active track of the stream
+      const track = stream.getVideoTracks()[0];
+      video.addEventListener('loadedmetadata', (e) => {
+        window.setTimeout(() => (
+          onCapabilitiesReady(track.getCapabilities())
+        ), 500);
+      });
 
-        // function onCapabilitiesReady(capabilities) {
-        //   if (capabilities.torch) {
-        //     console.log("torch er tilgængelig")
-        //     btnTorch.hidden = false;
-        //   }
-        //   else {
-        //     btnTorch.hidden = true;
-        //     console.log("torch ikke tilgængelig")
-        //   }
-        // }
-        //#endregion torch
-
-
-
-
+      function onCapabilitiesReady(capabilities) {
+        if (capabilities.torch) {
+          console.log("torch er tilgængelig")
+          btnTorch.hidden = false;
+        }
+        else {
+          btnTorch.hidden = true;
+          console.log("torch ikke tilgængelig")
+        }
       }
-      ).catch((err) => {
-        /* handle the error */
-        loadingMessage.innerText = "🎥 Unable to access video stream (please make sure you have a webcam enabled)"
-        console.log(err);
-      });;
+      //#endregion torch
+
+    }
+    ).catch((error) => {
+      /* handle the error */
+      if (error.name === 'OverconstrainedError') {
+        errorMsg(`OverconstrainedError`);
+      } else if (error.name === 'NotAllowedError') {
+        errorMsg('NotAllowedError: Permissions have not been granted to use your camera, you need to allow the page access to your devices.');
+      }
+      errorMsg(`getUserMedia error: ${error.name}`, error);
+    });;
   }
 
   scanstart.addEventListener("click", (e) => {
