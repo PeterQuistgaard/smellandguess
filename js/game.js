@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnScanStart = document.getElementById("btnScanStart");
   const btnScanStop = document.getElementById("btnScanStop");
   const btnTorch = document.getElementById("btnTorch");
-  const btnTorchIcon=btnTorch.querySelector("i");
+  const btnTorchIcon = btnTorch.querySelector("i");
 
   const containerqrscanner = document.getElementById("containerqrscanner");
 
@@ -184,8 +184,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //btnScanStop.hidden = true;
     containerqrscanner.hidden = true;
 
-   // btnTorch.classList.remove("text-warning");
-     btnTorchIcon.classList.remove("text-warning");
+    // btnTorch.classList.remove("text-warning");
+    btnTorchIcon.classList.remove("text-warning");
     setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter canvas
 
   }
@@ -231,9 +231,9 @@ document.addEventListener("DOMContentLoaded", function () {
       //console.log(capabilities);
 
       if (capabilities.torch) {
-     //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
-      const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
-     
+        //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+        const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
+
 
 
         //result er true or false
@@ -306,19 +306,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
       }
-      ).catch((err) => {
-          if (error.name === 'OverconstrainedError') {
-            errorMsg(`OverconstrainedError`);
-          } else if (error.name === 'NotAllowedError') {
-            errorMsg('NotAllowedError: Permissions have not been granted to use your camera, you need to allow the page access to your devices.');
-          }
-          else {
-            errorMsg(`getUserMedia error: ${error.name}`, error);
-          }
+      ).catch((error) => {
+        if (error.name === 'OverconstrainedError') {
+          errorMsg(`OverconstrainedError`);
+        } else if (error.name === 'NotAllowedError') {
+          errorMsg('NotAllowedError: Permissions have not been granted to use your camera, you need to allow the page access to your devices.');
+        }
+        else {
+          errorMsg(`getUserMedia error: ${error.name}`, error);
+        }
 
-
-
-      });;
+      });
   }
 
 
