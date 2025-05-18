@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // console.log("antal streams",stream.getVideoTracks().length)
             video.addEventListener('loadedmetadata', (e) => {
               window.setTimeout(() => (
-                onCapabilitiesReady(track.getCapabilities())
+                //onCapabilitiesReady(track.getCapabilities())
               ), 500);
             });
 
