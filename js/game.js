@@ -184,8 +184,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //btnScanStop.hidden = true;
     containerqrscanner.hidden = true;
 
-    // btnTorch.classList.remove("text-warning");
-    btnTorchIcon.classList.remove("text-warning");
+
+    // btnTorchIcon.classList.remove("text-warning");
     setTimeout(() => canvasElement.hidden = true, 1000)//vent 1 sek og skjul derefter canvas
 
   }
@@ -215,10 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   btnTorch.addEventListener("click", (e) => {
-    //alert("Torch")
     const stream = video.srcObject;
-    //console.log(stream.id)
-
     const track = stream.getVideoTracks()[0];
 
     // video.addEventListener('loadedmetadata', (e) => {      });
@@ -233,8 +230,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (capabilities.torch) {
         //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
         const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
-
-
 
         //result er true or false
         if (result) {
@@ -292,8 +287,17 @@ document.addEventListener("DOMContentLoaded", function () {
           if (capabilities.torch) {
             console.log("torch er tilgængelig")
             btnTorch.hidden = false;
+
+            if (btnTorchIcon.classList.contains("text-warning")) {
+              track.applyConstraints({
+                advanced: [{ torch: true }]
+              })
+            }
+
           }
           else {
+
+            //console.log("TRACK",track)
             btnTorch.hidden = true;
             console.log("torch ikke tilgængelig")
           }
