@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // video.addEventListener('loadedmetadata', (e) => {      });
     window.setTimeout(() => (
-      onCapabilitiesReady(track.getCapabilities())
+      //onCapabilitiesReady(track.getCapabilities())
     ), 500);
 
 
@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const track = stream.getVideoTracks()[0];
         video.addEventListener('loadedmetadata', (e) => {
           window.setTimeout(() => (
-            onCapabilitiesReady(track.getCapabilities())
+            //onCapabilitiesReady(track.getCapabilities())
           ), 500);
         });
 
