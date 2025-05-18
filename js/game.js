@@ -228,18 +228,16 @@ document.addEventListener("DOMContentLoaded", function () {
       //console.log(capabilities);
 
       if (capabilities.torch) {
-        //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
         const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
 
-        //result er true or false
+        //result is true or false. True when "text-warning" => torch is on
+          //  const track = stream.getVideoTracks()[0];      
         if (result) {
-          const track = stream.getVideoTracks()[0];
           track.applyConstraints({
             advanced: [{ torch: true }]
           })
         }
-        else {
-          const track = stream.getVideoTracks()[0];
+        else {          
           track.applyConstraints({
             advanced: [{ torch: false }]
           })
