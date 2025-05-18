@@ -174,45 +174,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-  // btnTorch.addEventListener("click", (e) => {
-  //   //alert("Torch")
-  //   const stream = video.srcObject;
-  //   //console.log(stream.id)
+  btnTorch.addEventListener("click", (e) => {
+    //alert("Torch")
+    const stream = video.srcObject;
+    //console.log(stream.id)
 
-  //   const track = stream.getVideoTracks()[0];
+    const track = stream.getVideoTracks()[0];
 
-  //   // video.addEventListener('loadedmetadata', (e) => {      });
-  //   window.setTimeout(() => (
-  //     onCapabilitiesReady(track.getCapabilities())
-  //   ), 500);
-
-
-  //   function onCapabilitiesReady(capabilities) {
-  //    // console.log(capabilities);
-
-  //     if (capabilities.torch) {
-  //    //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
-  //     const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
+    // video.addEventListener('loadedmetadata', (e) => {      });
+    window.setTimeout(() => (
+      onCapabilitiesReady(track.getCapabilities())
+    ), 500);
 
 
+    function onCapabilitiesReady(capabilities) {
+     // console.log(capabilities);
 
-  //       //result er true or false
-  //       if (result) {
-  //         const track = stream.getVideoTracks()[0];
-  //         track.applyConstraints({
-  //           advanced: [{ torch: true }]
-  //         })
-  //       }
-  //       else {
-  //         const track = stream.getVideoTracks()[0];
-  //         track.applyConstraints({
-  //           advanced: [{ torch: false }]
-  //         })
-  //       }
-  //     }
-  //   }
+      if (capabilities.torch) {
+     //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
+      const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
 
-  // })
+
+
+        //result er true or false
+        if (result) {
+          const track = stream.getVideoTracks()[0];
+          track.applyConstraints({
+            advanced: [{ torch: true }]
+          })
+        }
+        else {
+          const track = stream.getVideoTracks()[0];
+          track.applyConstraints({
+            advanced: [{ torch: false }]
+          })
+        }
+      }
+    }
+
+  })
 
 
 
