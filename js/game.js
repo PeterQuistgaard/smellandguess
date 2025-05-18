@@ -218,6 +218,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (capabilities.torch) {
       console.log("torch er tilgængelig")
+      //alert("torch er tilgængelig")
+      btnTorch.hidden = false;
       //   const result = e.target.classList.toggle("text-warning");//yellow color on/off on icon
       const result = btnTorchIcon.classList.toggle("text-warning");//yellow color on/off on icon
 
@@ -237,6 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     else{
       console.log("torch ikke tilgængelig")
+      //alert("torch er ikke tilgængelig")
       btnTorch.hidden = true;
     }
   }
