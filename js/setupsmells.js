@@ -261,15 +261,17 @@ document.addEventListener("DOMContentLoaded", function () {
       //#endregion torch
 
     }
-    ).catch((error) => {
-      /* handle the error */
+    ).catch((error) => {      
       if (error.name === 'OverconstrainedError') {
         errorMsg(`OverconstrainedError`);
       } else if (error.name === 'NotAllowedError') {
         errorMsg('NotAllowedError: Permissions have not been granted to use your camera, you need to allow the page access to your devices.');
       }
-      errorMsg(`getUserMedia error: ${error.name}`, error);
-    });;
+      else {
+        errorMsg(`getUserMedia error: ${error.name}`, error);
+      }
+      
+    });
   }
 
   scanstart.addEventListener("click", (e) => {
