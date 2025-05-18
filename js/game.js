@@ -1,7 +1,7 @@
 "use strict";
 import { defaultsmells } from "./defaultsmells.js";
 import { generateHSLByName } from "./generatehslcolorbyname.js";
-import { drawlanguagemenuDD } from "./smellsutil.js";
+import { drawlanguagemenuDD, errorMsg } from "./smellsutil.js";
 import i18next from '../lib/i18next.js';
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -307,9 +307,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
       }
       ).catch((err) => {
-        /* handle the error */
-        loadingMessage.innerText = "🎥 Unable to access video stream (please make sure you have a webcam enabled)"
-        console.error(err);
+          if (error.name === 'OverconstrainedError') {
+            errorMsg(`OverconstrainedError`);
+          } else if (error.name === 'NotAllowedError') {
+            errorMsg('NotAllowedError: Permissions have not been granted to use your camera, you need to allow the page access to your devices.');
+          }
+          else {
+            errorMsg(`getUserMedia error: ${error.name}`, error);
+          }
+
+
+
       });;
   }
 
@@ -318,12 +326,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   btnScanStart.addEventListener("click", (e) => {
     e.preventDefault();
-
-
     //hide result
     containertotalscore.innerHTML = "";
     containerplayer.innerHTML = "";
-    containerplayer.hidden = true
+    containerplayer.hidden = true;
 
     btnGetTotalScore.hidden = true;
     startScanner();
